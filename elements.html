@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel || Elements</title>
+
+    <!-- css and js link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- font awesome  -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- chart  -->
+
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+
+    <script type="text/javascript"
+        src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+
+    <!-- jquery cdn  -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- chart 2 -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+    <style>
+        /* full screen  */
+
+        .element:fullscreen {
+            background-color: #e4708a;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .icon-fullscreen-enter path {
+            stroke: white !important;
+        }
+
+        .icon-fullscreen-leave path {
+            stroke: white !important;
+        }
+
+        .offcanvas a{
+            font-size: 16px !important;
+        }
+
+        .offcanvas li{
+            padding: 8px 16px !important;
+        }
+
+        .offcanvas-body li a {
+            padding-right: 30%;
+        }
+
+        /* active  */
+
+        .active-background {
+            background-color: white !important;
+            border-radius: 20px 20px 20px 20px !important;
+        }
+
+        .active-backgroundi {
+            color: black !important;
+        }
+
+        .list-group-item {
+            border: none;
+        }
+
+        .list-group-item:hover {
+            transition: all .4s linear;
+            background-color: white !important;
+            border-radius: 20px;
+        }
+
+        .list-group-item:hover a {
+            color: black !important;
+        }
+
+        .list-group-item:hover i {
+            color: black !important;
+        }
+
+        body {
+            background-color: #181f39;
+        }
+
+        header {
+            background-color: #202a4d;
+        }
+
+        .offcanvas {
+            background-color: #202a4d;
+            transition: all 0.6s ease-in-out;
+        }
+
+        /* dark button  */
+
+        :root {
+            --text: #000;
+            --background: #ecf5ff;
+            --background-2: #fff;
+            --border: black;
+        }
+
+        :root[theme=dark] {
+            --text: #fff;
+            --background: #181f39;
+            --background-2: #202a4d;
+            --border: white;
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-moon' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root[theme=system] {
+                --text: #fff;
+                --background: #222831;
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:%23fff'/%3E%3C/svg%3E");
+            }
+        }
+
+        :root[theme=light] {
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='orange' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-sun' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root[theme=system] {
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:black'/%3E%3C/svg%3E");
+            }
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .darkmode__button-toggle {
+            border: none;
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-color: var(--background);
+        }
+
+        .darkmode__button-toggle:after {
+            height: 32px;
+            width: 32px;
+            margin: 8px;
+            content: "";
+            border-radius: 25px;
+            background-image: var(--dark-mode-toggle);
+        }
+
+        header a {
+            margin-left: 150px;
+        }
+
+        @media screen and (max-width: 576px) {
+            header a {
+                margin-left: 0px;
+            }
+        }
+
+        /* full screen button  */
+
+        .toggle-fullscreen-btn {
+            position: fixed;
+            z-index: 10000;
+            top: 10px;
+            right: 10px;
+            border: 0;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+
+        .toggle-fullscreen-svg {
+            display: block;
+            height: auto;
+        }
+
+        .toggle-fullscreen-svg path {
+            transform-box: view-box;
+            transform-origin: 12px 12px;
+            fill: none;
+            stroke: hsl(225, 10%, 8%);
+            stroke-width: 4;
+            transition: .15s;
+        }
+
+
+        .toggle-fullscreen-btn:hover path:nth-child(1),
+        .toggle-fullscreen-btn:focus path:nth-child(1) {
+            transform: translate(-2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(2),
+        .toggle-fullscreen-btn:focus path:nth-child(2) {
+            transform: translate(2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(3),
+        .toggle-fullscreen-btn:focus path:nth-child(3) {
+            transform: translate(2px, 2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(4),
+        .toggle-fullscreen-btn:focus path:nth-child(4) {
+            transform: translate(-2px, 2px);
+        }
+
+
+        .toggle-fullscreen-btn:not(.on) .icon-fullscreen-leave {
+            display: none;
+        }
+
+        .toggle-fullscreen-btn.on .icon-fullscreen-enter {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body id="element" style="transition: all .5s ease-in-out;">
+    <header class="text-white d-flex align-items-center p-2 w-100" style="position: fixed !important; z-index: 1111;">
+        <p class="h2 d-sm-block d-none">ADMIN</p>
+        <a class="nav-bar" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"
+                style="color: white !important; font-size: 1.7rem;"></i></a>
+
+        <input type="text" class="ms-auto d-lg-block d-none" placeholder="search"
+            style=" border-radius: 20px; padding: 7px 50px 7px 20px; color: black; border: none;">
+
+        <div class="profile d-flex align-items-center gap-3 ms-auto">
+            <img width="40px" class="ms-auto" style="border-radius: 50%; cursor: pointer;" src="images/profile.jpg"
+                alt="">
+            <p class="d-sm-block d-none">JAY JARSANIYA</p>
+
+            <!-- dark mod -->
+
+            <button type="button" class="darkmode darkmode__button-toggle ms-4" style="margin-right: 50px; transition: all .5s ease-in-out;"></button>
+
+            <!-- full screen button  -->
+
+            <button class="js-toggle-fullscreen-btn toggle-fullscreen-btn pt-2" aria-label="Enter fullscreen mode"
+                hidden>
+                <svg class=" toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
+                    <g class="icon-fullscreen-enter">
+                        <path d="M 2 9 v -7 h 7" />
+                        <path d="M 22 9 v -7 h -7" />
+                        <path d="M 22 15 v 7 h -7" />
+                        <path d="M 2 15 v 7 h 7" />
+                    </g>
+
+                    <g class="icon-fullscreen-leave">
+                        <path d="M 24 17 h -7 v 7" />
+                        <path d="M 0 17 h 7 v 7" />
+                        <path d="M 0 7 h 7 v -7" />
+                        <path d="M 24 7 h -7 v -7" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- offcanvas  -->
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel"
+        style="width: 300px; z-index: 11111;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white h4" id="offcanvasWithBothOptionsLabel">Admin Panel</h5>
+            <a type="button" class="close-nav" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="fa-solid fa-x text-white" style="font-size: 20px !important;"></i></a>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flush">
+                <p></p>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-house px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="index.html">Dashbord</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Components</p>
+
+                <li class="list-group-item bg-transparent active-background">
+                    <i class="fa-solid fa-palette px-2 text-white active-backgroundi"></i>
+                    <a class="text-white text-decoration-none active-backgroundi" href="elements.html">Elements</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-regular fa-calendar px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="calender.html">Calender</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-brands fa-rocketchat px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="chat.html">Chat</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-chart-pie px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="charts.html">Charts</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-cart-shopping px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="ecommerce.html">E-commerce</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Forms and Tables</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-copy px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="form.html">Form & Editor</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-tablet px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="tables.html">Data Table</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">More Pages</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-clipboard px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="feedbackpages.html">Feedback Pages</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-user px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="login.html">login & Register</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-location-dot px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="maps.html">Maps</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <div class="main p-4">
+        <div class="app-container body-tabs-shadow fixed-header">
+            <div class="app-main">
+                <div class="app-main__outer">
+                    <div class="app-main__inner">
+                        <div class="row">
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content bg-midnight-bloom">
+                                    <div class="widget-content-wrapper text-white">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Total Orders</div>
+                                            <div class="widget-subheading">Last year expenses</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-white"><span>1896</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content bg-arielle-smile">
+                                    <div class="widget-content-wrapper text-white">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Clients</div>
+                                            <div class="widget-subheading">Total Clients Profit</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-white"><span>$ 568</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content bg-grow-early">
+                                    <div class="widget-content-wrapper text-white">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Followers</div>
+                                            <div class="widget-subheading">People Interested</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-white"><span>46%</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content bg-premium-dark">
+                                    <div class="widget-content-wrapper text-white">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Products Sold</div>
+                                            <div class="widget-subheading">Revenue streams</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-warning"><span>$14M</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6">
+                                <div class="mb-3 card"
+                                    style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                    <div class="card-header-tab card-header-tab-animation card-header"
+                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                        <div class="card-header-title">
+                                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                                            Sales Report
+                                        </div>
+                                        <ul class="nav">
+                                            <li class="nav-item"><a href="javascript:void(0);" class="active nav-link"
+                                                    style="color: var(--text) !important;">Last</a></li>
+                                            <li class="nav-item"><a href="javascript:void(0);"
+                                                    class="nav-link second-tab-toggle"
+                                                    style="color: var(--text) !important;">Current</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="tabs-eg-77">
+                                                <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                                    <div class="widget-chat-wrapper-outer"
+                                                        style="background-color: var(--background-2) !important;">
+                                                        <div
+                                                            class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                                            <canvas id="canvas"
+                                                                style="background-color: var(--background-2) !important; color: var(--text) !important;"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6 class="text-muted text-uppercase font-size-md opacity-5"
+                                                    style="color: var(--text) !important;">
+                                                    Top Authors</h6>
+                                                <div class="scroll-area-sm">
+                                                    <div class="scrollbar-container">
+                                                        <ul
+                                                            class="rm-list-borders rm-list-borders-scroll list-group list-group-flush">
+                                                            <li class="list-group-item"
+                                                                style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle"
+                                                                                src="assets/images/avatars/9.jpg"
+                                                                                alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ella-Rose Henry
+                                                                            </div>
+                                                                            <div class="widget-subheading">Web Developer
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>129</span>
+                                                                                <small class="text-danger pl-2">
+                                                                                    <i class="fa fa-angle-down"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item"
+                                                                style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle"
+                                                                                src="assets/images/avatars/5.jpg"
+                                                                                alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ruben Tillman
+                                                                            </div>
+                                                                            <div class="widget-subheading">UI Designer
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>54</span>
+                                                                                <small class="text-success pl-2">
+                                                                                    <i class="fa fa-angle-up"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item"
+                                                                style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle"
+                                                                                src="assets/images/avatars/4.jpg"
+                                                                                alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Vinnie Wagstaff
+                                                                            </div>
+                                                                            <div class="widget-subheading">Java
+                                                                                Programmer
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>429</span>
+                                                                                <small class="text-warning pl-2">
+                                                                                    <i class="fa fa-dot-circle"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item"
+                                                                style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle"
+                                                                                src="assets/images/avatars/3.jpg"
+                                                                                alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ella-Rose Henry
+                                                                            </div>
+                                                                            <div class="widget-subheading">Web Developer
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>129</span>
+                                                                                <small class="text-danger pl-2">
+                                                                                    <i class="fa fa-angle-down"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item"
+                                                                style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle"
+                                                                                src="assets/images/avatars/2.jpg"
+                                                                                alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ruben Tillman
+                                                                            </div>
+                                                                            <div class="widget-subheading">UI Designer
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>54</span>
+                                                                                <small class="text-success pl-2">
+                                                                                    <i class="fa fa-angle-up"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <div class="mb-3 card"
+                                    style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                    <div class="card-header-tab card-header"
+                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                        <div class="card-header-title">
+                                            <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
+                                            Bandwidth Reports
+                                        </div>
+                                        <div class="btn-actions-pane-right">
+                                            <div class="nav">
+                                                <a href="javascript:void(0);"
+                                                    class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-alternate">Tab
+                                                    1</a>
+                                                <a href="javascript:void(0);"
+                                                    class="ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-alternate second-tab-toggle-alt">Tab
+                                                    2</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active show" id="tab-eg-55">
+                                            <div class="widget-chart p-3">
+                                                <div style="height: 350px">
+                                                    <canvas id="line-chart"></canvas>
+                                                </div>
+                                                <div class="widget-chart-content text-center mt-5">
+                                                    <div class="widget-description mt-0 text-warning">
+                                                        <i class="fa fa-arrow-left"></i>
+                                                        <span class="pl-1">175.5%</span>
+                                                        <span class="text-muted opacity-8 pl-1"
+                                                            style="color: var(--text) !important;">increased server
+                                                            resources</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pt-2 card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="widget-content">
+                                                            <div class="widget-content-outer">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="widget-numbers fsize-3 text-muted"
+                                                                            style="color: var(--text) !important;">
+                                                                            63%
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="widget-content-right">
+                                                                        <div class="text-muted opacity-6"
+                                                                            style="color: var(--text) !important;">Generated
+                                                                            Leads
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-progress-wrapper mt-1">
+                                                                    <div
+                                                                        class="progress-bar-sm progress-bar-animated-alt progress">
+                                                                        <div class="progress-bar bg-danger"
+                                                                            role="progressbar" aria-valuenow="63"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width: 63%;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="widget-content">
+                                                            <div class="widget-content-outer">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="widget-numbers fsize-3 text-muted"
+                                                                            style="color: var(--text) !important;">
+                                                                            32%
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="widget-content-right">
+                                                                        <div class="text-muted opacity-6"
+                                                                            style="color: var(--text) !important;">Submitted
+                                                                            Tickers
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-progress-wrapper mt-1">
+                                                                    <div
+                                                                        class="progress-bar-sm progress-bar-animated-alt progress">
+                                                                        <div class="progress-bar bg-success"
+                                                                            role="progressbar" aria-valuenow="32"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width: 32%;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="widget-content">
+                                                            <div class="widget-content-outer">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="widget-numbers fsize-3 text-muted"
+                                                                            style="color: var(--text) !important;">
+                                                                            71%
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="widget-content-right">
+                                                                        <div class="text-muted opacity-6"
+                                                                            style="color: var(--text) !important;">Server
+                                                                            Allocation
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-progress-wrapper mt-1">
+                                                                    <div
+                                                                        class="progress-bar-sm progress-bar-animated-alt progress">
+                                                                        <div class="progress-bar bg-primary"
+                                                                            role="progressbar" aria-valuenow="71"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width: 71%;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="widget-content">
+                                                            <div class="widget-content-outer">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="widget-numbers fsize-3 text-muted"
+                                                                            style="color: var(--text) !important;">
+                                                                            41%
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="widget-content-right">
+                                                                        <div class="text-muted opacity-6"
+                                                                            style="color: var(--text) !important;">Generated
+                                                                            Leads
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-progress-wrapper mt-1">
+                                                                    <div
+                                                                        class="progress-bar-sm progress-bar-animated-alt progress">
+                                                                        <div class="progress-bar bg-warning"
+                                                                            role="progressbar" aria-valuenow="41"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width: 41%;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content"
+                                    style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Total Orders</div>
+                                                <div class="widget-subheading">Last year expenses</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-success">1896</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content"
+                                    style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Products Sold</div>
+                                                <div class="widget-subheading">Revenue streams</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-warning">$3M</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content"
+                                    style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Followers</div>
+                                                <div class="widget-subheading">People Interested</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-danger">45,9%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content"
+                                    style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Income</div>
+                                                <div class="widget-subheading">Expected totals</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-focus">$147</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper">
+                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="54"
+                                                    aria-valuemin="0" aria-valuemax="100" style="width: 54%;"></div>
+                                            </div>
+                                            <div class="progress-sub-label">
+                                                <div class="sub-label-left">Expenses</div>
+                                                <div class="sub-label-right">100%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-header"
+                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">Active
+                                        Users
+                                        <div class="btn-actions-pane-right">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="active btn btn-focus">Last Week</button>
+                                                <button class="btn btn-focus">All Month</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table
+                                            class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        #</th>
+                                                    <th
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        Name</th>
+                                                    <th class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        City</th>
+                                                    <th class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        Status</th>
+                                                    <th class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center text-muted"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        #345</td>
+                                                    <td
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left mr-3">
+                                                                    <div class="widget-content-left">
+                                                                        <img width="40" class="rounded-circle"
+                                                                            src="assets/images/avatars/4.jpg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-content-left flex2">
+                                                                    <div class="widget-heading">John Doe</div>
+                                                                    <div class="widget-subheading opacity-7">Web
+                                                                        Developer
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        Madrid</td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="badge badge-warning">Pending</div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <button type="button" id="PopoverCustomT-1"
+                                                            class="btn btn-primary btn-sm" style="color: var(--text);">Details</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center text-muted"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        #347</td>
+                                                    <td
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left mr-3">
+                                                                    <div class="widget-content-left">
+                                                                        <img width="40" class="rounded-circle"
+                                                                            src="assets/images/avatars/3.jpg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-content-left flex2">
+                                                                    <div class="widget-heading">Ruben Tillman</div>
+                                                                    <div class="widget-subheading opacity-7">Etiam sit
+                                                                        amet
+                                                                        orci eget</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        Berlin</td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="badge badge-success">Completed</div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <button type="button" id="PopoverCustomT-2"
+                                                            class="btn btn-primary btn-sm" style="color: var(--text);">Details</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center text-muted"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        #321</td>
+                                                    <td
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left mr-3">
+                                                                    <div class="widget-content-left">
+                                                                        <img width="40" class="rounded-circle"
+                                                                            src="assets/images/avatars/2.jpg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-content-left flex2">
+                                                                    <div class="widget-heading">Elliot Huber</div>
+                                                                    <div class="widget-subheading opacity-7">Lorem ipsum
+                                                                        dolor sic</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        London</td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="badge badge-danger">In Progress</div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <button type="button" id="PopoverCustomT-3"
+                                                            class="btn btn-primary btn-sm" style="color: var(--text);">Details</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center text-muted"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        #55</td>
+                                                    <td
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left mr-3">
+                                                                    <div class="widget-content-left">
+                                                                        <img width="40" class="rounded-circle"
+                                                                            src="assets/images/avatars/1.jpg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-content-left flex2">
+                                                                    <div class="widget-heading">Vinnie Wagstaff</div>
+                                                                    <div class="widget-subheading opacity-7">UI Designer
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        Amsterdam</td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <div class="badge badge-info">On Hold</div>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                                        <button type="button" id="PopoverCustomT-4"
+                                                            class="btn btn-primary btn-sm" style="color: var(--text);">Details</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-block text-center card-footer"
+                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                        <button class="btn-wide btn btn-success">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+                                    <div class="widget-content"
+                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                        <div class="widget-content-outer">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left pr-2 fsize-1">
+                                                    <div class="widget-numbers mt-0 fsize-3 text-danger">71%</div>
+                                                </div>
+                                                <div class="widget-content-right w-100">
+                                                    <div class="progress-bar-xs progress">
+                                                        <div class="progress-bar bg-danger" role="progressbar"
+                                                            aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 71%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left fsize-1">
+                                                <div class="text-muted opacity-6">Income Target</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+                                    <div class="widget-content"
+                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                        <div class="widget-content-outer">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left pr-2 fsize-1">
+                                                    <div class="widget-numbers mt-0 fsize-3 text-success">54%</div>
+                                                </div>
+                                                <div class="widget-content-right w-100">
+                                                    <div class="progress-bar-xs progress">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            aria-valuenow="54" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 54%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left fsize-1">
+                                                <div class="text-muted opacity-6">Expenses Target</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
+                                    <div class="widget-content"
+                                        style="background-color: var(--background-2) !important; color: 
+                                        var(--text) !important;">
+                                        <div class="widget-content-outer">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left pr-2 fsize-1">
+                                                    <div class="widget-numbers mt-0 fsize-3 text-warning">32%</div>
+                                                </div>
+                                                <div class="widget-content-right w-100">
+                                                    <div class="progress-bar-xs progress">
+                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                            aria-valuenow="32" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 32%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left fsize-1">
+                                                <div class="text-muted opacity-6">Spendings Target</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
+                                    <div class="widget-content"
+                                        style="background-color: var(--background-2) !important; color: var(--text) !important;">
+                                        <div class="widget-content-outer">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left pr-2 fsize-1">
+                                                    <div class="widget-numbers mt-0 fsize-3 text-info">89%</div>
+                                                </div>
+                                                <div class="widget-content-right w-100">
+                                                    <div class="progress-bar-xs progress">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 89%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left fsize-1">
+                                                <div class="text-muted opacity-6">Totals Target</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- jquery for nav  -->
+
+    <script>
+        $(".nav-bar").click(() => {
+            $(".main").css({
+                "width": "calc(100% - 300px)",
+                "margin-left": "300px",
+                "transition": "all .6s linear"
+            });
+        })
+        $(".close-nav").click(() => {
+            $(".main").css({
+                "width": "100%",
+                "margin-left": "0px",
+                "transition": "all .6s linear"
+            });
+        })
+    </script>
+
+    <!-- dark button  -->
+
+    <script>
+            /* Dark Mode - https://github.com/Powza/darkmode */
+
+            (function () {
+                function DarkMode(options = {}) {
+                    // Define defaults
+                    const darkMode = {
+                        default: options.default || "system", // system | dark | light
+                        selector: options.selector || ".darkmode", // Toggle selector class or id
+                        storageKey: options.storageKey || "theme", // Set a localStorage key name
+                        resetStorage: options.resetStorage || false, // Reset localStorage
+                        dynamicAdjust: options.dynamicAdjust || false, // Will override default start light then switch to dark between time. 24 hour time.
+                        dynamicAdjustStartHour: options.dynamicAdjustStartHour || 18, // Start dark theme at hour 18
+                        dynamicAdjustEndHour: options.dynamicAdjustEndHour || 6 // End dark them at hour 6
+                    };
+
+                    const rootElement = document.documentElement;
+                    let defaultThemeMode = darkMode.default;
+                    const localStorageKey = darkMode.storageKey;
+                    dynamicAdjustTheme(darkMode.dynamicAdjust);
+
+                    const theme = localStorage.getItem(localStorageKey) || defaultThemeMode;
+                    rootElement.setAttribute("theme", theme);
+
+                    function saveUserPreference(userPreference) {
+                        localStorage.setItem(localStorageKey, userPreference);
+                    }
+
+                    // Dynamic adjust theme based on time
+                    function dynamicAdjustTheme(option) {
+                        if (option) {
+                            const currentHour = new Date().getHours();
+                            // Check if the current hour is between 18 and 6
+                            defaultThemeMode =
+                                currentHour >= darkMode.dynamicAdjustStartHour ||
+                                    currentHour < darkMode.dynamicAdjustEndHour
+                                    ? "dark"
+                                    : "light";
+                        }
+                    }
+                    // Reset localStorage
+                    function resetStorage(option) {
+                        if (option) {
+                            localStorage.removeItem(localStorageKey);
+                        }
+                    }
+
+                    function getThemeMode(userPreference) {
+                        if (userPreference === "light") {
+                            return "light";
+                        }
+                        if (userPreference === "dark") {
+                            return "dark";
+                        }
+                        if (matchMedia("(prefers-color-scheme: light)").matches) {
+                            return "light";
+                        } else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+                            return "dark";
+                        }
+                    }
+
+                    function setThemeMode(mode) {
+                        rootElement.setAttribute("theme-mode", mode);
+                    }
+
+                    function setTheme(mode) {
+                        rootElement.setAttribute("theme", mode);
+                    }
+
+                    function rotatePreferences(userPreference) {
+                        const nextPreference = {
+                            system: "light",
+                            light: "dark",
+                            dark: "light"
+                        };
+                        return nextPreference[userPreference] || "system";
+                    }
+
+                    function nameSelection(userPreference) {
+                        const preferences = {
+                            system: "System",
+                            light: "Light",
+                            dark: "Dark"
+                        };
+                        return preferences[userPreference] || preferences.system;
+                    }
+
+                    let userPreference = theme;
+                    const systemThemeMode = getThemeMode("system");
+                    if (userPreference === "system") {
+                        userPreference = systemThemeMode;
+                    }
+                    setThemeMode(getThemeMode(userPreference));
+
+                    // Toggle dark/light mode
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const themeToggler = document.querySelectorAll(darkMode.selector);
+                        resetStorage(options.resetStorage || false);
+
+                        themeToggler.forEach((button) => {
+                            button.classList.add(
+                                "darkmode-" + nameSelection(userPreference).toLowerCase()
+                            );
+
+                            button.onclick = () => {
+                                let newUserPref = rotatePreferences(userPreference);
+                                if (userPreference === "system") {
+                                    newUserPref = getThemeMode("system");
+                                }
+
+                                // Remove the class associated with the current userPreference
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.remove(
+                                        "darkmode-" + nameSelection(userPreference).toLowerCase()
+                                    );
+                                });
+
+                                // Add the class for the new userPreference to all buttons
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.add("darkmode-" + nameSelection(newUserPref).toLowerCase());
+                                });
+
+                                userPreference = newUserPref;
+                                saveUserPreference(newUserPref);
+                                setThemeMode(getThemeMode(newUserPref));
+                                setTheme(newUserPref);
+                            };
+                        });
+                    });
+                }
+                window.DarkMode = DarkMode;
+            })();
+
+        /* Initialize Darkmode - All options shown */
+        const darkMode = new DarkMode({
+            default: "system",
+            selector: ".darkmode",
+            storageKey: "theme",
+            resetStorage: false,
+            dynamicAdjust: false,
+            dynamicAdjustStartHour: 18,
+            dynamicAdjustEndHour: 6
+        });
+
+    </script>
+
+    <!-- full screen button  -->
+
+    <script>
+
+        if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+            const toggleBtn = document.querySelector('.js-toggle-fullscreen-btn');
+
+            const styleEl = document.createElement('link');
+            styleEl.setAttribute('rel', 'stylesheet');
+            styleEl.setAttribute('href', 'https://codepen.io/tiggr/pen/poJoLyW.css');
+            styleEl.addEventListener('load', function () {
+                toggleBtn.hidden = false;
+            });
+            document.head.appendChild(styleEl);
+
+            toggleBtn.addEventListener('click', function () {
+                if (document.fullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitFullscreenElement) {
+                    document.webkitCancelFullScreen()
+                } else if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.documentElement.webkitRequestFullScreen();
+                }
+            });
+
+            document.addEventListener('fullscreenchange', handleFullscreen);
+            document.addEventListener('webkitfullscreenchange', handleFullscreen);
+
+
+            function handleFullscreen() {
+                if (document.fullscreen || document.webkitFullscreenElement) {
+                    toggleBtn.classList.add('on');
+                    toggleBtn.setAttribute('aria-label', 'Exit fullscreen mode');
+                } else {
+                    toggleBtn.classList.remove('on');
+                    toggleBtn.setAttribute('aria-label', 'Enter fullscreen mode');
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

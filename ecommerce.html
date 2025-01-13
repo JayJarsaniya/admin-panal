@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel || E-commerce</title>
+
+    <!-- css and js link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- font awesome  -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- list  -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+    <!-- jquery cdn  -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        /* full screen  */
+
+        .element:fullscreen {
+            background-color: #e4708a;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .icon-fullscreen-enter path {
+            stroke: white !important;
+        }
+
+        .icon-fullscreen-leave path {
+            stroke: white !important;
+        }
+
+        .offcanvas-body li a {
+            padding-right: 30%;
+        }
+
+        /* active  */
+
+        .active-background {
+            background-color: white !important;
+            border-radius: 20px 20px 20px 20px;
+        }
+
+        .active-backgroundi {
+            color: black !important;
+        }
+
+        .list-group-item {
+            border: none;
+        }
+
+        .list-group-item:hover {
+            transition: all .4s linear;
+            background-color: white !important;
+            border-radius: 20px;
+        }
+
+        .list-group-item:hover a {
+            color: black !important;
+        }
+
+        .list-group-item:hover i {
+            color: black !important;
+        }
+
+        body {
+            background-color: #181f39;
+        }
+
+        header {
+            background-color: #202a4d;
+        }
+
+        .offcanvas {
+            background-color: #202a4d;
+            transition: all 0.6s ease-in-out;
+        }
+
+        /* dark button  */
+
+        :root {
+            --text: #000;
+            --background: #ecf5ff;
+            --background-2: #fff;
+            --border: black;
+        }
+
+        :root[theme=dark] {
+            --text: #fff;
+            --background: #181f39;
+            --background-2: #202a4d;
+            --border: white;
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-moon' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root[theme=system] {
+                --text: #fff;
+                --background: #222831;
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:%23fff'/%3E%3C/svg%3E");
+            }
+        }
+
+        :root[theme=light] {
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='orange' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-sun' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root[theme=system] {
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:black'/%3E%3C/svg%3E");
+            }
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .darkmode__button-toggle {
+            border: none;
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-color: var(--background);
+        }
+
+        .darkmode__button-toggle:after {
+            height: 32px;
+            width: 32px;
+            margin: 8px;
+            content: "";
+            border-radius: 25px;
+            background-image: var(--dark-mode-toggle);
+        }
+
+        header a {
+            margin-left: 150px;
+        }
+
+        @media screen and (max-width: 576px) {
+            header a {
+                margin-left: 0px;
+            }
+        }
+
+        /* full screen button  */
+
+        .toggle-fullscreen-btn {
+            position: fixed;
+            z-index: 10000;
+            top: 10px;
+            right: 10px;
+            border: 0;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+
+        .toggle-fullscreen-svg {
+            display: block;
+            height: auto;
+        }
+
+        .toggle-fullscreen-svg path {
+            transform-box: view-box;
+            transform-origin: 12px 12px;
+            fill: none;
+            stroke: hsl(225, 10%, 8%);
+            stroke-width: 4;
+            transition: .15s;
+        }
+
+
+        .toggle-fullscreen-btn:hover path:nth-child(1),
+        .toggle-fullscreen-btn:focus path:nth-child(1) {
+            transform: translate(-2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(2),
+        .toggle-fullscreen-btn:focus path:nth-child(2) {
+            transform: translate(2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(3),
+        .toggle-fullscreen-btn:focus path:nth-child(3) {
+            transform: translate(2px, 2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(4),
+        .toggle-fullscreen-btn:focus path:nth-child(4) {
+            transform: translate(-2px, 2px);
+        }
+
+
+        .toggle-fullscreen-btn:not(.on) .icon-fullscreen-leave {
+            display: none;
+        }
+
+        .toggle-fullscreen-btn.on .icon-fullscreen-enter {
+            display: none;
+        }
+    </style>
+
+    <!-- list  -->
+
+    <style>
+        table td{
+            color: var(--text) !important;
+        }
+    </style>
+
+
+</head>
+
+<body id="element" style="transition: all .5s ease-in-out;">
+
+    <header class="text-white d-flex align-items-center p-2 w-100" style="position: fixed; z-index: 1;">
+        <p class="h2 d-sm-block d-none">ADMIN</p>
+        <a class="nav-bar" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars" style="font-size: 1.75rem; color: white;"></i></a>
+
+        <input type="text" class="ms-auto d-lg-block d-none" placeholder="search"
+            style=" border-radius: 20px; padding: 7px 50px 7px 20px; color: black; border: none;">
+
+        <div class="profile d-flex align-items-center gap-3 ms-auto">
+            <img width="40px" class="ms-auto" style="border-radius: 50%; cursor: pointer;" src="images/profile.jpg"
+                alt="">
+            <p class="d-sm-block d-none mt-3">JAY JARSANIYA</p>
+
+            <!-- dark mod -->
+
+            <button type="button" class="darkmode darkmode__button-toggle ms-4" style="margin-right: 50px; transition: all .5s ease-in-out;"></button>
+
+            <!-- full screen button  -->
+
+            <button class="js-toggle-fullscreen-btn toggle-fullscreen-btn pt-2" aria-label="Enter fullscreen mode"
+                hidden>
+                <svg class=" toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
+                    <g class="icon-fullscreen-enter">
+                        <path d="M 2 9 v -7 h 7" />
+                        <path d="M 22 9 v -7 h -7" />
+                        <path d="M 22 15 v 7 h -7" />
+                        <path d="M 2 15 v 7 h 7" />
+                    </g>
+
+                    <g class="icon-fullscreen-leave">
+                        <path d="M 24 17 h -7 v 7" />
+                        <path d="M 0 17 h 7 v 7" />
+                        <path d="M 0 7 h 7 v -7" />
+                        <path d="M 24 7 h -7 v -7" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- offcanvas  -->
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="width: 300px;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white h4" id="offcanvasWithBothOptionsLabel">Admin Panel</h5>
+            <a type="button" class="close-nav" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="fa-solid fa-x text-white h5"></i></a>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flush">
+                <p></p>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-house px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="index.html">Dashbord</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Components</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-palette px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="elements.html">Elements</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-regular fa-calendar px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="calender.html">Calender</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-brands fa-rocketchat px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="chat.html">Chat</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-chart-pie px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="charts.html">Charts</a>
+                </li>
+                <li class="list-group-item bg-transparent active-background">
+                    <i class="fa-solid fa-cart-shopping px-2 text-white active-backgroundi"></i>
+                    <a class="text-white text-decoration-none active-backgroundi" href="ecommerce.html">E-commerce</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Forms and Tables</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-copy px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="form.html">Form & Editor</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-tablet px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="tables.html">Data Table</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">More Pages</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-clipboard px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="feedbackpages.html">Feedback Pages</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-user px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="login.html">login & Register</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-location-dot px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="maps.html">Maps</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <div class="main p-4" style="margin-top: 60px;">
+        <div class="container mt-5">
+            <h2 class="mb-4">Product Management</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Products</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productList">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <h3>Add New Product</h3>
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="productPrice" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jquery for nav  -->
+
+    <script>
+        $(".nav-bar").click(() => {
+            $(".main").css({
+                "width": "calc(100% - 300px)",
+                "margin-left": "300px",
+                "transition": "all .6s linear"
+            });
+        })
+        $(".close-nav").click(() => {
+            $(".main").css({
+                "width": "100%",
+                "margin-left": "0px",
+                "transition": "all .6s linear"
+            });
+        })
+    </script>
+
+    <!-- dark button  -->
+
+    <script>
+            /* Dark Mode - https://github.com/Powza/darkmode */
+
+            (function () {
+                function DarkMode(options = {}) {
+                    // Define defaults
+                    const darkMode = {
+                        default: options.default || "system", // system | dark | light
+                        selector: options.selector || ".darkmode", // Toggle selector class or id
+                        storageKey: options.storageKey || "theme", // Set a localStorage key name
+                        resetStorage: options.resetStorage || false, // Reset localStorage
+                        dynamicAdjust: options.dynamicAdjust || false, // Will override default start light then switch to dark between time. 24 hour time.
+                        dynamicAdjustStartHour: options.dynamicAdjustStartHour || 18, // Start dark theme at hour 18
+                        dynamicAdjustEndHour: options.dynamicAdjustEndHour || 6 // End dark them at hour 6
+                    };
+
+                    const rootElement = document.documentElement;
+                    let defaultThemeMode = darkMode.default;
+                    const localStorageKey = darkMode.storageKey;
+                    dynamicAdjustTheme(darkMode.dynamicAdjust);
+
+                    const theme = localStorage.getItem(localStorageKey) || defaultThemeMode;
+                    rootElement.setAttribute("theme", theme);
+
+                    function saveUserPreference(userPreference) {
+                        localStorage.setItem(localStorageKey, userPreference);
+                    }
+
+                    // Dynamic adjust theme based on time
+                    function dynamicAdjustTheme(option) {
+                        if (option) {
+                            const currentHour = new Date().getHours();
+                            // Check if the current hour is between 18 and 6
+                            defaultThemeMode =
+                                currentHour >= darkMode.dynamicAdjustStartHour ||
+                                    currentHour < darkMode.dynamicAdjustEndHour
+                                    ? "dark"
+                                    : "light";
+                        }
+                    }
+                    // Reset localStorage
+                    function resetStorage(option) {
+                        if (option) {
+                            localStorage.removeItem(localStorageKey);
+                        }
+                    }
+
+                    function getThemeMode(userPreference) {
+                        if (userPreference === "light") {
+                            return "light";
+                        }
+                        if (userPreference === "dark") {
+                            return "dark";
+                        }
+                        if (matchMedia("(prefers-color-scheme: light)").matches) {
+                            return "light";
+                        } else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+                            return "dark";
+                        }
+                    }
+
+                    function setThemeMode(mode) {
+                        rootElement.setAttribute("theme-mode", mode);
+                    }
+
+                    function setTheme(mode) {
+                        rootElement.setAttribute("theme", mode);
+                    }
+
+                    function rotatePreferences(userPreference) {
+                        const nextPreference = {
+                            system: "light",
+                            light: "dark",
+                            dark: "light"
+                        };
+                        return nextPreference[userPreference] || "system";
+                    }
+
+                    function nameSelection(userPreference) {
+                        const preferences = {
+                            system: "System",
+                            light: "Light",
+                            dark: "Dark"
+                        };
+                        return preferences[userPreference] || preferences.system;
+                    }
+
+                    let userPreference = theme;
+                    const systemThemeMode = getThemeMode("system");
+                    if (userPreference === "system") {
+                        userPreference = systemThemeMode;
+                    }
+                    setThemeMode(getThemeMode(userPreference));
+
+                    // Toggle dark/light mode
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const themeToggler = document.querySelectorAll(darkMode.selector);
+                        resetStorage(options.resetStorage || false);
+
+                        themeToggler.forEach((button) => {
+                            button.classList.add(
+                                "darkmode-" + nameSelection(userPreference).toLowerCase()
+                            );
+
+                            button.onclick = () => {
+                                let newUserPref = rotatePreferences(userPreference);
+                                if (userPreference === "system") {
+                                    newUserPref = getThemeMode("system");
+                                }
+
+                                // Remove the class associated with the current userPreference
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.remove(
+                                        "darkmode-" + nameSelection(userPreference).toLowerCase()
+                                    );
+                                });
+
+                                // Add the class for the new userPreference to all buttons
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.add("darkmode-" + nameSelection(newUserPref).toLowerCase());
+                                });
+
+                                userPreference = newUserPref;
+                                saveUserPreference(newUserPref);
+                                setThemeMode(getThemeMode(newUserPref));
+                                setTheme(newUserPref);
+                            };
+                        });
+                    });
+                }
+                window.DarkMode = DarkMode;
+            })();
+
+        /* Initialize Darkmode - All options shown */
+        const darkMode = new DarkMode({
+            default: "system",
+            selector: ".darkmode",
+            storageKey: "theme",
+            resetStorage: false,
+            dynamicAdjust: false,
+            dynamicAdjustStartHour: 18,
+            dynamicAdjustEndHour: 6
+        });
+
+    </script>
+
+    <!-- full screen button  -->
+
+    <script>
+
+        if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+            const toggleBtn = document.querySelector('.js-toggle-fullscreen-btn');
+
+            const styleEl = document.createElement('link');
+            styleEl.setAttribute('rel', 'stylesheet');
+            styleEl.setAttribute('href', 'https://codepen.io/tiggr/pen/poJoLyW.css');
+            styleEl.addEventListener('load', function () {
+                toggleBtn.hidden = false;
+            });
+            document.head.appendChild(styleEl);
+
+            toggleBtn.addEventListener('click', function () {
+                if (document.fullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitFullscreenElement) {
+                    document.webkitCancelFullScreen()
+                } else if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.documentElement.webkitRequestFullScreen();
+                }
+            });
+
+            document.addEventListener('fullscreenchange', handleFullscreen);
+            document.addEventListener('webkitfullscreenchange', handleFullscreen);
+
+
+            function handleFullscreen() {
+                if (document.fullscreen || document.webkitFullscreenElement) {
+                    toggleBtn.classList.add('on');
+                    toggleBtn.setAttribute('aria-label', 'Exit fullscreen mode');
+                } else {
+                    toggleBtn.classList.remove('on');
+                    toggleBtn.setAttribute('aria-label', 'Enter fullscreen mode');
+                }
+            }
+        }
+
+    </script>
+
+    <!-- list  -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Dummy product data (replace with actual data fetched from backend)
+            var products = [
+                { id: 1, name: "Product 1", price: 100 },
+                { id: 2, name: "Product 2", price: 200 },
+                { id: 3, name: "Product 3", price: 300 },
+                { id: 4, name: "Product 4", price: 400 },
+                { id: 5, name: "Product 5", price: 500 },
+                { id: 6, name: "Product 6", price: 600 },
+                { id: 7, name: "Product 7", price: 700 },
+                { id: 8, name: "Product 8", price: 800 },
+            ];
+
+            // Populate product list
+            function populateProductList() {
+                $("#productList").empty();
+                products.forEach(function (product) {
+                    var row = "<tr>" +
+                        "<td>" + product.id + "</td>" +
+                        "<td>" + product.name + "</td>" +
+                        "<td>$" + product.price + "</td>" +
+                        "<td><button class='btn btn-danger btn-sm' onclick='deleteProduct(" + product.id + ")'>Delete</button></td>" +
+                        "</tr>";
+                    $("#productList").append(row);
+                });
+            }
+
+            populateProductList();
+
+            // Add new product
+            $("#addProductForm").submit(function (event) {
+                event.preventDefault();
+                var productName = $("#productName").val();
+                var productPrice = parseFloat($("#productPrice").val());
+
+                if (productName && productPrice) {
+                    var newProduct = {
+                        id: products.length + 1,
+                        name: productName,
+                        price: productPrice
+                    };
+                    products.push(newProduct);
+                    populateProductList();
+                    $("#addProductForm")[0].reset();
+                } else {
+                    alert("Please enter product name and price.");
+                }
+            });
+
+            // Delete product
+            window.deleteProduct = function (id) {
+                products = products.filter(function (product) {
+                    return product.id !== id;
+                });
+                populateProductList();
+            };
+        });
+    </script>
+
+</body>
+
+</html>

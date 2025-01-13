@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel || Dashbord</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- css and js link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- font awesome  -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <!-- jquery cdn  -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- chart 2 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
+
+    <!-- chart 3 -->
+
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <style>
+        /* full screen  */
+
+        .element:fullscreen {
+            background-color: #e4708a;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .icon-fullscreen-enter path {
+            stroke: white !important;
+        }
+
+        .icon-fullscreen-leave path {
+            stroke: white !important;
+        }
+
+        .offcanvas-body li a {
+            padding-right: 30%;
+        }
+
+        /* active  */
+
+        .active-background {
+            background-color: white !important;
+            border-radius: 20px 20px 20px 20px;
+        }
+
+        .active-backgroundi {
+            color: black !important;
+        }
+
+        .list-group-item {
+            border: none;
+        }
+
+        .list-group-item:hover {
+            transition: all .4s linear;
+            background-color: white !important;
+            border-radius: 20px;
+        }
+
+        .list-group-item:hover a {
+            color: black !important;
+        }
+
+        .list-group-item:hover i {
+            color: black !important;
+        }
+
+        body {
+            background-color: #181f39;
+        }
+
+        header {
+            background-color: #202a4d;
+        }
+
+        .offcanvas {
+            background-color: #202a4d;
+            transition: all 0.6s linear;
+        }
+
+        /* dark button  */
+
+        :root {
+            --text: #000;
+            --background: #ecf5ff;
+            --background-2: #fff;
+            --border: black;
+        }
+
+        :root[theme=dark] {
+            --text: #fff;
+            --background: #181f39;
+            --background-2: #202a4d;
+            --border: white;
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-moon' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
+        }
+
+
+        @media (prefers-color-scheme: dark) {
+            :root[theme=system] {
+                --text: #fff;
+                --background: #222831;
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:%23fff'/%3E%3C/svg%3E");
+            }
+        }
+
+        :root[theme=light] {
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='orange' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-sun' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root[theme=system] {
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:black'/%3E%3C/svg%3E");
+            }
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .darkmode__button-toggle {
+            border: none;
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-color: var(--background);
+        }
+
+        .darkmode__button-toggle:after {
+            height: 32px;
+            width: 32px;
+            margin: 8px;
+            content: "";
+            border-radius: 25px;
+            background-image: var(--dark-mode-toggle);
+        }
+
+        header a {
+            margin-left: 150px;
+        }
+
+        @media screen and (max-width: 576px) {
+            header a {
+                margin-left: 0px;
+            }
+
+            .offcanvas {
+                width: 100%;
+            }
+        }
+
+        /* full screen button  */
+
+        .toggle-fullscreen-btn {
+            position: fixed;
+            z-index: 10000;
+            top: 10px;
+            right: 10px;
+            border: 0;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+
+        .toggle-fullscreen-svg {
+            display: block;
+            height: auto;
+        }
+
+        .toggle-fullscreen-svg path {
+            transform-box: view-box;
+            transform-origin: 12px 12px;
+            fill: none;
+            stroke: hsl(225, 10%, 8%);
+            stroke-width: 4;
+            transition: .15s;
+        }
+
+
+        .toggle-fullscreen-btn:hover path:nth-child(1),
+        .toggle-fullscreen-btn:focus path:nth-child(1) {
+            transform: translate(-2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(2),
+        .toggle-fullscreen-btn:focus path:nth-child(2) {
+            transform: translate(2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(3),
+        .toggle-fullscreen-btn:focus path:nth-child(3) {
+            transform: translate(2px, 2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(4),
+        .toggle-fullscreen-btn:focus path:nth-child(4) {
+            transform: translate(-2px, 2px);
+        }
+
+
+        .toggle-fullscreen-btn:not(.on) .icon-fullscreen-leave {
+            display: none;
+        }
+
+        .toggle-fullscreen-btn.on .icon-fullscreen-enter {
+            display: none;
+        }
+    </style>
+
+    <!-- chart 1 -->
+
+    <style>
+        .chart1 svg {
+            font-family: 'open sans', sans-serif;
+            font-size: 3rem;
+            background-size: cover;
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            height: 50vh;
+            background-color: var(--background-2);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        g tspan {
+            fill: var(--text);
+        }
+
+        #grid {
+            stroke: var(--text);
+        }
+
+        .chart1 polyline {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 5s ease-in forwards;
+            animation-iteration-count: 10;
+            animation-direction: alternate;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .chart1 svg p {
+            font-size: 2rem;
+            text-align: center;
+            color: #efefef;
+        }
+
+        .chart1 .name {
+            font-size: .8rem;
+            font-weight: light;
+        }
+    </style>
+
+    <!-- chart 2 -->
+
+    <style>
+        .container2 {
+            width: 50%;
+            margin-top: 20px;
+            background-color: var(--background-2);
+            border-radius: 20px;
+        }
+
+        @media screen and (max-width:992px) {
+            .container2 {
+                width: 100%;
+            }
+
+            .chart {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <!-- chart 3 -->
+
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+            background-color: var(--background-2);
+            margin-top: 20px;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .chart-03 g {
+            fill: white !important;
+        }
+
+        .chart-03 g path {
+            fill: black !important;
+        }
+    </style>
+
+    <!-- chart 4 -->
+
+    <style>
+        #bar-chart {
+            background-color: var(--background-2) !important;
+            font-family: 'Khula', sans-serif;
+            font-weight: 300;
+            color: var(--text);
+            line-height: 1em;
+            margin: 0;
+            padding: 40px;
+            border-radius: 20px;
+        }
+
+        .tooltip {
+            background-color: var(--background) !important;
+        }
+
+        #bar-chart .x-axis .year .col .bar .tooltip:after {
+            border-top: 8px solid var(--background) !important;
+        }
+
+        #bar-chart {
+            margin: 0 auto;
+            max-width: 900px;
+            position: relative;
+        }
+
+        #bar-chart h1 {
+            text-align: center;
+            margin: .5em 0 1em;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        #bar-chart .row {
+            position: relative;
+            line-height: 1.25em;
+            margin-bottom: 2em;
+            height: 400px;
+        }
+
+        #bar-chart .row .segment {
+            flex: 1 100%;
+            display: block;
+            position: relative;
+            align-self: flex-end;
+        }
+
+        #bar-chart .row .segment:before {
+            content: "";
+            display: block;
+            width: 100%;
+            bottom: 0;
+            position: absolute;
+            height: 1px;
+            background-color: #414245;
+            z-index: -1;
+        }
+
+        #bar-chart .label {
+            display: block;
+            font-size: .8em;
+        }
+
+        /* X Axis */
+        #bar-chart .x-axis {
+            display: flex;
+            padding-left: 2em;
+            height: 100%
+        }
+
+        #bar-chart .x-axis .year {
+            flex: 1;
+        }
+
+        #bar-chart .x-axis .year .col {
+            display: flex;
+            height: 100%;
+        }
+
+        #bar-chart .x-axis .year .col .bar {
+            flex: 1;
+            background-color: #2493bf;
+            align-self: flex-end;
+            position: relative;
+            margin: 0 6%;
+            height: 0px;
+            -webkit-transition: height, 1s ease;
+            -moz-transition: height, 1s ease;
+            -ms-transition: height, 1s ease;
+            transition: height, 1s ease;
+        }
+
+        #bar-chart .x-axis .label {
+            align-self: flex-end;
+            padding-top: .5em;
+        }
+
+        #bar-chart .x-axis .label:before {
+            content: "'";
+        }
+
+        #bar-chart .x-axis .year .col .bar .tooltip,
+        #bar-chart .x-axis .year .col .bar .tooltip:after {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+            opacity: 0;
+            -webkit-transition: opacity, .25s ease-out;
+            -moz-transition: opacity, .25s ease-out;
+            -ms-transition: opacity, .25s ease-out;
+            transition: opacity, .25s ease-out;
+        }
+
+        #bar-chart .x-axis .year .col .bar .tooltip {
+            top: -3em;
+            font-size: .8em;
+            background-color: #000;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+
+        #bar-chart .x-axis .year .col .bar .tooltip:after {
+            content: "";
+            border: 8px solid transparent;
+            border-top: 8px solid #000;
+            border-bottom: 0;
+        }
+
+        #bar-chart .x-axis .year .col .bar:hover .tooltip {
+            opacity: 1;
+        }
+
+        #bar-chart .x-axis .year .col .bar:hover .tooltip:after {
+            opacity: 1;
+        }
+
+        /* Y Axis */
+        #bar-chart .y-axis {
+            display: flex;
+            height: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+            position: absolute;
+            width: 100%;
+            padding-left: 2em;
+        }
+
+        #bar-chart .y-axis .label {
+            margin-left: -3em;
+            text-align: right;
+            width: 3em;
+            padding-right: .5em;
+            margin-bottom: -10px;
+        }
+
+        @media screen and (min-width: 768px) {
+            #bar-chart .x-axis .label:before {
+                content: "20";
+            }
+        }
+
+        .work {
+            width: 30%;
+        }
+
+        @media screen and (max-width: 992px) {
+            .work {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body id="element" style="transition: all .5s ease-in-out;">
+    <header class="text-white d-flex align-items-center p-2 w-100" style="position: fixed; z-index: 1;">
+        <p class="h2 d-sm-block d-none">ADMIN</p>
+        <a class="nav-bar" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars h3 text-white"></i></a>
+
+        <input type="text" class="ms-auto d-lg-block d-none" placeholder="search"
+            style=" border-radius: 20px; padding: 7px 50px 7px 20px; color: black; border: none;">
+
+        <div class="profile d-flex align-items-center gap-3 ms-auto">
+            <img width="40px" class="ms-auto" style="border-radius: 50%; cursor: pointer;" src="images/profile.jpg"
+                alt="">
+            <p class="d-sm-block d-none pt-3">JAY JARSANIYA</p>
+
+            <!-- dark mod -->
+
+            <button type="button" class="darkmode darkmode__button-toggle ms-4"
+                style="margin-right: 50px; transition: all .5s ease-in-out;"></button>
+
+            <!-- full screen button  -->
+
+            <button class="js-toggle-fullscreen-btn toggle-fullscreen-btn pt-2" aria-label="Enter fullscreen mode"
+                hidden>
+                <svg class=" toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
+                    <g class="icon-fullscreen-enter">
+                        <path d="M 2 9 v -7 h 7" />
+                        <path d="M 22 9 v -7 h -7" />
+                        <path d="M 22 15 v 7 h -7" />
+                        <path d="M 2 15 v 7 h 7" />
+                    </g>
+
+                    <g class="icon-fullscreen-leave">
+                        <path d="M 24 17 h -7 v 7" />
+                        <path d="M 0 17 h 7 v 7" />
+                        <path d="M 0 7 h 7 v -7" />
+                        <path d="M 24 7 h -7 v -7" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- offcanvas  -->
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="width: 300px;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white h4" id="offcanvasWithBothOptionsLabel">Admin Panel</h5>
+            <a type="button" class="close-nav" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="fa-solid fa-x text-white h5"></i></a>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flushs">
+                <p></p>
+                <li class="list-group-item bg-transparent active-background">
+                    <i class="fa-solid fa-house px-2 text-white active-backgroundi"></i>
+                    <a class="text-white text-decoration-none active-backgroundi" href="index.html">Dashbord</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Components</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-palette px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="elements.html">Elements</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-regular fa-calendar px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="calender.html">Calender</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-brands fa-rocketchat px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="chat.html">Chat</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-chart-pie px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="charts.html">Charts</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-cart-shopping px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="ecommerce.html">E-commerce</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Forms and Tables</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-copy px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="form.html">Form & Editor</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-tablet px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="tables.html">Data Table</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">More Pages</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-clipboard px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="feedbackpages.html">Feedback Pages</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-user px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="login.html">login & Register</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-location-dot px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="maps.html">Maps</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <div class="main p-4" style="margin-top: 60px;">
+        <div class="container-lg">
+            <div class="row gap-4">
+                <div class="col p-4" style="background-color: var(--background-2); border-radius: 15px;">
+                    <i class="fa-regular fa-star p-4 h1"
+                        style="box-shadow: 0px 0px 0px 10px rgb(165, 218, 165); border-radius: 50%; background-color: rgb(3, 191, 3);"></i>
+                    <p class="pt-4 h4" style="font-weight: 800;">42%</p>
+                    <p class="">Weekly Progress</p>
+                </div>
+                <div class="col p-4" style="background-color: var(--background-2); border-radius: 15px;">
+                    <i class="fa-regular fa-star p-4 h1"
+                        style="box-shadow: 0px 0px 0px 10px rgb(255, 160, 165); border-radius: 50%; background-color: rgb(255, 0, 0);"></i>
+                    <p class="pt-4 h4" style="font-weight: 800;">67cal</p>
+                    <p class="">Calories Burn</p>
+                </div>
+                <div class="col p-4" style="background-color: var(--background-2); border-radius: 15px;">
+                    <i class="fa-regular fa-star p-4 h1"
+                        style="box-shadow: 0px 0px 0px 10px rgb(255, 204, 165); border-radius: 50%; background-color: rgb(255, 113, 4);"></i>
+                    <p class="pt-4 h4" style="font-weight: 800;">5 Left</p>
+                    <p class="">Diet Programs</p>
+                </div>
+                <div class="col p-4" style="background-color: var(--background-2); border-radius: 15px;">
+                    <i class="fa-regular fa-star p-4 h1"
+                        style="box-shadow: 0px 0px 0px 10px rgb(158, 208, 255); border-radius: 50%; background-color: rgb(0, 132, 255);"></i>
+                    <p class="pt-4 h4" style="font-weight: 800;">8 Hours</p>
+                    <p class="">Sleeping Potency</p>
+                </div>
+                <div class="col p-4" style="background-color: var(--background-2); border-radius: 15px;">
+                    <i class="fa-regular fa-star p-4 h1"
+                        style="box-shadow: 0px 0px 0px 10px rgb(215, 174, 255); border-radius: 50%; background-color: rgb(130, 4, 255);"></i>
+                    <p class="pt-4 h4" style="font-weight: 800;">974 Person</p>
+                    <p class="">Total Members
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- chart  -->
+
+        <div class="chart d-lg-flex container-lg gap-3 ">
+            <div class="chart1">
+                <svg class='container' width="529px" height="286px" viewBox="30 27 529 286" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="graph-copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                        transform="translate(30.000000, 27.000000)">
+                        <g id="y_axis" font-size="11.0833333"
+                            font-family=".HelveticaNeueDeskInterface-Regular, .Helvetica Neue DeskInterface"
+                            fill="#FFFFFF" opacity="0.4" font-weight="normal">
+                            <text id="0">
+                                <tspan x="25.3008249" y="264.333333">0</tspan>
+                            </text>
+                            <text id="200">
+                                <tspan x="12.7757572" y="232.666667">200</tspan>
+                            </text>
+                            <text id="400">
+                                <tspan x="12.7757572" y="201">400</tspan>
+                            </text>
+                            <text id="600">
+                                <tspan x="12.7757572" y="169.333333">600</tspan>
+                            </text>
+                            <text id="800">
+                                <tspan x="12.7757572" y="137.666667">800</tspan>
+                            </text>
+                            <text id="1000">
+                                <tspan x="6.51322328" y="106">1000</tspan>
+                            </text>
+                            <text id="1200">
+                                <tspan x="6.51322328" y="74.3333333">1200</tspan>
+                            </text>
+                            <text id="1400">
+                                <tspan x="6.51322328" y="42.6666667">1400</tspan>
+                            </text>
+                            <text id="1600">
+                                <tspan x="6.51322328" y="11">1600</tspan>
+                            </text>
+                        </g>
+                        <g id="GRAPHS" transform="translate(64.000000, 16.000000)" stroke-linecap="round"
+                            stroke-width="8" stroke-linejoin="round">
+                            <polyline id="Banks" stroke="#5BCAC1"
+                                points="0 1 88.0438662 1 128.985782 137 180.170616 137 224.189573 182 256.947867 91 301.990521 137 346.009479 91 392.087202 91 429.952607 179">
+                            </polyline>
+                            <polyline id="Bridge" stroke="#81DEFF"
+                                points="2.04739336 183 54.2559242 227 96.2274882 47 133.080569 1 302.018438 1 346.680361 44.6280822 386.957346 0 427.905213 43">
+                            </polyline>
+                            <polyline id="PayPal" stroke="#F6F5A6"
+                                points="2.04739336 180 53.273159 180 99.2985782 91 137.175355 47 219.077488 47 256.947867 90 301.990521 47 349.080569 137 398.228672 137 432 91">
+                            </polyline>
+                        </g>
+                        <g id="x_axis" transform="translate(71.974046, 271.541667)" font-size="11.0833333"
+                            font-family=".HelveticaNeueDeskInterface-Regular, .Helvetica Neue DeskInterface"
+                            fill="#FFFFFF" opacity="0.4" font-weight="normal">
+                            <text id="1">
+                                <tspan x="0.396183206" y="11">1</tspan>
+                            </text>
+                            <text id="2">
+                                <tspan x="39.2603361" y="11">2</tspan>
+                            </text>
+                            <text id="3">
+                                <tspan x="78.8786567" y="11">3</tspan>
+                            </text>
+                            <text id="4">
+                                <tspan x="118.496977" y="11">4</tspan>
+                            </text>
+                            <text id="5">
+                                <tspan x="158.115298" y="11">5</tspan>
+                            </text>
+                            <text id="6">
+                                <tspan x="197.733619" y="11">6</tspan>
+                            </text>
+                            <text id="7">
+                                <tspan x="237.351939" y="11">7</tspan>
+                            </text>
+                            <text id="8">
+                                <tspan x="276.97026" y="11">8</tspan>
+                            </text>
+                            <text id="9">
+                                <tspan x="316.58858" y="11">9</tspan>
+                            </text>
+                            <text id="10">
+                                <tspan x="359.229833" y="11">10</tspan>
+                            </text>
+                            <text id="11">
+                                <tspan x="400.036703" y="11">11</tspan>
+                            </text>
+                            <text id="12">
+                                <tspan x="438.466474" y="11">12</tspan>
+                            </text>
+                        </g>
+                        <g id="grid" transform="translate(46.618321, 4.750000)" stroke="#FFFFFF" stroke-linecap="square"
+                            opacity="0.0800000057">
+                            <path d="M0.396183206,1.1875 L478.991396,1.1875" id="Line"></path>
+                            <path d="M0.396183206,32.8541667 L478.991396,32.8541667" id="Line"></path>
+                            <path d="M0.396183206,64.5208333 L478.991396,64.5208333" id="Line"></path>
+                            <path d="M0.396183206,96.1875 L478.991396,96.1875" id="Line"></path>
+                            <path d="M0.396183206,127.854167 L478.991396,127.854167" id="Line"></path>
+                            <path d="M0.396183206,159.520833 L478.991396,159.520833" id="Line"></path>
+                            <path d="M0.396183206,191.1875 L478.991396,191.1875" id="Line"></path>
+                            <path d="M0.396183206,222.854167 L478.991396,222.854167" id="Line"></path>
+                            <path d="M0.396183206,254.520833 L478.991396,254.520833" id="Line"></path>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <br>
+
+            <!-- chart 2 -->
+
+            <div class="container container2 mx-auto p-5">
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- chart 3 -->
+
+        <div class="container-lg chart-03" id="chartdiv">
+
+        </div>
+
+        <!-- chart 4  -->
+
+        <div class="container-xl d-lg-flex d-block gap-2 mt-4">
+            <div class="work p-4" style="background-color: var(--background-2); border-radius: 20px;">
+                <p class="h4 py-3">Duration Work</p>
+                <div class="running d-flex gap-4 p-3" style="border: 1px solid var(--border); border-radius: 15px;">
+                    <div class="icon">
+                        <i class="fa-solid fa-person-running p-3 h1" style="color: orange;"></i>
+                    </div>
+                    <div class="text">
+                        <p class="h5 mt-2">Running</p>
+                        <span style="color: orange;">52 hours,2min</span>
+                    </div>
+                </div>
+                <div class="cycling d-flex gap-4 p-3 mt-3"
+                    style="border: 1px solid var(--border); border-radius: 15px;">
+                    <div class="icon">
+                        <i class="fa-solid fa-person-biking p-3 h2" style="color: rgb(0, 174, 255);"></i>
+                    </div>
+                    <div class="text">
+                        <p class="h5 mt-2">Cycling</p>
+                        <span style="color: rgb(0, 174, 255);">23 hours,45min</span>
+                    </div>
+                </div>
+                <div class="yoga d-flex gap-4 p-3 mt-3" style="border: 1px solid var(--border); border-radius: 15px;">
+                    <div class="icon">
+                        <i class="fa-solid fa-person-running p-3 h1" style="color: rgb(106, 0, 255);"></i>
+                    </div>
+                    <div class="text">
+                        <p class="h5 mt-2">Yoga</p>
+                        <span style="color: rgb(106, 0, 255);">16 hours,2min</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- chart  -->
+
+            <figure class="w-100" id="bar-chart">
+
+                <div class="row bars">
+                    <div class="y-axis">
+                        <div class="segment">
+                            <span class="label">$80</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$70</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$60</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$50</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$40</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$30</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$20</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$10</span>
+                        </div>
+                        <div class="segment">
+                            <span class="label">$0</span>
+                        </div>
+                    </div>
+                    <div class="x-axis">
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">04</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">05</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">06</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">07</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">08</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">09</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">10</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">11</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">12</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">13</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">14</span>
+                        </div>
+                        <div class="year wrap">
+                            <div class="col">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <span class="label">15</span>
+                        </div>
+                    </div>
+                </div>
+
+            </figure>
+        </div>
+    </div>
+
+    <!-- jquery for nav  -->
+
+    <script>
+        $(".nav-bar").click(() => {
+            $(".main").css({
+                "width": "calc(100% - 300px)",
+                "margin-left": "300px",
+                "transition": "all .6s linear"
+            });
+        })
+        $(".close-nav").click(() => {
+            $(".main").css({
+                "width": "100%",
+                "margin-left": "0px",
+                "transition": "all .6s linear"
+            });
+        })
+    </script>
+
+    <!-- dark button  -->
+
+    <script>
+            (function () {
+                function DarkMode(options = {}) {
+                    // Define defaults
+                    const darkMode = {
+                        default: options.default || "system", // system | dark | light
+                        selector: options.selector || ".darkmode", // Toggle selector class or id
+                        storageKey: options.storageKey || "theme", // Set a localStorage key name
+                        resetStorage: options.resetStorage || false, // Reset localStorage
+                        dynamicAdjust: options.dynamicAdjust || false, // Will override default start light then switch to dark between time. 24 hour time.
+                        dynamicAdjustStartHour: options.dynamicAdjustStartHour || 18, // Start dark theme at hour 18
+                        dynamicAdjustEndHour: options.dynamicAdjustEndHour || 6 // End dark them at hour 6
+                    };
+
+                    const rootElement = document.documentElement;
+                    let defaultThemeMode = darkMode.default;
+                    const localStorageKey = darkMode.storageKey;
+                    dynamicAdjustTheme(darkMode.dynamicAdjust);
+
+                    const theme = localStorage.getItem(localStorageKey) || defaultThemeMode;
+                    rootElement.setAttribute("theme", theme);
+
+                    function saveUserPreference(userPreference) {
+                        localStorage.setItem(localStorageKey, userPreference);
+                    }
+
+                    // Dynamic adjust theme based on time
+                    function dynamicAdjustTheme(option) {
+                        if (option) {
+                            const currentHour = new Date().getHours();
+                            // Check if the current hour is between 18 and 6
+                            defaultThemeMode =
+                                currentHour >= darkMode.dynamicAdjustStartHour ||
+                                    currentHour < darkMode.dynamicAdjustEndHour
+                                    ? "dark"
+                                    : "light";
+                        }
+                    }
+                    // Reset localStorage
+                    function resetStorage(option) {
+                        if (option) {
+                            localStorage.removeItem(localStorageKey);
+                        }
+                    }
+
+                    function getThemeMode(userPreference) {
+                        if (userPreference === "light") {
+                            return "light";
+                        }
+                        if (userPreference === "dark") {
+                            return "dark";
+                        }
+                        if (matchMedia("(prefers-color-scheme: light)").matches) {
+                            return "light";
+                        } else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+                            return "dark";
+                        }
+                    }
+
+                    function setThemeMode(mode) {
+                        rootElement.setAttribute("theme-mode", mode);
+                    }
+
+                    function setTheme(mode) {
+                        rootElement.setAttribute("theme", mode);
+                    }
+
+                    function rotatePreferences(userPreference) {
+                        const nextPreference = {
+                            system: "light",
+                            light: "dark",
+                            dark: "light"
+                        };
+                        return nextPreference[userPreference] || "system";
+                    }
+
+                    function nameSelection(userPreference) {
+                        const preferences = {
+                            system: "System",
+                            light: "Light",
+                            dark: "Dark"
+                        };
+                        return preferences[userPreference] || preferences.system;
+                    }
+
+                    let userPreference = theme;
+                    const systemThemeMode = getThemeMode("system");
+                    if (userPreference === "system") {
+                        userPreference = systemThemeMode;
+                    }
+                    setThemeMode(getThemeMode(userPreference));
+
+                    // Toggle dark/light mode
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const themeToggler = document.querySelectorAll(darkMode.selector);
+                        resetStorage(options.resetStorage || false);
+
+                        themeToggler.forEach((button) => {
+                            button.classList.add(
+                                "darkmode-" + nameSelection(userPreference).toLowerCase()
+                            );
+
+                            button.onclick = () => {
+                                let newUserPref = rotatePreferences(userPreference);
+                                if (userPreference === "system") {
+                                    newUserPref = getThemeMode("system");
+                                }
+
+                                // Remove the class associated with the current userPreference
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.remove(
+                                        "darkmode-" + nameSelection(userPreference).toLowerCase()
+                                    );
+                                });
+
+                                // Add the class for the new userPreference to all buttons
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.add("darkmode-" + nameSelection(newUserPref).toLowerCase());
+                                });
+
+                                userPreference = newUserPref;
+                                saveUserPreference(newUserPref);
+                                setThemeMode(getThemeMode(newUserPref));
+                                setTheme(newUserPref);
+                            };
+                        });
+                    });
+                }
+                window.DarkMode = DarkMode;
+            })();
+
+        /* Initialize Darkmode - All options shown */
+        const darkMode = new DarkMode({
+            default: "system",
+            selector: ".darkmode",
+            storageKey: "theme",
+            resetStorage: false,
+            dynamicAdjust: false,
+            dynamicAdjustStartHour: 18,
+            dynamicAdjustEndHour: 6
+        });
+
+    </script>
+
+    <!-- full screen button  -->
+
+    <script>
+
+        if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+            const toggleBtn = document.querySelector('.js-toggle-fullscreen-btn');
+
+            const styleEl = document.createElement('link');
+            styleEl.setAttribute('rel', 'stylesheet');
+            styleEl.setAttribute('href', 'https://codepen.io/tiggr/pen/poJoLyW.css');
+            styleEl.addEventListener('load', function () {
+                toggleBtn.hidden = false;
+            });
+            document.head.appendChild(styleEl);
+
+            toggleBtn.addEventListener('click', function () {
+                if (document.fullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitFullscreenElement) {
+                    document.webkitCancelFullScreen()
+                } else if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.documentElement.webkitRequestFullScreen();
+                }
+            });
+
+            document.addEventListener('fullscreenchange', handleFullscreen);
+            document.addEventListener('webkitfullscreenchange', handleFullscreen);
+
+
+            function handleFullscreen() {
+                if (document.fullscreen || document.webkitFullscreenElement) {
+                    toggleBtn.classList.add('on');
+                    toggleBtn.setAttribute('aria-label', 'Exit fullscreen mode');
+                } else {
+                    toggleBtn.classList.remove('on');
+                    toggleBtn.setAttribute('aria-label', 'Enter fullscreen mode');
+                }
+            }
+        }
+
+    </script>
+
+    <!-- chart 2  -->
+
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["M", "T", "W", "T", "F", "S", "S"],
+                datasets: [{
+                    backgroundColor: [
+                        "#2ecc71",
+                        "#3498db",
+                        "#95a5a6",
+                        "#9b59b6",
+                        "#f1c40f",
+                        "#e74c3c",
+                        "#34495e"
+                    ],
+                    data: [12, 19, 3, 17, 28, 24, 7]
+                }]
+            }
+        });
+    </script>
+
+    <!-- chart 3 -->
+
+    <script>
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // Create chart instance
+        var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+        // Add data
+        chart.data = [{
+            "country": "USA",
+            "visits": 2025
+        }, {
+            "country": "China",
+            "visits": 1882
+        }, {
+            "country": "Japan",
+            "visits": 1809
+        }, {
+            "country": "Germany",
+            "visits": 1322
+        }, {
+            "country": "UK",
+            "visits": 1122
+        }, {
+            "country": "France",
+            "visits": 1114
+        }, {
+            "country": "India",
+            "visits": 984
+        }, {
+            "country": "Spain",
+            "visits": 711
+        }, {
+            "country": "Netherlands",
+            "visits": 665
+        }, {
+            "country": "Russia",
+            "visits": 580
+        }, {
+            "country": "South Korea",
+            "visits": 443
+        }, {
+            "country": "Canada",
+            "visits": 441
+        }, {
+            "country": "Brazil",
+            "visits": 395
+        }];
+
+        // Create axes
+
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "country";
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.minGridDistance = 30;
+
+        categoryAxis.renderer.labels.template.adapter.add("dy", function (dy, target) {
+            if (target.dataItem && target.dataItem.index & 2 == 2) {
+                return dy + 25;
+            }
+            return dy;
+        });
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "visits";
+        series.dataFields.categoryX = "country";
+        series.name = "Visits";
+        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series.columns.template.fillOpacity = .8;
+
+        var columnTemplate = series.columns.template;
+        columnTemplate.strokeWidth = 2;
+        columnTemplate.strokeOpacity = 1;
+    </script>
+
+    <!-- chart 4 -->
+
+    <script>
+        // Add inline height to each bar
+        setTimeout(function () {
+            $('.bar').each(function (index) {
+                // Data
+                var numbers = ['31.9', '36.3', '32.4', '35.3', '42.9', '35.6', '37.9', '38.4', '50.9', '48.4', '53.9', '45.1', '50.1', '66.1', '51.8', '61.9', '38.7', '38.7', '38.3', '41.9', '35.4', '40.3', '35.0', '39.2', '40.0', '36.5', '40.0', '36.1', '30.9', '34.7', '31.2', '29.0', '26.6', '31.0', '19.0', '18.3', '18.6', '16.9', '18.2', '16.2', '18.9', '20.6', '19.0', '15.9', '14.0', '18.8', '19.7', '25.0'];
+                // To better represent % of height
+                var numbersFull = numbers[index] * 1.125;
+                $(this).css({ 'height': numbersFull + '%' });
+                // Create tooltip
+                $('<span class="tooltip">' + '$' + numbers[index] + '</span>').prependTo(this);
+            });
+        }, 1000);
+    </script>
+
+</body>
+
+</html>

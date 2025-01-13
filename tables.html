@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel || Tables</title>
+
+    <!-- css and js link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- font awesome  -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- jquery cdn  -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- table  -->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <style>
+        /* full screen  */
+
+        .element:fullscreen {
+            background-color: #e4708a;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .icon-fullscreen-enter path {
+            stroke: white !important;
+        }
+
+        .icon-fullscreen-leave path {
+            stroke: white !important;
+        }
+
+        .offcanvas-body li a {
+            padding-right: 30%;
+        }
+
+        /* active  */
+
+        .active-background {
+            background-color: white !important;
+            border-radius: 20px 20px 20px 20px;
+        }
+
+        .active-backgroundi {
+            color: black !important;
+        }
+
+        .list-group-item {
+            border: none;
+        }
+
+        .list-group-item:hover {
+            transition: all .4s linear;
+            background-color: white !important;
+            border-radius: 20px;
+        }
+
+        .list-group-item:hover a {
+            color: black !important;
+        }
+
+        .list-group-item:hover i {
+            color: black !important;
+        }
+
+        body {
+            background-color: #181f39;
+        }
+
+        header {
+            background-color: #202a4d;
+        }
+
+        .offcanvas {
+            background-color: #202a4d;
+            transition: all 0.6s ease-in-out;
+        }
+
+        /* dark button  */
+
+        :root {
+            --text: #000;
+            --background: #ecf5ff;
+            --background-2: #fff;
+            --border: black;
+        }
+
+        :root[theme=dark] {
+            --text: #fff;
+            --background: #181f39;
+            --background-2: #202a4d;
+            --border: white;
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-moon' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root[theme=system] {
+                --text: #fff;
+                --background: #222831;
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:%23fff'/%3E%3C/svg%3E");
+            }
+        }
+
+        :root[theme=light] {
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='orange' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-sun' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root[theme=system] {
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:black'/%3E%3C/svg%3E");
+            }
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .darkmode__button-toggle {
+            border: none;
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-color: var(--background);
+        }
+
+        .darkmode__button-toggle:after {
+            height: 32px;
+            width: 32px;
+            margin: 8px;
+            content: "";
+            border-radius: 25px;
+            background-image: var(--dark-mode-toggle);
+        }
+
+        header a {
+            margin-left: 150px;
+        }
+
+        @media screen and (max-width: 576px) {
+            header a {
+                margin-left: 0px;
+            }
+        }
+
+        /* full screen button  */
+
+        .toggle-fullscreen-btn {
+            position: fixed;
+            z-index: 10000;
+            top: 10px;
+            right: 10px;
+            border: 0;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+
+        .toggle-fullscreen-svg {
+            display: block;
+            height: auto;
+        }
+
+        .toggle-fullscreen-svg path {
+            transform-box: view-box;
+            transform-origin: 12px 12px;
+            fill: none;
+            stroke: hsl(225, 10%, 8%);
+            stroke-width: 4;
+            transition: .15s;
+        }
+
+
+        .toggle-fullscreen-btn:hover path:nth-child(1),
+        .toggle-fullscreen-btn:focus path:nth-child(1) {
+            transform: translate(-2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(2),
+        .toggle-fullscreen-btn:focus path:nth-child(2) {
+            transform: translate(2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(3),
+        .toggle-fullscreen-btn:focus path:nth-child(3) {
+            transform: translate(2px, 2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(4),
+        .toggle-fullscreen-btn:focus path:nth-child(4) {
+            transform: translate(-2px, 2px);
+        }
+
+
+        .toggle-fullscreen-btn:not(.on) .icon-fullscreen-leave {
+            display: none;
+        }
+
+        .toggle-fullscreen-btn.on .icon-fullscreen-enter {
+            display: none;
+        }
+    </style>
+
+    <!-- table  -->
+
+    <style>
+        table td {
+            background-color: var(--background-2) !important;
+            color: var(--text) !important;
+        }
+    </style>
+
+    <!-- table 2 -->
+
+    <style>
+        .table2 {
+            font-size: 14px;
+            font-weight: 400;
+            margin-top: 100px;
+        }
+        .table2 input{
+            border-radius: 5px;
+            border: none;
+        }
+        .table2 select{
+            border-radius: 5px;
+            border: none;
+        }
+        .table2 ul{
+            border-radius: 5px;
+            border: none;
+            padding: 5px !important;
+        }
+        .table2 h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+        }
+
+        .form-container {
+            width: 100%;
+            margin: 40px 0;
+        }
+
+        .table {
+            width: 100%;
+            min-width: 960px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: table;
+            font-size: 14px;
+        }
+
+        .table .input-field {
+            float: none;
+            padding: 0 5px;
+            height: 30px;
+            font-size: 14px;
+        }
+
+        .table-row {
+            display: table-row;
+            background: var(--background-2);
+        }
+
+        .table-row:nth-of-type(odd) {
+            background: var(--background-2);
+        }
+
+        .table-row.header {
+            font-weight: 900;
+            color: var(--text);
+            background: var(--background-2);
+        }
+
+        .cell {
+            padding: 8px 12px;
+            display: table-cell;
+        }
+
+        .table ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .table ul li {
+            list-style: none;
+            display: inline-block;
+        }
+
+        .table ul li a {
+            opacity: 0.8;
+            margin-right: 3px;
+            height: 16px;
+            float: left;
+        }
+
+        .table ul li a:hover,
+        .table ul li a:focus {
+            opacity: 1;
+        }
+
+        .table ul li a img {
+            max-width: 16px;
+        }
+
+        .svg-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .svg-icon path,
+        .svg-icon polygon,
+        .svg-icon rect {
+            fill: #1332bf;
+        }
+
+        .svg-icon circle {
+            stroke: #09208a;
+            stroke-width: 1;
+        }
+
+        @media only screen and (max-width: 900px) {
+            .container {
+                padding: 0 50px;
+            }
+
+            .form-container {
+                width: 100%;
+                overflow-x: scroll;
+                overflow-y: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            }
+
+            .table {
+                box-shadow: 0 0 0;
+            }
+        }
+
+        @media only screen and (max-width: 360px) {
+            .container {
+                padding: 0 10px;
+            }
+        }
+    </style>
+
+</head>
+
+<body id="element" style="transition: all .5s ease-in-out;">
+    <header class="text-white d-flex align-items-center p-2 w-100" style="position: fixed; z-index: 1;">
+        <p class="h2 d-sm-block d-none">ADMIN</p>
+        <a class="nav-bar" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars h3 text-white"></i></a>
+
+        <input type="text" class="ms-auto d-lg-block d-none" placeholder="search"
+            style=" border-radius: 20px; padding: 7px 50px 7px 20px; color: black; border: none;">
+
+        <div class="profile d-flex align-items-center gap-3 ms-auto">
+            <img width="40px" class="ms-auto" style="border-radius: 50%; cursor: pointer;" src="images/profile.jpg"
+                alt="">
+            <p class="d-sm-block d-none pt-3">JAY JARSANIYA</p>
+
+            <!-- dark mod -->
+
+            <button type="button" class="darkmode darkmode__button-toggle ms-4" style="margin-right: 50px; transition: all .5s ease-in-out;"></button>
+
+            <!-- full screen button  -->
+
+            <button class="js-toggle-fullscreen-btn toggle-fullscreen-btn pt-2" aria-label="Enter fullscreen mode"
+                hidden>
+                <svg class=" toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
+                    <g class="icon-fullscreen-enter">
+                        <path d="M 2 9 v -7 h 7" />
+                        <path d="M 22 9 v -7 h -7" />
+                        <path d="M 22 15 v 7 h -7" />
+                        <path d="M 2 15 v 7 h 7" />
+                    </g>
+
+                    <g class="icon-fullscreen-leave">
+                        <path d="M 24 17 h -7 v 7" />
+                        <path d="M 0 17 h 7 v 7" />
+                        <path d="M 0 7 h 7 v -7" />
+                        <path d="M 24 7 h -7 v -7" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- offcanvas  -->
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="width: 300px;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white h4" id="offcanvasWithBothOptionsLabel">Admin Panel</h5>
+            <a type="button" class="close-nav" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="fa-solid fa-x text-white h5"></i></a>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flush">
+                <p></p>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-house px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="index.html">Dashbord</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Components</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-palette px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="elements.html">Elements</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-regular fa-calendar px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="calender.html">Calender</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-brands fa-rocketchat px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="chat.html">Chat</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-chart-pie px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="charts.html">Charts</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-cart-shopping px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="ecommerce.html">E-commerce</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Forms and Tables</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-copy px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="form.html">Form & Editor</a>
+                </li>
+                <li class="list-group-item bg-transparent active-background">
+                    <i class="fa-solid fa-tablet px-2 text-white active-backgroundi"></i>
+                    <a class="text-white text-decoration-none active-backgroundi" href="tables.html">Data Table</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">More Pages</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-clipboard px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="feedbackpages.html">Feedback Pages</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-user px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="login.html">login & Register</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-location-dot px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="maps.html">Maps</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <div class="main p-4" style="margin-top: 60px;">
+
+        <div class="table-reponsive box">
+            <table id="example" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011/04/25</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td>Garrett Winters</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>63</td>
+                        <td>2011/07/25</td>
+                        <td>$170,750</td>
+                    </tr>
+                    <tr>
+                        <td>Ashton Cox</td>
+                        <td>Junior Technical Author</td>
+                        <td>San Francisco</td>
+                        <td>66</td>
+                        <td>2009/01/12</td>
+                        <td>$86,000</td>
+                    </tr>
+                    <tr>
+                        <td>Cedric Kelly</td>
+                        <td>Senior Javascript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>22</td>
+                        <td>2012/03/29</td>
+                        <td>$433,060</td>
+                    </tr>
+                    <tr>
+                        <td>Airi Satou</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>33</td>
+                        <td>2008/11/28</td>
+                        <td>$162,700</td>
+                    </tr>
+                    <tr>
+                        <td>Brielle Williamson</td>
+                        <td>Integration Specialist</td>
+                        <td>New York</td>
+                        <td>61</td>
+                        <td>2012/12/02</td>
+                        <td>$372,000</td>
+                    </tr>
+                    <tr>
+                        <td>Herrod Chandler</td>
+                        <td>Sales Assistant</td>
+                        <td>San Francisco</td>
+                        <td>59</td>
+                        <td>2012/08/06</td>
+                        <td>$137,500</td>
+                    </tr>
+                    <tr>
+                        <td>Rhona Davidson</td>
+                        <td>Integration Specialist</td>
+                        <td>Tokyo</td>
+                        <td>55</td>
+                        <td>2010/10/14</td>
+                        <td>$327,900</td>
+                    </tr>
+                    <tr>
+                        <td>Colleen Hurst</td>
+                        <td>Javascript Developer</td>
+                        <td>San Francisco</td>
+                        <td>39</td>
+                        <td>2009/09/15</td>
+                        <td>$205,500</td>
+                    </tr>
+                    <tr>
+                        <td>Sonya Frost</td>
+                        <td>Software Engineer</td>
+                        <td>Edinburgh</td>
+                        <td>23</td>
+                        <td>2008/12/13</td>
+                        <td>$103,600</td>
+                    </tr>
+                    <tr>
+                        <td>Jena Gaines</td>
+                        <td>Office Manager</td>
+                        <td>London</td>
+                        <td>30</td>
+                        <td>2008/12/19</td>
+                        <td>$90,560</td>
+                    </tr>
+                    <tr>
+                        <td>Quinn Flynn</td>
+                        <td>Support Lead</td>
+                        <td>Edinburgh</td>
+                        <td>22</td>
+                        <td>2013/03/03</td>
+                        <td>$342,000</td>
+                    </tr>
+                    <tr>
+                        <td>Charde Marshall</td>
+                        <td>Regional Director</td>
+                        <td>San Francisco</td>
+                        <td>36</td>
+                        <td>2008/10/16</td>
+                        <td>$470,600</td>
+                    </tr>
+                    <tr>
+                        <td>Haley Kennedy</td>
+                        <td>Senior Marketing Designer</td>
+                        <td>London</td>
+                        <td>43</td>
+                        <td>2012/12/18</td>
+                        <td>$313,500</td>
+                    </tr>
+                    <tr>
+                        <td>Tatyana Fitzpatrick</td>
+                        <td>Regional Director</td>
+                        <td>London</td>
+                        <td>19</td>
+                        <td>2010/03/17</td>
+                        <td>$385,750</td>
+                    </tr>
+                    <tr>
+                        <td>Michael Silva</td>
+                        <td>Marketing Designer</td>
+                        <td>London</td>
+                        <td>66</td>
+                        <td>2012/11/27</td>
+                        <td>$198,500</td>
+                    </tr>
+                    <tr>
+                        <td>Paul Byrd</td>
+                        <td>Chief Financial Officer (CFO)</td>
+                        <td>New York</td>
+                        <td>64</td>
+                        <td>2010/06/09</td>
+                        <td>$725,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gloria Little</td>
+                        <td>Systems Administrator</td>
+                        <td>New York</td>
+                        <td>59</td>
+                        <td>2009/04/10</td>
+                        <td>$237,500</td>
+                    </tr>
+                    <tr>
+                        <td>Bradley Greer</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>41</td>
+                        <td>2012/10/13</td>
+                        <td>$132,000</td>
+                    </tr>
+                    <tr>
+                        <td>Dai Rios</td>
+                        <td>Personnel Lead</td>
+                        <td>Edinburgh</td>
+                        <td>35</td>
+                        <td>2012/09/26</td>
+                        <td>$217,500</td>
+                    </tr>
+                    <tr>
+                        <td>Jenette Caldwell</td>
+                        <td>Development Lead</td>
+                        <td>New York</td>
+                        <td>30</td>
+                        <td>2011/09/03</td>
+                        <td>$345,000</td>
+                    </tr>
+                    <tr>
+                        <td>Yuri Berry</td>
+                        <td>Chief Marketing Officer (CMO)</td>
+                        <td>New York</td>
+                        <td>40</td>
+                        <td>2009/06/25</td>
+                        <td>$675,000</td>
+                    </tr>
+                    <tr>
+                        <td>Caesar Vance</td>
+                        <td>Pre-Sales Support</td>
+                        <td>New York</td>
+                        <td>21</td>
+                        <td>2011/12/12</td>
+                        <td>$106,450</td>
+                    </tr>
+                    <tr>
+                        <td>Doris Wilder</td>
+                        <td>Sales Assistant</td>
+                        <td>Sidney</td>
+                        <td>23</td>
+                        <td>2010/09/20</td>
+                        <td>$85,600</td>
+                    </tr>
+                    <tr>
+                        <td>Angelica Ramos</td>
+                        <td>Chief Executive Officer (CEO)</td>
+                        <td>London</td>
+                        <td>47</td>
+                        <td>2009/10/09</td>
+                        <td>$1,200,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gavin Joyce</td>
+                        <td>Developer</td>
+                        <td>Edinburgh</td>
+                        <td>42</td>
+                        <td>2010/12/22</td>
+                        <td>$92,575</td>
+                    </tr>
+                    <tr>
+                        <td>Jennifer Chang</td>
+                        <td>Regional Director</td>
+                        <td>Singapore</td>
+                        <td>28</td>
+                        <td>2010/11/14</td>
+                        <td>$357,650</td>
+                    </tr>
+                    <tr>
+                        <td>Brenden Wagner</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>28</td>
+                        <td>2011/06/07</td>
+                        <td>$206,850</td>
+                    </tr>
+                    <tr>
+                        <td>Fiona Green</td>
+                        <td>Chief Operating Officer (COO)</td>
+                        <td>San Francisco</td>
+                        <td>48</td>
+                        <td>2010/03/11</td>
+                        <td>$850,000</td>
+                    </tr>
+                    <tr>
+                        <td>Shou Itou</td>
+                        <td>Regional Marketing</td>
+                        <td>Tokyo</td>
+                        <td>20</td>
+                        <td>2011/08/14</td>
+                        <td>$163,000</td>
+                    </tr>
+                    <tr>
+                        <td>Michelle House</td>
+                        <td>Integration Specialist</td>
+                        <td>Sidney</td>
+                        <td>37</td>
+                        <td>2011/06/02</td>
+                        <td>$95,400</td>
+                    </tr>
+                    <tr>
+                        <td>Suki Burks</td>
+                        <td>Developer</td>
+                        <td>London</td>
+                        <td>53</td>
+                        <td>2009/10/22</td>
+                        <td>$114,500</td>
+                    </tr>
+                    <tr>
+                        <td>Prescott Bartlett</td>
+                        <td>Technical Author</td>
+                        <td>London</td>
+                        <td>27</td>
+                        <td>2011/05/07</td>
+                        <td>$145,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gavin Cortez</td>
+                        <td>Team Leader</td>
+                        <td>San Francisco</td>
+                        <td>22</td>
+                        <td>2008/10/26</td>
+                        <td>$235,500</td>
+                    </tr>
+                    <tr>
+                        <td>Martena Mccray</td>
+                        <td>Post-Sales support</td>
+                        <td>Edinburgh</td>
+                        <td>46</td>
+                        <td>2011/03/09</td>
+                        <td>$324,050</td>
+                    </tr>
+                    <tr>
+                        <td>Unity Butler</td>
+                        <td>Marketing Designer</td>
+                        <td>San Francisco</td>
+                        <td>47</td>
+                        <td>2009/12/09</td>
+                        <td>$85,675</td>
+                    </tr>
+                    <tr>
+                        <td>Howard Hatfield</td>
+                        <td>Office Manager</td>
+                        <td>San Francisco</td>
+                        <td>51</td>
+                        <td>2008/12/16</td>
+                        <td>$164,500</td>
+                    </tr>
+                    <tr>
+                        <td>Hope Fuentes</td>
+                        <td>Secretary</td>
+                        <td>San Francisco</td>
+                        <td>41</td>
+                        <td>2010/02/12</td>
+                        <td>$109,850</td>
+                    </tr>
+                    <tr>
+                        <td>Vivian Harrell</td>
+                        <td>Financial Controller</td>
+                        <td>San Francisco</td>
+                        <td>62</td>
+                        <td>2009/02/14</td>
+                        <td>$452,500</td>
+                    </tr>
+                    <tr>
+                        <td>Timothy Mooney</td>
+                        <td>Office Manager</td>
+                        <td>London</td>
+                        <td>37</td>
+                        <td>2008/12/11</td>
+                        <td>$136,200</td>
+                    </tr>
+                    <tr>
+                        <td>Jackson Bradshaw</td>
+                        <td>Director</td>
+                        <td>New York</td>
+                        <td>65</td>
+                        <td>2008/09/26</td>
+                        <td>$645,750</td>
+                    </tr>
+                    <tr>
+                        <td>Olivia Liang</td>
+                        <td>Support Engineer</td>
+                        <td>Singapore</td>
+                        <td>64</td>
+                        <td>2011/02/03</td>
+                        <td>$234,500</td>
+                    </tr>
+                    <tr>
+                        <td>Bruno Nash</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>38</td>
+                        <td>2011/05/03</td>
+                        <td>$163,500</td>
+                    </tr>
+                    <tr>
+                        <td>Sakura Yamamoto</td>
+                        <td>Support Engineer</td>
+                        <td>Tokyo</td>
+                        <td>37</td>
+                        <td>2009/08/19</td>
+                        <td>$139,575</td>
+                    </tr>
+                    <tr>
+                        <td>Thor Walton</td>
+                        <td>Developer</td>
+                        <td>New York</td>
+                        <td>61</td>
+                        <td>2013/08/11</td>
+                        <td>$98,540</td>
+                    </tr>
+                    <tr>
+                        <td>Finn Camacho</td>
+                        <td>Support Engineer</td>
+                        <td>San Francisco</td>
+                        <td>47</td>
+                        <td>2009/07/07</td>
+                        <td>$87,500</td>
+                    </tr>
+                    <tr>
+                        <td>Serge Baldwin</td>
+                        <td>Data Coordinator</td>
+                        <td>Singapore</td>
+                        <td>64</td>
+                        <td>2012/04/09</td>
+                        <td>$138,575</td>
+                    </tr>
+                    <tr>
+                        <td>Zenaida Frank</td>
+                        <td>Software Engineer</td>
+                        <td>New York</td>
+                        <td>63</td>
+                        <td>2010/01/04</td>
+                        <td>$125,250</td>
+                    </tr>
+                    <tr>
+                        <td>Zorita Serrano</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>56</td>
+                        <td>2012/06/01</td>
+                        <td>$115,000</td>
+                    </tr>
+                    <tr>
+                        <td>Jennifer Acosta</td>
+                        <td>Junior Javascript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>43</td>
+                        <td>2013/02/01</td>
+                        <td>$75,650</td>
+                    </tr>
+                    <tr>
+                        <td>Cara Stevens</td>
+                        <td>Sales Assistant</td>
+                        <td>New York</td>
+                        <td>46</td>
+                        <td>2011/12/06</td>
+                        <td>$145,600</td>
+                    </tr>
+                    <tr>
+                        <td>Hermione Butler</td>
+                        <td>Regional Director</td>
+                        <td>London</td>
+                        <td>47</td>
+                        <td>2011/03/21</td>
+                        <td>$356,250</td>
+                    </tr>
+                    <tr>
+                        <td>Lael Greer</td>
+                        <td>Systems Administrator</td>
+                        <td>London</td>
+                        <td>21</td>
+                        <td>2009/02/27</td>
+                        <td>$103,500</td>
+                    </tr>
+                    <tr>
+                        <td>Jonas Alexander</td>
+                        <td>Developer</td>
+                        <td>San Francisco</td>
+                        <td>30</td>
+                        <td>2010/07/14</td>
+                        <td>$86,500</td>
+                    </tr>
+                    <tr>
+                        <td>Shad Decker</td>
+                        <td>Regional Director</td>
+                        <td>Edinburgh</td>
+                        <td>51</td>
+                        <td>2008/11/13</td>
+                        <td>$183,000</td>
+                    </tr>
+                    <tr>
+                        <td>Michael Bruce</td>
+                        <td>Javascript Developer</td>
+                        <td>Singapore</td>
+                        <td>29</td>
+                        <td>2011/06/27</td>
+                        <td>$183,000</td>
+                    </tr>
+                    <tr>
+                        <td>Donna Snider</td>
+                        <td>Customer Support</td>
+                        <td>New York</td>
+                        <td>27</td>
+                        <td>2011/01/25</td>
+                        <td>$112,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- table 2  -->
+
+        <div class="container-fluid table2">
+            <div class="form-container">
+                <div class="table">
+
+                    <div class="table-row header">
+                        <div class="cell">Courier ID</div>
+                        <div class="cell">Items</div>
+                        <div class="cell">Airway Bill no</div>
+                        <div class="cell">Airway Bill date</div>
+                        <div class="cell">Courier</div>
+                        <div class="cell">Action</div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">10245628512</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">54781456644</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">10245628512</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">54781456644</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">10245628512</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">54781456644</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">10245628512</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">54781456644</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">10245628512</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="cell" data-title="Patient ID">54781456644</div>
+                        <div class="cell" data-title="Items applied for">DBP2, DBP3, ABCD1, CDEF</div>
+                        <div class="cell" data-title="Airway Bill no">
+                            <input type="text" placeholder="Ex: AWNO7841W" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Airway Bill date">
+                            <input type="date" class="input-field">
+                        </div>
+                        <div class="cell" data-title="Courier">
+                            <select class="input-field">
+                                <option value="Select">Select</option>
+                                <option value="Trackon">Trackon</option>
+                                <option value="DTDC">DTDC</option>
+                                <option value="DHL">DHL</option>
+                            </select>
+                        </div>
+                        <div class="cell" data-title="Action">
+                            <ul>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z">
+                                            </path>
+                                            <circle fill="none" cx="9.98" cy="9.446" r="1.629"></circle>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href=""><svg class="svg-icon" viewBox="0 0 20 20">
+                                            <path fill="none"
+                                                d="M17.051,3.302H2.949c-0.866,0-1.567,0.702-1.567,1.567v10.184c0,0.865,0.701,1.568,1.567,1.568h14.102c0.865,0,1.566-0.703,1.566-1.568V4.869C18.617,4.003,17.916,3.302,17.051,3.302z M17.834,15.053c0,0.434-0.35,0.783-0.783,0.783H2.949c-0.433,0-0.784-0.35-0.784-0.783V4.869c0-0.433,0.351-0.784,0.784-0.784h14.102c0.434,0,0.783,0.351,0.783,0.784V15.053zM15.877,5.362L10,9.179L4.123,5.362C3.941,5.245,3.699,5.296,3.581,5.477C3.463,5.659,3.515,5.901,3.696,6.019L9.61,9.86C9.732,9.939,9.879,9.935,10,9.874c0.121,0.062,0.268,0.065,0.39-0.014l5.915-3.841c0.18-0.118,0.232-0.36,0.115-0.542C16.301,5.296,16.059,5.245,15.877,5.362z">
+                                            </path>
+                                        </svg></a></li>
+                                <li><a href="">Update</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- jquery for nav  -->
+
+    <script>
+        $(".nav-bar").click(() => {
+            $(".main").css({
+                "width": "calc(100% - 300px)",
+                "margin-left": "300px",
+                "transition": "all .6s linear"
+            });
+        })
+        $(".close-nav").click(() => {
+            $(".main").css({
+                "width": "100%",
+                "margin-left": "0px",
+                "transition": "all .6s linear"
+            });
+        })
+    </script>
+
+    <!-- dark button  -->
+
+    <script>
+            /* Dark Mode - https://github.com/Powza/darkmode */
+
+            (function () {
+                function DarkMode(options = {}) {
+                    // Define defaults
+                    const darkMode = {
+                        default: options.default || "system", // system | dark | light
+                        selector: options.selector || ".darkmode", // Toggle selector class or id
+                        storageKey: options.storageKey || "theme", // Set a localStorage key name
+                        resetStorage: options.resetStorage || false, // Reset localStorage
+                        dynamicAdjust: options.dynamicAdjust || false, // Will override default start light then switch to dark between time. 24 hour time.
+                        dynamicAdjustStartHour: options.dynamicAdjustStartHour || 18, // Start dark theme at hour 18
+                        dynamicAdjustEndHour: options.dynamicAdjustEndHour || 6 // End dark them at hour 6
+                    };
+
+                    const rootElement = document.documentElement;
+                    let defaultThemeMode = darkMode.default;
+                    const localStorageKey = darkMode.storageKey;
+                    dynamicAdjustTheme(darkMode.dynamicAdjust);
+
+                    const theme = localStorage.getItem(localStorageKey) || defaultThemeMode;
+                    rootElement.setAttribute("theme", theme);
+
+                    function saveUserPreference(userPreference) {
+                        localStorage.setItem(localStorageKey, userPreference);
+                    }
+
+                    // Dynamic adjust theme based on time
+                    function dynamicAdjustTheme(option) {
+                        if (option) {
+                            const currentHour = new Date().getHours();
+                            // Check if the current hour is between 18 and 6
+                            defaultThemeMode =
+                                currentHour >= darkMode.dynamicAdjustStartHour ||
+                                    currentHour < darkMode.dynamicAdjustEndHour
+                                    ? "dark"
+                                    : "light";
+                        }
+                    }
+                    // Reset localStorage
+                    function resetStorage(option) {
+                        if (option) {
+                            localStorage.removeItem(localStorageKey);
+                        }
+                    }
+
+                    function getThemeMode(userPreference) {
+                        if (userPreference === "light") {
+                            return "light";
+                        }
+                        if (userPreference === "dark") {
+                            return "dark";
+                        }
+                        if (matchMedia("(prefers-color-scheme: light)").matches) {
+                            return "light";
+                        } else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+                            return "dark";
+                        }
+                    }
+
+                    function setThemeMode(mode) {
+                        rootElement.setAttribute("theme-mode", mode);
+                    }
+
+                    function setTheme(mode) {
+                        rootElement.setAttribute("theme", mode);
+                    }
+
+                    function rotatePreferences(userPreference) {
+                        const nextPreference = {
+                            system: "light",
+                            light: "dark",
+                            dark: "light"
+                        };
+                        return nextPreference[userPreference] || "system";
+                    }
+
+                    function nameSelection(userPreference) {
+                        const preferences = {
+                            system: "System",
+                            light: "Light",
+                            dark: "Dark"
+                        };
+                        return preferences[userPreference] || preferences.system;
+                    }
+
+                    let userPreference = theme;
+                    const systemThemeMode = getThemeMode("system");
+                    if (userPreference === "system") {
+                        userPreference = systemThemeMode;
+                    }
+                    setThemeMode(getThemeMode(userPreference));
+
+                    // Toggle dark/light mode
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const themeToggler = document.querySelectorAll(darkMode.selector);
+                        resetStorage(options.resetStorage || false);
+
+                        themeToggler.forEach((button) => {
+                            button.classList.add(
+                                "darkmode-" + nameSelection(userPreference).toLowerCase()
+                            );
+
+                            button.onclick = () => {
+                                let newUserPref = rotatePreferences(userPreference);
+                                if (userPreference === "system") {
+                                    newUserPref = getThemeMode("system");
+                                }
+
+                                // Remove the class associated with the current userPreference
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.remove(
+                                        "darkmode-" + nameSelection(userPreference).toLowerCase()
+                                    );
+                                });
+
+                                // Add the class for the new userPreference to all buttons
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.add("darkmode-" + nameSelection(newUserPref).toLowerCase());
+                                });
+
+                                userPreference = newUserPref;
+                                saveUserPreference(newUserPref);
+                                setThemeMode(getThemeMode(newUserPref));
+                                setTheme(newUserPref);
+                            };
+                        });
+                    });
+                }
+                window.DarkMode = DarkMode;
+            })();
+
+        /* Initialize Darkmode - All options shown */
+        const darkMode = new DarkMode({
+            default: "system",
+            selector: ".darkmode",
+            storageKey: "theme",
+            resetStorage: false,
+            dynamicAdjust: false,
+            dynamicAdjustStartHour: 18,
+            dynamicAdjustEndHour: 6
+        });
+
+    </script>
+
+    <!-- full screen button  -->
+
+    <script>
+
+        if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+            const toggleBtn = document.querySelector('.js-toggle-fullscreen-btn');
+
+            const styleEl = document.createElement('link');
+            styleEl.setAttribute('rel', 'stylesheet');
+            styleEl.setAttribute('href', 'https://codepen.io/tiggr/pen/poJoLyW.css');
+            styleEl.addEventListener('load', function () {
+                toggleBtn.hidden = false;
+            });
+            document.head.appendChild(styleEl);
+
+            toggleBtn.addEventListener('click', function () {
+                if (document.fullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitFullscreenElement) {
+                    document.webkitCancelFullScreen()
+                } else if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.documentElement.webkitRequestFullScreen();
+                }
+            });
+
+            document.addEventListener('fullscreenchange', handleFullscreen);
+            document.addEventListener('webkitfullscreenchange', handleFullscreen);
+
+
+            function handleFullscreen() {
+                if (document.fullscreen || document.webkitFullscreenElement) {
+                    toggleBtn.classList.add('on');
+                    toggleBtn.setAttribute('aria-label', 'Exit fullscreen mode');
+                } else {
+                    toggleBtn.classList.remove('on');
+                    toggleBtn.setAttribute('aria-label', 'Enter fullscreen mode');
+                }
+            }
+        }
+
+    </script>
+
+    <!-- table  -->
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
+</body>
+
+</html>

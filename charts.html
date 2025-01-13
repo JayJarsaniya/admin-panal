@@ -1,0 +1,3194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel || Charts</title>
+
+    <!-- css and js link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- font awesome  -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- jquery cdn  -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- chart  -->
+
+    <script src="//www.amcharts.com/lib/3/ammap.js"></script>
+    <script src="//www.amcharts.com/lib/3/maps/js/continentsLow.js"></script>
+    <script src="//www.amcharts.com/lib/3/themes/black.js"></script>
+    <script src="//www.amcharts.com/lib/box2d/Box2dWeb-2.1.a.3.min.js"></script>
+
+    <!-- chart 2 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script src="https://codepen.io/grayghostvisuals/pen/a08e0d79c150ff5030f9b6afaa137749.js"></script>
+
+    <!-- chart 3 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+    <style>
+        /* full screen  */
+
+        .element:fullscreen {
+            background-color: #e4708a;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .icon-fullscreen-enter path {
+            stroke: white !important;
+        }
+
+        .icon-fullscreen-leave path {
+            stroke: white !important;
+        }
+
+        .offcanvas-body li a {
+            padding-right: 30%;
+        }
+
+        /* active  */
+
+        .active-background {
+            background-color: white !important;
+            border-radius: 20px 20px 20px 20px;
+        }
+
+        .active-backgroundi {
+            color: black !important;
+        }
+
+        .list-group-item {
+            border: none;
+        }
+
+        .list-group-item:hover {
+            transition: all .4s linear;
+            background-color: white !important;
+            border-radius: 20px;
+        }
+
+        .list-group-item:hover a {
+            color: black !important;
+        }
+
+        .list-group-item:hover i {
+            color: black !important;
+        }
+
+        body {
+            background-color: #181f39;
+        }
+
+        header {
+            background-color: #202a4d;
+        }
+
+        .offcanvas {
+            background-color: #202a4d;
+            transition: all 0.6s ease-in-out;
+        }
+
+        /* dark button  */
+
+        :root {
+            --text: #000;
+            --background: #ecf5ff;
+            --background-2: #fff;
+            --border: black;
+        }
+
+        :root[theme=dark] {
+            --text: #fff;
+            --background: #181f39;
+            --background-2: #202a4d;
+            --border: white;
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-moon' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root[theme=system] {
+                --text: #fff;
+                --background: #222831;
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:%23fff'/%3E%3C/svg%3E");
+            }
+        }
+
+        :root[theme=light] {
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='orange' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-sun' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root[theme=system] {
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:black'/%3E%3C/svg%3E");
+            }
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .darkmode__button-toggle {
+            border: none;
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-color: var(--background);
+        }
+
+        .darkmode__button-toggle:after {
+            height: 32px;
+            width: 32px;
+            margin: 8px;
+            content: "";
+            border-radius: 25px;
+            background-image: var(--dark-mode-toggle);
+        }
+
+        header a {
+            margin-left: 150px;
+        }
+
+        @media screen and (max-width: 576px) {
+            header a {
+                margin-left: 0px;
+            }
+        }
+
+        /* full screen button  */
+
+        .toggle-fullscreen-btn {
+            position: fixed;
+            z-index: 10000;
+            top: 10px;
+            right: 10px;
+            border: 0;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+
+        .toggle-fullscreen-svg {
+            display: block;
+            height: auto;
+        }
+
+        .toggle-fullscreen-svg path {
+            transform-box: view-box;
+            transform-origin: 12px 12px;
+            fill: none;
+            stroke: hsl(225, 10%, 8%);
+            stroke-width: 4;
+            transition: .15s;
+        }
+
+
+        .toggle-fullscreen-btn:hover path:nth-child(1),
+        .toggle-fullscreen-btn:focus path:nth-child(1) {
+            transform: translate(-2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(2),
+        .toggle-fullscreen-btn:focus path:nth-child(2) {
+            transform: translate(2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(3),
+        .toggle-fullscreen-btn:focus path:nth-child(3) {
+            transform: translate(2px, 2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(4),
+        .toggle-fullscreen-btn:focus path:nth-child(4) {
+            transform: translate(-2px, 2px);
+        }
+
+
+        .toggle-fullscreen-btn:not(.on) .icon-fullscreen-leave {
+            display: none;
+        }
+
+        .toggle-fullscreen-btn.on .icon-fullscreen-enter {
+            display: none;
+        }
+    </style>
+
+    <!-- chart  -->
+
+    <style>
+        @import url(//fonts.googleapis.com/css?family=Lato:400);
+
+        .description {
+            color: #aaa;
+            font-size: 0.8em;
+        }
+
+        #chartdiv a:visited,
+        #chartdiv a:active,
+        #chartdiv a {
+            color: #aaa;
+            text-decoration: underline;
+        }
+
+        #chartdiv a:hover {
+            color: #FFF;
+            text-decoration: underline;
+        }
+
+        .btn {
+            -webkit-border-radius: 3;
+            -moz-border-radius: 3;
+            border: 0;
+            border-radius: 3px;
+            color: #ffffff;
+            font-size: 15px;
+            background: #3d5296;
+            padding: 10px 20px 10px 20px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #4462c6;
+            text-decoration: none;
+        }
+
+        .amcharts-map-image:hover {
+            filter: url(#blur);
+        }
+
+        .chart a {
+            display: none !important;
+        }
+    </style>
+
+    <!-- chart 1 -->
+
+    <style>
+        .wrapper {
+            display: block;
+            border: 2px solid var(--text);
+            border-radius: 20px;
+            width: auto;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+            background: var(--background-2);
+            font-family: Courier, monospace;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .wrapper p {
+            text-align: center;
+        }
+
+        .label {
+            height: 1em;
+            padding: .3em;
+            background: rgba(255, 255, 255, .8);
+            position: absolute;
+            display: none;
+            color: #333;
+        }
+    </style>
+
+    <!-- chart 2 -->
+
+    <style>
+        .line-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: var(--background-2);
+            border-radius: 20px;
+            border: 2px solid var(--text);
+        }
+
+        .line-chart {
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .line-chart {
+            animation: fadeIn 600ms cubic-bezier(0.57, 0.25, 0.65, 1) 1 forwards;
+            opacity: 0;
+            max-width: 640px;
+            width: 100%;
+        }
+
+        .aspect-ratio {
+            height: 0;
+            padding-bottom: 50%;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body id="element" style="transition: all .5s ease-in-out;">
+    <header class="text-white d-flex align-items-center p-2 w-100" style="position: fixed; z-index: 1;">
+        <p class="h2 d-sm-block d-none">ADMIN</p>
+        <a class="nav-bar" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars h3 text-white"></i></a>
+
+        <input type="text" class="ms-auto d-lg-block d-none" placeholder="search"
+            style=" border-radius: 20px; padding: 7px 50px 7px 20px; color: black; border: none;">
+
+        <div class="profile d-flex align-items-center gap-3 ms-auto">
+            <img width="40px" class="ms-auto" style="border-radius: 50%; cursor: pointer;" src="images/profile.jpg"
+                alt="">
+            <p class="d-sm-block d-none pt-3">JAY JARSANIYA</p>
+
+            <!-- dark mod -->
+
+            <button type="button" class="darkmode darkmode__button-toggle ms-4"
+                style="margin-right: 50px; transition: all .5s ease-in-out;"></button>
+
+            <!-- full screen button  -->
+
+            <button class="js-toggle-fullscreen-btn toggle-fullscreen-btn pt-2" aria-label="Enter fullscreen mode"
+                hidden>
+                <svg class=" toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
+                    <g class="icon-fullscreen-enter">
+                        <path d="M 2 9 v -7 h 7" />
+                        <path d="M 22 9 v -7 h -7" />
+                        <path d="M 22 15 v 7 h -7" />
+                        <path d="M 2 15 v 7 h 7" />
+                    </g>
+
+                    <g class="icon-fullscreen-leave">
+                        <path d="M 24 17 h -7 v 7" />
+                        <path d="M 0 17 h 7 v 7" />
+                        <path d="M 0 7 h 7 v -7" />
+                        <path d="M 24 7 h -7 v -7" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- offcanvas  -->
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="width: 300px;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white h4" id="offcanvasWithBothOptionsLabel">Admin Panel</h5>
+            <a type="button" class="close-nav" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="fa-solid fa-x text-white h5"></i></a>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flush">
+                <p></p>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-house px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="index.html">Dashbord</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Components</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-palette px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="elements.html">Elements</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-regular fa-calendar px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="calender.html">Calender</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-brands fa-rocketchat px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="chat.html">Chat</a>
+                </li>
+                <li class="list-group-item bg-transparent active-background">
+                    <i class="fa-solid fa-chart-pie px-2 text-white active-backgroundi"></i>
+                    <a class="text-white text-decoration-none active-backgroundi" href="charts.html">Charts</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-cart-shopping px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="ecommerce.html">E-commerce</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Forms and Tables</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-copy px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="form.html">Form & Editor</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-tablet px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="tables.html">Data Table</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">More Pages</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-clipboard px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="feedbackpages.html">Feedback Pages</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-user px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="login.html">login & Register</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-location-dot px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="maps.html">Maps</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <div class="main p-4" style="margin-top: 60px;">
+
+        <!-- chart  -->
+
+        <div class="container-xl chart">
+            <div id="chartdiv" style="width: 100%; height: 600px; margin:auto"></div>
+
+            <div style="text-align:center">
+                <input type="button" class="btn" value="Release bubbles" onclick="releaseBubbles()" />
+                <input type="button" class="btn" value="Attach bubbles" onclick="attachBubbles()" />
+            </div>
+        </div>
+
+        <div class="main-chart d-xl-flex f-block gap-4 mt-5">
+
+            <!-- chart 1 -->
+
+            <div class="wrapper container-fluid">
+                <canvas id='c'></canvas>
+                <div class="label">text</div>
+            </div>
+
+            <!-- chart 2 -->
+
+            <div class="line-chart w-100">
+                <div class="aspect-ratio" style="width: 100%;">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- jquery for nav  -->
+
+    <script>
+        $(".nav-bar").click(() => {
+            $(".main").css({
+                "width": "calc(100% - 300px)",
+                "margin-left": "300px",
+                "transition": "all .6s linear"
+            });
+        })
+        $(".close-nav").click(() => {
+            $(".main").css({
+                "width": "100%",
+                "margin-left": "0px",
+                "transition": "all .6s linear"
+            });
+        })
+    </script>
+
+    <!-- dark button  -->
+
+    <script>
+            /* Dark Mode - https://github.com/Powza/darkmode */
+
+            (function () {
+                function DarkMode(options = {}) {
+                    // Define defaults
+                    const darkMode = {
+                        default: options.default || "system", // system | dark | light
+                        selector: options.selector || ".darkmode", // Toggle selector class or id
+                        storageKey: options.storageKey || "theme", // Set a localStorage key name
+                        resetStorage: options.resetStorage || false, // Reset localStorage
+                        dynamicAdjust: options.dynamicAdjust || false, // Will override default start light then switch to dark between time. 24 hour time.
+                        dynamicAdjustStartHour: options.dynamicAdjustStartHour || 18, // Start dark theme at hour 18
+                        dynamicAdjustEndHour: options.dynamicAdjustEndHour || 6 // End dark them at hour 6
+                    };
+
+                    const rootElement = document.documentElement;
+                    let defaultThemeMode = darkMode.default;
+                    const localStorageKey = darkMode.storageKey;
+                    dynamicAdjustTheme(darkMode.dynamicAdjust);
+
+                    const theme = localStorage.getItem(localStorageKey) || defaultThemeMode;
+                    rootElement.setAttribute("theme", theme);
+
+                    function saveUserPreference(userPreference) {
+                        localStorage.setItem(localStorageKey, userPreference);
+                    }
+
+                    // Dynamic adjust theme based on time
+                    function dynamicAdjustTheme(option) {
+                        if (option) {
+                            const currentHour = new Date().getHours();
+                            // Check if the current hour is between 18 and 6
+                            defaultThemeMode =
+                                currentHour >= darkMode.dynamicAdjustStartHour ||
+                                    currentHour < darkMode.dynamicAdjustEndHour
+                                    ? "dark"
+                                    : "light";
+                        }
+                    }
+                    // Reset localStorage
+                    function resetStorage(option) {
+                        if (option) {
+                            localStorage.removeItem(localStorageKey);
+                        }
+                    }
+
+                    function getThemeMode(userPreference) {
+                        if (userPreference === "light") {
+                            return "light";
+                        }
+                        if (userPreference === "dark") {
+                            return "dark";
+                        }
+                        if (matchMedia("(prefers-color-scheme: light)").matches) {
+                            return "light";
+                        } else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+                            return "dark";
+                        }
+                    }
+
+                    function setThemeMode(mode) {
+                        rootElement.setAttribute("theme-mode", mode);
+                    }
+
+                    function setTheme(mode) {
+                        rootElement.setAttribute("theme", mode);
+                    }
+
+                    function rotatePreferences(userPreference) {
+                        const nextPreference = {
+                            system: "light",
+                            light: "dark",
+                            dark: "light"
+                        };
+                        return nextPreference[userPreference] || "system";
+                    }
+
+                    function nameSelection(userPreference) {
+                        const preferences = {
+                            system: "System",
+                            light: "Light",
+                            dark: "Dark"
+                        };
+                        return preferences[userPreference] || preferences.system;
+                    }
+
+                    let userPreference = theme;
+                    const systemThemeMode = getThemeMode("system");
+                    if (userPreference === "system") {
+                        userPreference = systemThemeMode;
+                    }
+                    setThemeMode(getThemeMode(userPreference));
+
+                    // Toggle dark/light mode
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const themeToggler = document.querySelectorAll(darkMode.selector);
+                        resetStorage(options.resetStorage || false);
+
+                        themeToggler.forEach((button) => {
+                            button.classList.add(
+                                "darkmode-" + nameSelection(userPreference).toLowerCase()
+                            );
+
+                            button.onclick = () => {
+                                let newUserPref = rotatePreferences(userPreference);
+                                if (userPreference === "system") {
+                                    newUserPref = getThemeMode("system");
+                                }
+
+                                // Remove the class associated with the current userPreference
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.remove(
+                                        "darkmode-" + nameSelection(userPreference).toLowerCase()
+                                    );
+                                });
+
+                                // Add the class for the new userPreference to all buttons
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.add("darkmode-" + nameSelection(newUserPref).toLowerCase());
+                                });
+
+                                userPreference = newUserPref;
+                                saveUserPreference(newUserPref);
+                                setThemeMode(getThemeMode(newUserPref));
+                                setTheme(newUserPref);
+                            };
+                        });
+                    });
+                }
+                window.DarkMode = DarkMode;
+            })();
+
+        /* Initialize Darkmode - All options shown */
+        const darkMode = new DarkMode({
+            default: "system",
+            selector: ".darkmode",
+            storageKey: "theme",
+            resetStorage: false,
+            dynamicAdjust: false,
+            dynamicAdjustStartHour: 18,
+            dynamicAdjustEndHour: 6
+        });
+
+    </script>
+
+    <!-- full screen button  -->
+
+    <script>
+
+        if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+            const toggleBtn = document.querySelector('.js-toggle-fullscreen-btn');
+
+            const styleEl = document.createElement('link');
+            styleEl.setAttribute('rel', 'stylesheet');
+            styleEl.setAttribute('href', 'https://codepen.io/tiggr/pen/poJoLyW.css');
+            styleEl.addEventListener('load', function () {
+                toggleBtn.hidden = false;
+            });
+            document.head.appendChild(styleEl);
+
+            toggleBtn.addEventListener('click', function () {
+                if (document.fullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitFullscreenElement) {
+                    document.webkitCancelFullScreen()
+                } else if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.documentElement.webkitRequestFullScreen();
+                }
+            });
+
+            document.addEventListener('fullscreenchange', handleFullscreen);
+            document.addEventListener('webkitfullscreenchange', handleFullscreen);
+
+
+            function handleFullscreen() {
+                if (document.fullscreen || document.webkitFullscreenElement) {
+                    toggleBtn.classList.add('on');
+                    toggleBtn.setAttribute('aria-label', 'Exit fullscreen mode');
+                } else {
+                    toggleBtn.classList.remove('on');
+                    toggleBtn.setAttribute('aria-label', 'Enter fullscreen mode');
+                }
+            }
+        }
+
+    </script>
+
+    <!-- chart  -->
+
+    <script>
+
+        var latlong = {};
+        latlong["AD"] = {
+            "latitude": 42.5,
+            "longitude": 1.5
+        };
+        latlong["AE"] = {
+            "latitude": 24,
+            "longitude": 54
+        };
+        latlong["AF"] = {
+            "latitude": 33,
+            "longitude": 65
+        };
+        latlong["AG"] = {
+            "latitude": 17.05,
+            "longitude": -61.8
+        };
+        latlong["AI"] = {
+            "latitude": 18.25,
+            "longitude": -63.1667
+        };
+        latlong["AL"] = {
+            "latitude": 41,
+            "longitude": 20
+        };
+        latlong["AM"] = {
+            "latitude": 40,
+            "longitude": 45
+        };
+        latlong["AN"] = {
+            "latitude": 12.25,
+            "longitude": -68.75
+        };
+        latlong["AO"] = {
+            "latitude": -12.5,
+            "longitude": 18.5
+        };
+        latlong["AP"] = {
+            "latitude": 35,
+            "longitude": 105
+        };
+        latlong["AQ"] = {
+            "latitude": -90,
+            "longitude": 0
+        };
+        latlong["AR"] = {
+            "latitude": -34,
+            "longitude": -64
+        };
+        latlong["AS"] = {
+            "latitude": -14.3333,
+            "longitude": -170
+        };
+        latlong["AT"] = {
+            "latitude": 47.3333,
+            "longitude": 13.3333
+        };
+        latlong["AU"] = {
+            "latitude": -27,
+            "longitude": 133
+        };
+        latlong["AW"] = {
+            "latitude": 12.5,
+            "longitude": -69.9667
+        };
+        latlong["AZ"] = {
+            "latitude": 40.5,
+            "longitude": 47.5
+        };
+        latlong["BA"] = {
+            "latitude": 44,
+            "longitude": 18
+        };
+        latlong["BB"] = {
+            "latitude": 13.1667,
+            "longitude": -59.5333
+        };
+        latlong["BD"] = {
+            "latitude": 24,
+            "longitude": 90
+        };
+        latlong["BE"] = {
+            "latitude": 50.8333,
+            "longitude": 4
+        };
+        latlong["BF"] = {
+            "latitude": 13,
+            "longitude": -2
+        };
+        latlong["BG"] = {
+            "latitude": 43,
+            "longitude": 25
+        };
+        latlong["BH"] = {
+            "latitude": 26,
+            "longitude": 50.55
+        };
+        latlong["BI"] = {
+            "latitude": -3.5,
+            "longitude": 30
+        };
+        latlong["BJ"] = {
+            "latitude": 9.5,
+            "longitude": 2.25
+        };
+        latlong["BM"] = {
+            "latitude": 32.3333,
+            "longitude": -64.75
+        };
+        latlong["BN"] = {
+            "latitude": 4.5,
+            "longitude": 114.6667
+        };
+        latlong["BO"] = {
+            "latitude": -17,
+            "longitude": -65
+        };
+        latlong["BR"] = {
+            "latitude": -10,
+            "longitude": -55
+        };
+        latlong["BS"] = {
+            "latitude": 24.25,
+            "longitude": -76
+        };
+        latlong["BT"] = {
+            "latitude": 27.5,
+            "longitude": 90.5
+        };
+        latlong["BV"] = {
+            "latitude": -54.4333,
+            "longitude": 3.4
+        };
+        latlong["BW"] = {
+            "latitude": -22,
+            "longitude": 24
+        };
+        latlong["BY"] = {
+            "latitude": 53,
+            "longitude": 28
+        };
+        latlong["BZ"] = {
+            "latitude": 17.25,
+            "longitude": -88.75
+        };
+        latlong["CA"] = {
+            "latitude": 54,
+            "longitude": -100
+        };
+        latlong["CC"] = {
+            "latitude": -12.5,
+            "longitude": 96.8333
+        };
+        latlong["CD"] = {
+            "latitude": 0,
+            "longitude": 25
+        };
+        latlong["CF"] = {
+            "latitude": 7,
+            "longitude": 21
+        };
+        latlong["CG"] = {
+            "latitude": -1,
+            "longitude": 15
+        };
+        latlong["CH"] = {
+            "latitude": 47,
+            "longitude": 8
+        };
+        latlong["CI"] = {
+            "latitude": 8,
+            "longitude": -5
+        };
+        latlong["CK"] = {
+            "latitude": -21.2333,
+            "longitude": -159.7667
+        };
+        latlong["CL"] = {
+            "latitude": -30,
+            "longitude": -71
+        };
+        latlong["CM"] = {
+            "latitude": 6,
+            "longitude": 12
+        };
+        latlong["CN"] = {
+            "latitude": 35,
+            "longitude": 105
+        };
+        latlong["CO"] = {
+            "latitude": 4,
+            "longitude": -72
+        };
+        latlong["CR"] = {
+            "latitude": 10,
+            "longitude": -84
+        };
+        latlong["CU"] = {
+            "latitude": 21.5,
+            "longitude": -80
+        };
+        latlong["CV"] = {
+            "latitude": 16,
+            "longitude": -24
+        };
+        latlong["CX"] = {
+            "latitude": -10.5,
+            "longitude": 105.6667
+        };
+        latlong["CY"] = {
+            "latitude": 35,
+            "longitude": 33
+        };
+        latlong["CZ"] = {
+            "latitude": 49.75,
+            "longitude": 15.5
+        };
+        latlong["DE"] = {
+            "latitude": 51,
+            "longitude": 9
+        };
+        latlong["DJ"] = {
+            "latitude": 11.5,
+            "longitude": 43
+        };
+        latlong["DK"] = {
+            "latitude": 56,
+            "longitude": 10
+        };
+        latlong["DM"] = {
+            "latitude": 15.4167,
+            "longitude": -61.3333
+        };
+        latlong["DO"] = {
+            "latitude": 19,
+            "longitude": -70.6667
+        };
+        latlong["DZ"] = {
+            "latitude": 28,
+            "longitude": 3
+        };
+        latlong["EC"] = {
+            "latitude": -2,
+            "longitude": -77.5
+        };
+        latlong["EE"] = {
+            "latitude": 59,
+            "longitude": 26
+        };
+        latlong["EG"] = {
+            "latitude": 27,
+            "longitude": 30
+        };
+        latlong["EH"] = {
+            "latitude": 24.5,
+            "longitude": -13
+        };
+        latlong["ER"] = {
+            "latitude": 15,
+            "longitude": 39
+        };
+        latlong["ES"] = {
+            "latitude": 40,
+            "longitude": -4
+        };
+        latlong["ET"] = {
+            "latitude": 8,
+            "longitude": 38
+        };
+        latlong["EU"] = {
+            "latitude": 47,
+            "longitude": 8
+        };
+        latlong["FI"] = {
+            "latitude": 62,
+            "longitude": 26
+        };
+        latlong["FJ"] = {
+            "latitude": -18,
+            "longitude": 175
+        };
+        latlong["FK"] = {
+            "latitude": -51.75,
+            "longitude": -59
+        };
+        latlong["FM"] = {
+            "latitude": 6.9167,
+            "longitude": 158.25
+        };
+        latlong["FO"] = {
+            "latitude": 62,
+            "longitude": -7
+        };
+        latlong["FR"] = {
+            "latitude": 46,
+            "longitude": 2
+        };
+        latlong["GA"] = {
+            "latitude": -1,
+            "longitude": 11.75
+        };
+        latlong["GB"] = {
+            "latitude": 54,
+            "longitude": -2
+        };
+        latlong["GD"] = {
+            "latitude": 12.1167,
+            "longitude": -61.6667
+        };
+        latlong["GE"] = {
+            "latitude": 42,
+            "longitude": 43.5
+        };
+        latlong["GF"] = {
+            "latitude": 4,
+            "longitude": -53
+        };
+        latlong["GH"] = {
+            "latitude": 8,
+            "longitude": -2
+        };
+        latlong["GI"] = {
+            "latitude": 36.1833,
+            "longitude": -5.3667
+        };
+        latlong["GL"] = {
+            "latitude": 72,
+            "longitude": -40
+        };
+        latlong["GM"] = {
+            "latitude": 13.4667,
+            "longitude": -16.5667
+        };
+        latlong["GN"] = {
+            "latitude": 11,
+            "longitude": -10
+        };
+        latlong["GP"] = {
+            "latitude": 16.25,
+            "longitude": -61.5833
+        };
+        latlong["GQ"] = {
+            "latitude": 2,
+            "longitude": 10
+        };
+        latlong["GR"] = {
+            "latitude": 39,
+            "longitude": 22
+        };
+        latlong["GS"] = {
+            "latitude": -54.5,
+            "longitude": -37
+        };
+        latlong["GT"] = {
+            "latitude": 15.5,
+            "longitude": -90.25
+        };
+        latlong["GU"] = {
+            "latitude": 13.4667,
+            "longitude": 144.7833
+        };
+        latlong["GW"] = {
+            "latitude": 12,
+            "longitude": -15
+        };
+        latlong["GY"] = {
+            "latitude": 5,
+            "longitude": -59
+        };
+        latlong["HK"] = {
+            "latitude": 22.25,
+            "longitude": 114.1667
+        };
+        latlong["HM"] = {
+            "latitude": -53.1,
+            "longitude": 72.5167
+        };
+        latlong["HN"] = {
+            "latitude": 15,
+            "longitude": -86.5
+        };
+        latlong["HR"] = {
+            "latitude": 45.1667,
+            "longitude": 15.5
+        };
+        latlong["HT"] = {
+            "latitude": 19,
+            "longitude": -72.4167
+        };
+        latlong["HU"] = {
+            "latitude": 47,
+            "longitude": 20
+        };
+        latlong["ID"] = {
+            "latitude": -5,
+            "longitude": 120
+        };
+        latlong["IE"] = {
+            "latitude": 53,
+            "longitude": -8
+        };
+        latlong["IL"] = {
+            "latitude": 31.5,
+            "longitude": 34.75
+        };
+        latlong["IN"] = {
+            "latitude": 20,
+            "longitude": 77
+        };
+        latlong["IO"] = {
+            "latitude": -6,
+            "longitude": 71.5
+        };
+        latlong["IQ"] = {
+            "latitude": 33,
+            "longitude": 44
+        };
+        latlong["IR"] = {
+            "latitude": 32,
+            "longitude": 53
+        };
+        latlong["IS"] = {
+            "latitude": 65,
+            "longitude": -18
+        };
+        latlong["IT"] = {
+            "latitude": 42.8333,
+            "longitude": 12.8333
+        };
+        latlong["JM"] = {
+            "latitude": 18.25,
+            "longitude": -77.5
+        };
+        latlong["JO"] = {
+            "latitude": 31,
+            "longitude": 36
+        };
+        latlong["JP"] = {
+            "latitude": 36,
+            "longitude": 138
+        };
+        latlong["KE"] = {
+            "latitude": 1,
+            "longitude": 38
+        };
+        latlong["KG"] = {
+            "latitude": 41,
+            "longitude": 75
+        };
+        latlong["KH"] = {
+            "latitude": 13,
+            "longitude": 105
+        };
+        latlong["KI"] = {
+            "latitude": 1.4167,
+            "longitude": 173
+        };
+        latlong["KM"] = {
+            "latitude": -12.1667,
+            "longitude": 44.25
+        };
+        latlong["KN"] = {
+            "latitude": 17.3333,
+            "longitude": -62.75
+        };
+        latlong["KP"] = {
+            "latitude": 40,
+            "longitude": 127
+        };
+        latlong["KR"] = {
+            "latitude": 37,
+            "longitude": 127.5
+        };
+        latlong["KW"] = {
+            "latitude": 29.3375,
+            "longitude": 47.6581
+        };
+        latlong["KY"] = {
+            "latitude": 19.5,
+            "longitude": -80.5
+        };
+        latlong["KZ"] = {
+            "latitude": 48,
+            "longitude": 68
+        };
+        latlong["LA"] = {
+            "latitude": 18,
+            "longitude": 105
+        };
+        latlong["LB"] = {
+            "latitude": 33.8333,
+            "longitude": 35.8333
+        };
+        latlong["LC"] = {
+            "latitude": 13.8833,
+            "longitude": -61.1333
+        };
+        latlong["LI"] = {
+            "latitude": 47.1667,
+            "longitude": 9.5333
+        };
+        latlong["LK"] = {
+            "latitude": 7,
+            "longitude": 81
+        };
+        latlong["LR"] = {
+            "latitude": 6.5,
+            "longitude": -9.5
+        };
+        latlong["LS"] = {
+            "latitude": -29.5,
+            "longitude": 28.5
+        };
+        latlong["LT"] = {
+            "latitude": 55,
+            "longitude": 24
+        };
+        latlong["LU"] = {
+            "latitude": 49.75,
+            "longitude": 6
+        };
+        latlong["LV"] = {
+            "latitude": 57,
+            "longitude": 25
+        };
+        latlong["LY"] = {
+            "latitude": 25,
+            "longitude": 17
+        };
+        latlong["MA"] = {
+            "latitude": 32,
+            "longitude": -5
+        };
+        latlong["MC"] = {
+            "latitude": 43.7333,
+            "longitude": 7.4
+        };
+        latlong["MD"] = {
+            "latitude": 47,
+            "longitude": 29
+        };
+        latlong["ME"] = {
+            "latitude": 42.5,
+            "longitude": 19.4
+        };
+        latlong["MG"] = {
+            "latitude": -20,
+            "longitude": 47
+        };
+        latlong["MH"] = {
+            "latitude": 9,
+            "longitude": 168
+        };
+        latlong["MK"] = {
+            "latitude": 41.8333,
+            "longitude": 22
+        };
+        latlong["ML"] = {
+            "latitude": 17,
+            "longitude": -4
+        };
+        latlong["MM"] = {
+            "latitude": 22,
+            "longitude": 98
+        };
+        latlong["MN"] = {
+            "latitude": 46,
+            "longitude": 105
+        };
+        latlong["MO"] = {
+            "latitude": 22.1667,
+            "longitude": 113.55
+        };
+        latlong["MP"] = {
+            "latitude": 15.2,
+            "longitude": 145.75
+        };
+        latlong["MQ"] = {
+            "latitude": 14.6667,
+            "longitude": -61
+        };
+        latlong["MR"] = {
+            "latitude": 20,
+            "longitude": -12
+        };
+        latlong["MS"] = {
+            "latitude": 16.75,
+            "longitude": -62.2
+        };
+        latlong["MT"] = {
+            "latitude": 35.8333,
+            "longitude": 14.5833
+        };
+        latlong["MU"] = {
+            "latitude": -20.2833,
+            "longitude": 57.55
+        };
+        latlong["MV"] = {
+            "latitude": 3.25,
+            "longitude": 73
+        };
+        latlong["MW"] = {
+            "latitude": -13.5,
+            "longitude": 34
+        };
+        latlong["MX"] = {
+            "latitude": 23,
+            "longitude": -102
+        };
+        latlong["MY"] = {
+            "latitude": 2.5,
+            "longitude": 112.5
+        };
+        latlong["MZ"] = {
+            "latitude": -18.25,
+            "longitude": 35
+        };
+        latlong["NA"] = {
+            "latitude": -22,
+            "longitude": 17
+        };
+        latlong["NC"] = {
+            "latitude": -21.5,
+            "longitude": 165.5
+        };
+        latlong["NE"] = {
+            "latitude": 16,
+            "longitude": 8
+        };
+        latlong["NF"] = {
+            "latitude": -29.0333,
+            "longitude": 167.95
+        };
+        latlong["NG"] = {
+            "latitude": 10,
+            "longitude": 8
+        };
+        latlong["NI"] = {
+            "latitude": 13,
+            "longitude": -85
+        };
+        latlong["NL"] = {
+            "latitude": 52.5,
+            "longitude": 5.75
+        };
+        latlong["NO"] = {
+            "latitude": 62,
+            "longitude": 10
+        };
+        latlong["NP"] = {
+            "latitude": 28,
+            "longitude": 84
+        };
+        latlong["NR"] = {
+            "latitude": -0.5333,
+            "longitude": 166.9167
+        };
+        latlong["NU"] = {
+            "latitude": -19.0333,
+            "longitude": -169.8667
+        };
+        latlong["NZ"] = {
+            "latitude": -41,
+            "longitude": 174
+        };
+        latlong["OM"] = {
+            "latitude": 21,
+            "longitude": 57
+        };
+        latlong["PA"] = {
+            "latitude": 9,
+            "longitude": -80
+        };
+        latlong["PE"] = {
+            "latitude": -10,
+            "longitude": -76
+        };
+        latlong["PF"] = {
+            "latitude": -15,
+            "longitude": -140
+        };
+        latlong["PG"] = {
+            "latitude": -6,
+            "longitude": 147
+        };
+        latlong["PH"] = {
+            "latitude": 13,
+            "longitude": 122
+        };
+        latlong["PK"] = {
+            "latitude": 30,
+            "longitude": 70
+        };
+        latlong["PL"] = {
+            "latitude": 52,
+            "longitude": 20
+        };
+        latlong["PM"] = {
+            "latitude": 46.8333,
+            "longitude": -56.3333
+        };
+        latlong["PR"] = {
+            "latitude": 18.25,
+            "longitude": -66.5
+        };
+        latlong["PS"] = {
+            "latitude": 32,
+            "longitude": 35.25
+        };
+        latlong["PT"] = {
+            "latitude": 39.5,
+            "longitude": -8
+        };
+        latlong["PW"] = {
+            "latitude": 7.5,
+            "longitude": 134.5
+        };
+        latlong["PY"] = {
+            "latitude": -23,
+            "longitude": -58
+        };
+        latlong["QA"] = {
+            "latitude": 25.5,
+            "longitude": 51.25
+        };
+        latlong["RE"] = {
+            "latitude": -21.1,
+            "longitude": 55.6
+        };
+        latlong["RO"] = {
+            "latitude": 46,
+            "longitude": 25
+        };
+        latlong["RS"] = {
+            "latitude": 44,
+            "longitude": 21
+        };
+        latlong["RU"] = {
+            "latitude": 60,
+            "longitude": 100
+        };
+        latlong["RW"] = {
+            "latitude": -2,
+            "longitude": 30
+        };
+        latlong["SA"] = {
+            "latitude": 25,
+            "longitude": 45
+        };
+        latlong["SB"] = {
+            "latitude": -8,
+            "longitude": 159
+        };
+        latlong["SC"] = {
+            "latitude": -4.5833,
+            "longitude": 55.6667
+        };
+        latlong["SD"] = {
+            "latitude": 15,
+            "longitude": 30
+        };
+        latlong["SE"] = {
+            "latitude": 62,
+            "longitude": 15
+        };
+        latlong["SG"] = {
+            "latitude": 1.3667,
+            "longitude": 103.8
+        };
+        latlong["SH"] = {
+            "latitude": -15.9333,
+            "longitude": -5.7
+        };
+        latlong["SI"] = {
+            "latitude": 46,
+            "longitude": 15
+        };
+        latlong["SJ"] = {
+            "latitude": 78,
+            "longitude": 20
+        };
+        latlong["SK"] = {
+            "latitude": 48.6667,
+            "longitude": 19.5
+        };
+        latlong["SL"] = {
+            "latitude": 8.5,
+            "longitude": -11.5
+        };
+        latlong["SM"] = {
+            "latitude": 43.7667,
+            "longitude": 12.4167
+        };
+        latlong["SN"] = {
+            "latitude": 14,
+            "longitude": -14
+        };
+        latlong["SO"] = {
+            "latitude": 10,
+            "longitude": 49
+        };
+        latlong["SR"] = {
+            "latitude": 4,
+            "longitude": -56
+        };
+        latlong["ST"] = {
+            "latitude": 1,
+            "longitude": 7
+        };
+        latlong["SV"] = {
+            "latitude": 13.8333,
+            "longitude": -88.9167
+        };
+        latlong["SY"] = {
+            "latitude": 35,
+            "longitude": 38
+        };
+        latlong["SZ"] = {
+            "latitude": -26.5,
+            "longitude": 31.5
+        };
+        latlong["TC"] = {
+            "latitude": 21.75,
+            "longitude": -71.5833
+        };
+        latlong["TD"] = {
+            "latitude": 15,
+            "longitude": 19
+        };
+        latlong["TF"] = {
+            "latitude": -43,
+            "longitude": 67
+        };
+        latlong["TG"] = {
+            "latitude": 8,
+            "longitude": 1.1667
+        };
+        latlong["TH"] = {
+            "latitude": 15,
+            "longitude": 100
+        };
+        latlong["TJ"] = {
+            "latitude": 39,
+            "longitude": 71
+        };
+        latlong["TK"] = {
+            "latitude": -9,
+            "longitude": -172
+        };
+        latlong["TM"] = {
+            "latitude": 40,
+            "longitude": 60
+        };
+        latlong["TN"] = {
+            "latitude": 34,
+            "longitude": 9
+        };
+        latlong["TO"] = {
+            "latitude": -20,
+            "longitude": -175
+        };
+        latlong["TR"] = {
+            "latitude": 39,
+            "longitude": 35
+        };
+        latlong["TT"] = {
+            "latitude": 11,
+            "longitude": -61
+        };
+        latlong["TV"] = {
+            "latitude": -8,
+            "longitude": 178
+        };
+        latlong["TW"] = {
+            "latitude": 23.5,
+            "longitude": 121
+        };
+        latlong["TZ"] = {
+            "latitude": -6,
+            "longitude": 35
+        };
+        latlong["UA"] = {
+            "latitude": 49,
+            "longitude": 32
+        };
+        latlong["UG"] = {
+            "latitude": 1,
+            "longitude": 32
+        };
+        latlong["UM"] = {
+            "latitude": 19.2833,
+            "longitude": 166.6
+        };
+        latlong["US"] = {
+            "latitude": 38,
+            "longitude": -97
+        };
+        latlong["UY"] = {
+            "latitude": -33,
+            "longitude": -56
+        };
+        latlong["UZ"] = {
+            "latitude": 41,
+            "longitude": 64
+        };
+        latlong["VA"] = {
+            "latitude": 41.9,
+            "longitude": 12.45
+        };
+        latlong["VC"] = {
+            "latitude": 13.25,
+            "longitude": -61.2
+        };
+        latlong["VE"] = {
+            "latitude": 8,
+            "longitude": -66
+        };
+        latlong["VG"] = {
+            "latitude": 18.5,
+            "longitude": -64.5
+        };
+        latlong["VI"] = {
+            "latitude": 18.3333,
+            "longitude": -64.8333
+        };
+        latlong["VN"] = {
+            "latitude": 16,
+            "longitude": 106
+        };
+        latlong["VU"] = {
+            "latitude": -16,
+            "longitude": 167
+        };
+        latlong["WF"] = {
+            "latitude": -13.3,
+            "longitude": -176.2
+        };
+        latlong["WS"] = {
+            "latitude": -13.5833,
+            "longitude": -172.3333
+        };
+        latlong["YE"] = {
+            "latitude": 15,
+            "longitude": 48
+        };
+        latlong["YT"] = {
+            "latitude": -12.8333,
+            "longitude": 45.1667
+        };
+        latlong["ZA"] = {
+            "latitude": -29,
+            "longitude": 24
+        };
+        latlong["ZM"] = {
+            "latitude": -15,
+            "longitude": 30
+        };
+        latlong["ZW"] = {
+            "latitude": -20,
+            "longitude": 30
+        };
+
+
+        var mapData = [{
+            "code": "AF",
+            "name": "Afghanistan",
+            "value": 32358260,
+            "color": "#eea638"
+        }, {
+            "code": "AL",
+            "name": "Albania",
+            "value": 3215988,
+            "color": "#d8854f"
+        }, {
+            "code": "DZ",
+            "name": "Algeria",
+            "value": 35980193,
+            "color": "#de4c4f"
+        }, {
+            "code": "AO",
+            "name": "Angola",
+            "value": 19618432,
+            "color": "#de4c4f"
+        }, {
+            "code": "AR",
+            "name": "Argentina",
+            "value": 40764561,
+            "color": "#86a965"
+        }, {
+            "code": "AM",
+            "name": "Armenia",
+            "value": 3100236,
+            "color": "#d8854f"
+        }, {
+            "code": "AU",
+            "name": "Australia",
+            "value": 22605732,
+            "color": "#8aabb0"
+        }, {
+            "code": "AT",
+            "name": "Austria",
+            "value": 8413429,
+            "color": "#d8854f"
+        }, {
+            "code": "AZ",
+            "name": "Azerbaijan",
+            "value": 9306023,
+            "color": "#d8854f"
+        }, {
+            "code": "BH",
+            "name": "Bahrain",
+            "value": 1323535,
+            "color": "#eea638"
+        }, {
+            "code": "BD",
+            "name": "Bangladesh",
+            "value": 150493658,
+            "color": "#eea638"
+        }, {
+            "code": "BY",
+            "name": "Belarus",
+            "value": 9559441,
+            "color": "#d8854f"
+        }, {
+            "code": "BE",
+            "name": "Belgium",
+            "value": 10754056,
+            "color": "#d8854f"
+        }, {
+            "code": "BJ",
+            "name": "Benin",
+            "value": 9099922,
+            "color": "#de4c4f"
+        }, {
+            "code": "BT",
+            "name": "Bhutan",
+            "value": 738267,
+            "color": "#eea638"
+        }, {
+            "code": "BO",
+            "name": "Bolivia",
+            "value": 10088108,
+            "color": "#86a965"
+        }, {
+            "code": "BA",
+            "name": "Bosnia and Herzegovina",
+            "value": 3752228,
+            "color": "#d8854f"
+        }, {
+            "code": "BW",
+            "name": "Botswana",
+            "value": 2030738,
+            "color": "#de4c4f"
+        }, {
+            "code": "BR",
+            "name": "Brazil",
+            "value": 196655014,
+            "color": "#86a965"
+        }, {
+            "code": "BN",
+            "name": "Brunei",
+            "value": 405938,
+            "color": "#eea638"
+        }, {
+            "code": "BG",
+            "name": "Bulgaria",
+            "value": 7446135,
+            "color": "#d8854f"
+        }, {
+            "code": "BF",
+            "name": "Burkina Faso",
+            "value": 16967845,
+            "color": "#de4c4f"
+        }, {
+            "code": "BI",
+            "name": "Burundi",
+            "value": 8575172,
+            "color": "#de4c4f"
+        }, {
+            "code": "KH",
+            "name": "Cambodia",
+            "value": 14305183,
+            "color": "#eea638"
+        }, {
+            "code": "CM",
+            "name": "Cameroon",
+            "value": 20030362,
+            "color": "#de4c4f"
+        }, {
+            "code": "CA",
+            "name": "Canada",
+            "value": 34349561,
+            "color": "#a7a737"
+        }, {
+            "code": "CV",
+            "name": "Cape Verde",
+            "value": 500585,
+            "color": "#de4c4f"
+        }, {
+            "code": "CF",
+            "name": "Central African Rep.",
+            "value": 4486837,
+            "color": "#de4c4f"
+        }, {
+            "code": "TD",
+            "name": "Chad",
+            "value": 11525496,
+            "color": "#de4c4f"
+        }, {
+            "code": "CL",
+            "name": "Chile",
+            "value": 17269525,
+            "color": "#86a965"
+        }, {
+            "code": "CN",
+            "name": "China",
+            "value": 1347565324,
+            "color": "#eea638"
+        }, {
+            "code": "CO",
+            "name": "Colombia",
+            "value": 46927125,
+            "color": "#86a965"
+        }, {
+            "code": "KM",
+            "name": "Comoros",
+            "value": 753943,
+            "color": "#de4c4f"
+        }, {
+            "code": "CD",
+            "name": "Congo, Dem. Rep.",
+            "value": 67757577,
+            "color": "#de4c4f"
+        }, {
+            "code": "CG",
+            "name": "Congo, Rep.",
+            "value": 4139748,
+            "color": "#de4c4f"
+        }, {
+            "code": "CR",
+            "name": "Costa Rica",
+            "value": 4726575,
+            "color": "#a7a737"
+        }, {
+            "code": "CI",
+            "name": "Cote d'Ivoire",
+            "value": 20152894,
+            "color": "#de4c4f"
+        }, {
+            "code": "HR",
+            "name": "Croatia",
+            "value": 4395560,
+            "color": "#d8854f"
+        }, {
+            "code": "CU",
+            "name": "Cuba",
+            "value": 11253665,
+            "color": "#a7a737"
+        }, {
+            "code": "CY",
+            "name": "Cyprus",
+            "value": 1116564,
+            "color": "#d8854f"
+        }, {
+            "code": "CZ",
+            "name": "Czech Rep.",
+            "value": 10534293,
+            "color": "#d8854f"
+        }, {
+            "code": "DK",
+            "name": "Denmark",
+            "value": 5572594,
+            "color": "#d8854f"
+        }, {
+            "code": "DJ",
+            "name": "Djibouti",
+            "value": 905564,
+            "color": "#de4c4f"
+        }, {
+            "code": "DO",
+            "name": "Dominican Rep.",
+            "value": 10056181,
+            "color": "#a7a737"
+        }, {
+            "code": "EC",
+            "name": "Ecuador",
+            "value": 14666055,
+            "color": "#86a965"
+        }, {
+            "code": "EG",
+            "name": "Egypt",
+            "value": 82536770,
+            "color": "#de4c4f"
+        }, {
+            "code": "SV",
+            "name": "El Salvador",
+            "value": 6227491,
+            "color": "#a7a737"
+        }, {
+            "code": "GQ",
+            "name": "Equatorial Guinea",
+            "value": 720213,
+            "color": "#de4c4f"
+        }, {
+            "code": "ER",
+            "name": "Eritrea",
+            "value": 5415280,
+            "color": "#de4c4f"
+        }, {
+            "code": "EE",
+            "name": "Estonia",
+            "value": 1340537,
+            "color": "#d8854f"
+        }, {
+            "code": "ET",
+            "name": "Ethiopia",
+            "value": 84734262,
+            "color": "#de4c4f"
+        }, {
+            "code": "FJ",
+            "name": "Fiji",
+            "value": 868406,
+            "color": "#8aabb0"
+        }, {
+            "code": "FI",
+            "name": "Finland",
+            "value": 5384770,
+            "color": "#d8854f"
+        }, {
+            "code": "FR",
+            "name": "France",
+            "value": 63125894,
+            "color": "#d8854f"
+        }, {
+            "code": "GA",
+            "name": "Gabon",
+            "value": 1534262,
+            "color": "#de4c4f"
+        }, {
+            "code": "GM",
+            "name": "Gambia",
+            "value": 1776103,
+            "color": "#de4c4f"
+        }, {
+            "code": "GE",
+            "name": "Georgia",
+            "value": 4329026,
+            "color": "#d8854f"
+        }, {
+            "code": "DE",
+            "name": "Germany",
+            "value": 82162512,
+            "color": "#d8854f"
+        }, {
+            "code": "GH",
+            "name": "Ghana",
+            "value": 24965816,
+            "color": "#de4c4f"
+        }, {
+            "code": "GR",
+            "name": "Greece",
+            "value": 11390031,
+            "color": "#d8854f"
+        }, {
+            "code": "GT",
+            "name": "Guatemala",
+            "value": 14757316,
+            "color": "#a7a737"
+        }, {
+            "code": "GN",
+            "name": "Guinea",
+            "value": 10221808,
+            "color": "#de4c4f"
+        }, {
+            "code": "GW",
+            "name": "Guinea-Bissau",
+            "value": 1547061,
+            "color": "#de4c4f"
+        }, {
+            "code": "GY",
+            "name": "Guyana",
+            "value": 756040,
+            "color": "#86a965"
+        }, {
+            "code": "HT",
+            "name": "Haiti",
+            "value": 10123787,
+            "color": "#a7a737"
+        }, {
+            "code": "HN",
+            "name": "Honduras",
+            "value": 7754687,
+            "color": "#a7a737"
+        }, {
+            "code": "HK",
+            "name": "Hong Kong, China",
+            "value": 7122187,
+            "color": "#eea638"
+        }, {
+            "code": "HU",
+            "name": "Hungary",
+            "value": 9966116,
+            "color": "#d8854f"
+        }, {
+            "code": "IS",
+            "name": "Iceland",
+            "value": 324366,
+            "color": "#d8854f"
+        }, {
+            "code": "IN",
+            "name": "India",
+            "value": 1241491960,
+            "color": "#eea638"
+        }, {
+            "code": "ID",
+            "name": "Indonesia",
+            "value": 242325638,
+            "color": "#eea638"
+        }, {
+            "code": "IR",
+            "name": "Iran",
+            "value": 74798599,
+            "color": "#eea638"
+        }, {
+            "code": "IQ",
+            "name": "Iraq",
+            "value": 32664942,
+            "color": "#eea638"
+        }, {
+            "code": "IE",
+            "name": "Ireland",
+            "value": 4525802,
+            "color": "#d8854f"
+        }, {
+            "code": "IL",
+            "name": "Israel",
+            "value": 7562194,
+            "color": "#eea638"
+        }, {
+            "code": "IT",
+            "name": "Italy",
+            "value": 60788694,
+            "color": "#d8854f"
+        }, {
+            "code": "JM",
+            "name": "Jamaica",
+            "value": 2751273,
+            "color": "#a7a737"
+        }, {
+            "code": "JP",
+            "name": "Japan",
+            "value": 126497241,
+            "color": "#eea638"
+        }, {
+            "code": "JO",
+            "name": "Jordan",
+            "value": 6330169,
+            "color": "#eea638"
+        }, {
+            "code": "KZ",
+            "name": "Kazakhstan",
+            "value": 16206750,
+            "color": "#eea638"
+        }, {
+            "code": "KE",
+            "name": "Kenya",
+            "value": 41609728,
+            "color": "#de4c4f"
+        }, {
+            "code": "KR",
+            "name": "Korea, Dem. Rep.",
+            "value": 24451285,
+            "color": "#eea638"
+        }, {
+            "code": "KP",
+            "name": "Korea, Rep.",
+            "value": 48391343,
+            "color": "#eea638"
+        }, {
+            "code": "KW",
+            "name": "Kuwait",
+            "value": 2818042,
+            "color": "#eea638"
+        }, {
+            "code": "KG",
+            "name": "Kyrgyzstan",
+            "value": 5392580,
+            "color": "#eea638"
+        }, {
+            "code": "LA",
+            "name": "Laos",
+            "value": 6288037,
+            "color": "#eea638"
+        }, {
+            "code": "LV",
+            "name": "Latvia",
+            "value": 2243142,
+            "color": "#d8854f"
+        }, {
+            "code": "LB",
+            "name": "Lebanon",
+            "value": 4259405,
+            "color": "#eea638"
+        }, {
+            "code": "LS",
+            "name": "Lesotho",
+            "value": 2193843,
+            "color": "#de4c4f"
+        }, {
+            "code": "LR",
+            "name": "Liberia",
+            "value": 4128572,
+            "color": "#de4c4f"
+        }, {
+            "code": "LY",
+            "name": "Libya",
+            "value": 6422772,
+            "color": "#de4c4f"
+        }, {
+            "code": "LT",
+            "name": "Lithuania",
+            "value": 3307481,
+            "color": "#d8854f"
+        }, {
+            "code": "LU",
+            "name": "Luxembourg",
+            "value": 515941,
+            "color": "#d8854f"
+        }, {
+            "code": "MK",
+            "name": "Macedonia, FYR",
+            "value": 2063893,
+            "color": "#d8854f"
+        }, {
+            "code": "MG",
+            "name": "Madagascar",
+            "value": 21315135,
+            "color": "#de4c4f"
+        }, {
+            "code": "MW",
+            "name": "Malawi",
+            "value": 15380888,
+            "color": "#de4c4f"
+        }, {
+            "code": "MY",
+            "name": "Malaysia",
+            "value": 28859154,
+            "color": "#eea638"
+        }, {
+            "code": "ML",
+            "name": "Mali",
+            "value": 15839538,
+            "color": "#de4c4f"
+        }, {
+            "code": "MR",
+            "name": "Mauritania",
+            "value": 3541540,
+            "color": "#de4c4f"
+        }, {
+            "code": "MU",
+            "name": "Mauritius",
+            "value": 1306593,
+            "color": "#de4c4f"
+        }, {
+            "code": "MX",
+            "name": "Mexico",
+            "value": 114793341,
+            "color": "#a7a737"
+        }, {
+            "code": "MD",
+            "name": "Moldova",
+            "value": 3544864,
+            "color": "#d8854f"
+        }, {
+            "code": "MN",
+            "name": "Mongolia",
+            "value": 2800114,
+            "color": "#eea638"
+        }, {
+            "code": "ME",
+            "name": "Montenegro",
+            "value": 632261,
+            "color": "#d8854f"
+        }, {
+            "code": "MA",
+            "name": "Morocco",
+            "value": 32272974,
+            "color": "#de4c4f"
+        }, {
+            "code": "MZ",
+            "name": "Mozambique",
+            "value": 23929708,
+            "color": "#de4c4f"
+        }, {
+            "code": "MM",
+            "name": "Myanmar",
+            "value": 48336763,
+            "color": "#eea638"
+        }, {
+            "code": "NA",
+            "name": "Namibia",
+            "value": 2324004,
+            "color": "#de4c4f"
+        }, {
+            "code": "NP",
+            "name": "Nepal",
+            "value": 30485798,
+            "color": "#eea638"
+        }, {
+            "code": "NL",
+            "name": "Netherlands",
+            "value": 16664746,
+            "color": "#d8854f"
+        }, {
+            "code": "NZ",
+            "name": "New Zealand",
+            "value": 4414509,
+            "color": "#8aabb0"
+        }, {
+            "code": "NI",
+            "name": "Nicaragua",
+            "value": 5869859,
+            "color": "#a7a737"
+        }, {
+            "code": "NE",
+            "name": "Niger",
+            "value": 16068994,
+            "color": "#de4c4f"
+        }, {
+            "code": "NG",
+            "name": "Nigeria",
+            "value": 162470737,
+            "color": "#de4c4f"
+        }, {
+            "code": "NO",
+            "name": "Norway",
+            "value": 4924848,
+            "color": "#d8854f"
+        }, {
+            "code": "OM",
+            "name": "Oman",
+            "value": 2846145,
+            "color": "#eea638"
+        }, {
+            "code": "PK",
+            "name": "Pakistan",
+            "value": 176745364,
+            "color": "#eea638"
+        }, {
+            "code": "PA",
+            "name": "Panama",
+            "value": 3571185,
+            "color": "#a7a737"
+        }, {
+            "code": "PG",
+            "name": "Papua New Guinea",
+            "value": 7013829,
+            "color": "#8aabb0"
+        }, {
+            "code": "PY",
+            "name": "Paraguay",
+            "value": 6568290,
+            "color": "#86a965"
+        }, {
+            "code": "PE",
+            "name": "Peru",
+            "value": 29399817,
+            "color": "#86a965"
+        }, {
+            "code": "PH",
+            "name": "Philippines",
+            "value": 94852030,
+            "color": "#eea638"
+        }, {
+            "code": "PL",
+            "name": "Poland",
+            "value": 38298949,
+            "color": "#d8854f"
+        }, {
+            "code": "PT",
+            "name": "Portugal",
+            "value": 10689663,
+            "color": "#d8854f"
+        }, {
+            "code": "PR",
+            "name": "Puerto Rico",
+            "value": 3745526,
+            "color": "#a7a737"
+        }, {
+            "code": "QA",
+            "name": "Qatar",
+            "value": 1870041,
+            "color": "#eea638"
+        }, {
+            "code": "RO",
+            "name": "Romania",
+            "value": 21436495,
+            "color": "#d8854f"
+        }, {
+            "code": "RU",
+            "name": "Russia",
+            "value": 142835555,
+            "color": "#d8854f"
+        }, {
+            "code": "RW",
+            "name": "Rwanda",
+            "value": 10942950,
+            "color": "#de4c4f"
+        }, {
+            "code": "SA",
+            "name": "Saudi Arabia",
+            "value": 28082541,
+            "color": "#eea638"
+        }, {
+            "code": "SN",
+            "name": "Senegal",
+            "value": 12767556,
+            "color": "#de4c4f"
+        }, {
+            "code": "RS",
+            "name": "Serbia",
+            "value": 9853969,
+            "color": "#d8854f"
+        }, {
+            "code": "SL",
+            "name": "Sierra Leone",
+            "value": 5997486,
+            "color": "#de4c4f"
+        }, {
+            "code": "SG",
+            "name": "Singapore",
+            "value": 5187933,
+            "color": "#eea638"
+        }, {
+            "code": "SK",
+            "name": "Slovak Republic",
+            "value": 5471502,
+            "color": "#d8854f"
+        }, {
+            "code": "SI",
+            "name": "Slovenia",
+            "value": 2035012,
+            "color": "#d8854f"
+        }, {
+            "code": "SB",
+            "name": "Solomon Islands",
+            "value": 552267,
+            "color": "#8aabb0"
+        }, {
+            "code": "SO",
+            "name": "Somalia",
+            "value": 9556873,
+            "color": "#de4c4f"
+        }, {
+            "code": "ZA",
+            "name": "South Africa",
+            "value": 50459978,
+            "color": "#de4c4f"
+        }, {
+            "code": "ES",
+            "name": "Spain",
+            "value": 46454895,
+            "color": "#d8854f"
+        }, {
+            "code": "LK",
+            "name": "Sri Lanka",
+            "value": 21045394,
+            "color": "#eea638"
+        }, {
+            "code": "SD",
+            "name": "Sudan",
+            "value": 34735288,
+            "color": "#de4c4f"
+        }, {
+            "code": "SR",
+            "name": "Suriname",
+            "value": 529419,
+            "color": "#86a965"
+        }, {
+            "code": "SZ",
+            "name": "Swaziland",
+            "value": 1203330,
+            "color": "#de4c4f"
+        }, {
+            "code": "SE",
+            "name": "Sweden",
+            "value": 9440747,
+            "color": "#d8854f"
+        }, {
+            "code": "CH",
+            "name": "Switzerland",
+            "value": 7701690,
+            "color": "#d8854f"
+        }, {
+            "code": "SY",
+            "name": "Syria",
+            "value": 20766037,
+            "color": "#eea638"
+        }, {
+            "code": "TW",
+            "name": "Taiwan",
+            "value": 23072000,
+            "color": "#eea638"
+        }, {
+            "code": "TJ",
+            "name": "Tajikistan",
+            "value": 6976958,
+            "color": "#eea638"
+        }, {
+            "code": "TZ",
+            "name": "Tanzania",
+            "value": 46218486,
+            "color": "#de4c4f"
+        }, {
+            "code": "TH",
+            "name": "Thailand",
+            "value": 69518555,
+            "color": "#eea638"
+        }, {
+            "code": "TG",
+            "name": "Togo",
+            "value": 6154813,
+            "color": "#de4c4f"
+        }, {
+            "code": "TT",
+            "name": "Trinidad and Tobago",
+            "value": 1346350,
+            "color": "#a7a737"
+        }, {
+            "code": "TN",
+            "name": "Tunisia",
+            "value": 10594057,
+            "color": "#de4c4f"
+        }, {
+            "code": "TR",
+            "name": "Turkey",
+            "value": 73639596,
+            "color": "#d8854f"
+        }, {
+            "code": "TM",
+            "name": "Turkmenistan",
+            "value": 5105301,
+            "color": "#eea638"
+        }, {
+            "code": "UG",
+            "name": "Uganda",
+            "value": 34509205,
+            "color": "#de4c4f"
+        }, {
+            "code": "UA",
+            "name": "Ukraine",
+            "value": 45190180,
+            "color": "#d8854f"
+        }, {
+            "code": "AE",
+            "name": "United Arab Emirates",
+            "value": 7890924,
+            "color": "#eea638"
+        }, {
+            "code": "GB",
+            "name": "United Kingdom",
+            "value": 62417431,
+            "color": "#d8854f"
+        }, {
+            "code": "US",
+            "name": "United States",
+            "value": 313085380,
+            "color": "#a7a737"
+        }, {
+            "code": "UY",
+            "name": "Uruguay",
+            "value": 3380008,
+            "color": "#86a965"
+        }, {
+            "code": "UZ",
+            "name": "Uzbekistan",
+            "value": 27760267,
+            "color": "#eea638"
+        }, {
+            "code": "VE",
+            "name": "Venezuela",
+            "value": 29436891,
+            "color": "#86a965"
+        }, {
+            "code": "PS",
+            "name": "West Bank and Gaza",
+            "value": 4152369,
+            "color": "#eea638"
+        }, {
+            "code": "VN",
+            "name": "Vietnam",
+            "value": 88791996,
+            "color": "#eea638"
+        }, {
+            "code": "YE",
+            "name": "Yemen, Rep.",
+            "value": 24799880,
+            "color": "#eea638"
+        }, {
+            "code": "ZM",
+            "name": "Zambia",
+            "value": 13474959,
+            "color": "#de4c4f"
+        }, {
+            "code": "ZW",
+            "name": "Zimbabwe",
+            "value": 12754378,
+            "color": "#de4c4f"
+        }];
+
+        // AMMAP PART OF THIS AWESOME DEMO
+        var map;
+        // min and max bullet sizes - adjust them to your needs
+        var minBulletSize = 7;
+        var maxBulletSize = 80;
+
+        // set dark theme
+        AmCharts.theme = AmCharts.themes.black;
+
+        // get min and max values
+        var min = Infinity;
+        var max = -Infinity;
+        for (var i = 0; i < mapData.length; i++) {
+            var value = mapData[i].value;
+            if (value < min) {
+                min = value;
+            }
+            if (value > max) {
+                max = value;
+            }
+        }
+
+        // build map
+        AmCharts.ready(function () {
+            map = new AmCharts.AmMap();
+            map.addClassNames = true;
+            map.pathToImages = "https://www.amcharts.com/lib/3/images/";
+            map.fontFamily = "Lato";
+            map.fontSize = 15;
+            map.creditsPosition = "top-right";
+            map.zoomControl.buttonFillColor = "#343434";
+
+            // style tooltip
+            map.balloon = {
+                adjustBorderColor: false,
+                horizontalPadding: 20,
+                verticalPadding: 10,
+                color: "#FFFFFF",
+                maxWidth: 300,
+                borderAlpha: 0,
+                borderThickness: 1
+            }
+
+            // bubbles are images, we set opacity and tooltip text
+            map.imagesSettings = {
+                balloonText: "[[title]]: [[value]]",
+                alpha: 0.7
+            }
+
+            map.addClassNames = true;
+            map.defs = {
+                "filter": [{
+                    "id": "blur",
+                    "feGaussianBlur": {
+                        "in": "SourceGraphic",
+                        "stdDeviation": 2
+                    }
+                }]
+            };
+
+            // make areas barely visible
+            map.areasSettings = {
+                unlistedAreasAlpha: 0.1,
+                unlistedAreasOutlineAlpha: 0
+            };
+
+            // data provider. We use continents map to show real world map in background.
+            var dataProvider = {
+                map: "continentsLow",
+                images: []
+            }
+
+            // create circle for each country
+            var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
+            var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
+
+            // create circle for each country
+            for (var i = 0; i < mapData.length; i++) {
+                var dataItem = mapData[i];
+                var value = dataItem.value;
+                // calculate size of a bubble
+                var square = (value - min) / (max - min) * (maxSquare - minSquare) + minSquare;
+                if (square < minSquare) {
+                    square = minSquare;
+                }
+                var size = Math.sqrt(square / (Math.PI * 2));
+                var id = dataItem.code;
+
+                dataProvider.images.push({
+                    type: "circle",
+                    width: size,
+                    height: size,
+                    color: dataItem.color,
+                    longitude: latlong[id].longitude,
+                    latitude: latlong[id].latitude,
+                    title: dataItem.name,
+                    value: value
+                });
+            }
+
+            map.dataProvider = dataProvider;
+
+            // Listen for the init event and initialize box2d part
+            map.addListener("init", initBox2D)
+
+            map.write("chartdiv");
+        });
+
+
+        // BOX2D (Physics) part
+        var width = 900;
+        var height = 600;
+        var pixels2meters = 30; // box2d uses meters, not pixels and this is ratio
+        var framesPerSecond = 40;
+        var world;
+        var images;
+
+        function initBox2D() {
+            var b2Vec2 = Box2D.Common.Math.b2Vec2;
+            var b2BodyDef = Box2D.Dynamics.b2BodyDef;
+            var b2Body = Box2D.Dynamics.b2Body;
+            var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+            var b2Fixture = Box2D.Dynamics.b2Fixture;
+            var b2World = Box2D.Dynamics.b2World;
+            var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+            var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+            var b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef;
+            var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+
+            world = new b2World(
+                new b2Vec2(0, 10), //gravity
+                false //allow sleep, false otherwise joints might not be restored
+            );
+
+            // walls and ground. please, study box2d tutorials if you want to understand everything below
+            var wallsBodyDef = new b2BodyDef();
+            wallsBodyDef.type = b2Body.b2_staticBody;
+
+            var wallsFixtureDef = new b2FixtureDef();
+            wallsFixtureDef.density = 1.0;
+            wallsFixtureDef.friction = 0.5;
+            wallsFixtureDef.restitution = 0.2;
+
+            // floor
+            wallsFixtureDef.shape = new b2PolygonShape();
+            wallsFixtureDef.shape.SetAsBox(width / pixels2meters, 10 / pixels2meters);
+            wallsBodyDef.position.Set(0, (height - 10) / pixels2meters);
+            world.CreateBody(wallsBodyDef).CreateFixture(wallsFixtureDef);
+
+            // left wall
+            wallsFixtureDef.shape.SetAsBox(5 / pixels2meters, height / pixels2meters);
+            wallsBodyDef.position.Set(0, 0);
+            world.CreateBody(wallsBodyDef).CreateFixture(wallsFixtureDef);
+
+            // right wall
+            wallsBodyDef.position.Set(width / pixels2meters, 0);
+            world.CreateBody(wallsBodyDef).CreateFixture(wallsFixtureDef);
+
+
+            // bubbles
+            var bubbleBodyDef = new b2BodyDef();
+            bubbleBodyDef.angularDamping = 3; // we don't want to bubbles to rotate like crazy
+            bubbleBodyDef.linearDamping = 0.5; // makes movement more smooth. If you increase this value, bubbles will move like in some oil
+            bubbleBodyDef.type = b2Body.b2_dynamicBody;
+
+            var bubbleFixtureDef = new b2FixtureDef();
+            bubbleFixtureDef.density = 0.2;
+            bubbleFixtureDef.friction = 0.3;
+            bubbleFixtureDef.restitution = 0.6; // adjust this property to reduce or increase bouncing
+
+            // we need to keep bubbles in place, so we create a static body to which bubbles will be constrained - think of a nail at each bubble position
+            var nailFixtureDef = new b2FixtureDef();
+            nailFixtureDef.shape = new b2CircleShape(2 / pixels2meters);
+
+            var nailBodyDef = new b2BodyDef();
+            nailBodyDef.type = b2Body.b2_staticBody; // nails are static, they don't move
+
+            // now, loop through images of map's data provider
+            images = map.dataProvider.images;
+
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+
+                // create bubble
+                bubbleFixtureDef.shape = new b2CircleShape(image.width / 2 / pixels2meters);
+                bubbleBodyDef.position.x = image.displayObject.x / pixels2meters;
+                bubbleBodyDef.position.y = image.displayObject.y / pixels2meters;
+                var bubble = world.CreateBody(bubbleBodyDef).CreateFixture(bubbleFixtureDef);
+
+                // create nail
+                nailBodyDef.position.x = image.displayObject.x / pixels2meters;
+                nailBodyDef.position.y = image.displayObject.y / pixels2meters;
+                var nail = world.CreateBody(nailBodyDef).CreateFixture(nailFixtureDef);
+                nail.SetSensor(true); // nail is sensor - this means the bubbles won't colide with it and can overlap
+
+                // now, we need to link bubble with a nail with a joint (imagine a string)
+                var jointDef = new b2DistanceJointDef();
+                jointDef.bodyA = bubble.GetBody();
+                jointDef.bodyB = nail.GetBody();
+                // the following tow lines describes stiffness of a string, try to modify them.
+                jointDef.dampingRatio = 0.4;
+                jointDef.frequencyHz = 1.5;
+                // lenght 0 means that the bubble will try to be at the nail position (if other bubbles allow)
+                jointDef.length = 0;
+                //connect the centers
+                jointDef.localAnchorA = new b2Vec2(0, 0);
+                jointDef.localAnchorB = new b2Vec2(0, 0);
+
+                var joint = world.CreateJoint(jointDef);
+                // store definition, image and joint in mapImage object
+                image.jointDef = jointDef;
+                image.box2Dimage = bubble;
+                image.joint = joint;
+            }
+
+            //setup debug draw (if you don't need it, just delete the lines, uncomment to see how box objects are drawn)
+            /*
+            var debugDraw = new b2DebugDraw();
+            debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+            debugDraw.SetDrawScale(pixels2meters);
+            debugDraw.SetFillAlpha(0.5);
+            debugDraw.SetLineThickness(1.0);
+            debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+            world.SetDebugDraw(debugDraw);
+            */
+            // interval to update bubbles
+            // release initially to do some animation
+            releaseBubbles();
+            // attach bubbles in some time
+            setTimeout(attachBubbles, 8000);
+            window.setInterval(update, 1000 / framesPerSecond);
+        }
+
+        //update bubbles
+        function update() {
+            var images = map.dataProvider.images;
+
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var box2Dimage = image.box2Dimage;
+                // box2D takes care of positions of bubbles, we simply get those positions and set them on ammap bubbles.
+                var bbody = box2Dimage.GetBody();
+                var position = bbody.GetPosition();
+
+                var currentX = position.x;
+                var currentY = position.y;
+
+                image.displayObject.translate(position.x * 30, position.y * 30, 1, true);
+            }
+
+
+            world.Step(1 / framesPerSecond, 10, 10);
+
+            // uncomment next line if you want to see box2d objects in action (also canvas element at the bottom)
+            //world.DrawDebugData();
+            world.ClearForces();
+        };
+
+        // releases bubbles
+        function releaseBubbles() {
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                setTimeout(destroyJoint, Math.random() * 2000, image); // we release bubbles randomly during 2 sec interval
+            }
+        }
+
+        // destroys joint
+        function destroyJoint(image) {
+            if (image.joint) {
+                world.DestroyJoint(image.joint);
+                image.joint = null;
+            }
+        }
+
+        // attach bubbles back
+        function attachBubbles() {
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                if (!image.joint) {
+                    setTimeout(restoreJoint, Math.random() * 100, image); // we attach bubbles randomly during 0.1 sec interval
+                }
+            }
+        }
+
+        // restores joint
+        function restoreJoint(image) {
+            var joint = world.CreateJoint(image.jointDef);
+            image.joint = joint;
+        }
+    </script>
+
+    <!-- chart 1 -->
+
+    <script>
+        var label = document.querySelector(".label");
+        var c = document.getElementById("c");
+        var ctx = c.getContext("2d");
+        var cw = c.width = 700;
+        var ch = c.height = 350;
+        var cx = cw / 2,
+            cy = ch / 2;
+        var rad = Math.PI / 180;
+        var frames = 0;
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "#999";
+        ctx.fillStyle = "#ccc";
+        ctx.font = "14px monospace";
+
+        var grd = ctx.createLinearGradient(0, 0, 0, cy);
+        grd.addColorStop(0, "hsla(167,72%,60%,1)");
+        grd.addColorStop(1, "hsla(167,72%,60%,0)");
+
+        var oData = {
+            "2008": 10,
+            "2009": 39.9,
+            "2010": 17,
+            "2011": 30.0,
+            "2012": 5.3,
+            "2013": 38.4,
+            "2014": 15.7,
+            "2015": 9.0
+        };
+
+        var valuesRy = [];
+        var propsRy = [];
+        for (var prop in oData) {
+
+            valuesRy.push(oData[prop]);
+            propsRy.push(prop);
+        }
+
+
+        var vData = 4;
+        var hData = valuesRy.length;
+        var offset = 50.5; //offset chart axis
+        var chartHeight = ch - 2 * offset;
+        var chartWidth = cw - 2 * offset;
+        var t = 1 / 7; // curvature : 0 = no curvature 
+        var speed = 2; // for the animation
+
+        var A = {
+            x: offset,
+            y: offset
+        }
+        var B = {
+            x: offset,
+            y: offset + chartHeight
+        }
+        var C = {
+            x: offset + chartWidth,
+            y: offset + chartHeight
+        }
+
+
+        // CHART AXIS -------------------------
+        ctx.beginPath();
+        ctx.moveTo(A.x, A.y);
+        ctx.lineTo(B.x, B.y);
+        ctx.lineTo(C.x, C.y);
+        ctx.stroke();
+
+        // vertical ( A - B )
+        var aStep = (chartHeight - 50) / (vData);
+
+        var Max = Math.ceil(arrayMax(valuesRy) / 10) * 10;
+        var Min = Math.floor(arrayMin(valuesRy) / 10) * 10;
+        var aStepValue = (Max - Min) / (vData);
+        console.log("aStepValue: " + aStepValue); //8 units
+        var verticalUnit = aStep / aStepValue;
+
+        var a = [];
+        ctx.textAlign = "right";
+        ctx.textBaseline = "middle";
+        for (var i = 0; i <= vData; i++) {
+
+            if (i == 0) {
+                a[i] = {
+                    x: A.x,
+                    y: A.y + 25,
+                    val: Max
+                }
+            } else {
+                a[i] = {}
+                a[i].x = a[i - 1].x;
+                a[i].y = a[i - 1].y + aStep;
+                a[i].val = a[i - 1].val - aStepValue;
+            }
+            drawCoords(a[i], 3, 0);
+        }
+
+        //horizontal ( B - C )
+        var b = [];
+        ctx.textAlign = "center";
+        ctx.textBaseline = "hanging";
+        var bStep = chartWidth / (hData + 1);
+
+        for (var i = 0; i < hData; i++) {
+            if (i == 0) {
+                b[i] = {
+                    x: B.x + bStep,
+                    y: B.y,
+                    val: propsRy[0]
+                };
+            } else {
+                b[i] = {}
+                b[i].x = b[i - 1].x + bStep;
+                b[i].y = b[i - 1].y;
+                b[i].val = propsRy[i]
+            }
+            drawCoords(b[i], 0, 3)
+        }
+
+        function drawCoords(o, offX, offY) {
+            ctx.beginPath();
+            ctx.moveTo(o.x - offX, o.y - offY);
+            ctx.lineTo(o.x + offX, o.y + offY);
+            ctx.stroke();
+
+            ctx.fillText(o.val, o.x - 2 * offX, o.y + 2 * offY);
+        }
+        //----------------------------------------------------------
+
+        // DATA
+        var oDots = [];
+        var oFlat = [];
+        var i = 0;
+
+        for (var prop in oData) {
+            oDots[i] = {}
+            oFlat[i] = {}
+
+            oDots[i].x = b[i].x;
+            oFlat[i].x = b[i].x;
+
+            oDots[i].y = b[i].y - oData[prop] * verticalUnit - 25;
+            oFlat[i].y = b[i].y - 25;
+
+            oDots[i].val = oData[b[i].val];
+
+            i++
+        }
+
+
+
+        ///// Animation Chart ///////////////////////////
+        //var speed = 3;
+        function animateChart() {
+            requestId = window.requestAnimationFrame(animateChart);
+            frames += speed; //console.log(frames)
+            ctx.clearRect(60, 0, cw, ch - 60);
+
+            for (var i = 0; i < oFlat.length; i++) {
+                if (oFlat[i].y > oDots[i].y) {
+                    oFlat[i].y -= speed;
+                }
+            }
+            drawCurve(oFlat);
+            for (var i = 0; i < oFlat.length; i++) {
+                ctx.fillText(oDots[i].val, oFlat[i].x, oFlat[i].y - 25);
+                ctx.beginPath();
+                ctx.arc(oFlat[i].x, oFlat[i].y, 3, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+
+            if (frames >= Max * verticalUnit) {
+                window.cancelAnimationFrame(requestId);
+
+            }
+        }
+        requestId = window.requestAnimationFrame(animateChart);
+
+        /////// EVENTS //////////////////////
+        c.addEventListener("mousemove", function (e) {
+            label.innerHTML = "";
+            label.style.display = "none";
+            this.style.cursor = "default";
+
+            var m = oMousePos(this, e);
+            for (var i = 0; i < oDots.length; i++) {
+
+                output(m, i);
+            }
+
+        }, false);
+
+        function output(m, i) {
+            ctx.beginPath();
+            ctx.arc(oDots[i].x, oDots[i].y, 20, 0, 2 * Math.PI);
+            if (ctx.isPointInPath(m.x, m.y)) {
+                //console.log(i);
+                label.style.display = "block";
+                label.style.top = (m.y + 10) + "px";
+                label.style.left = (m.x + 10) + "px";
+                label.innerHTML = "<strong>" + propsRy[i] + "</strong>: " + valuesRy[i] + "%";
+                c.style.cursor = "pointer";
+            }
+        }
+
+        // CURVATURE
+        function controlPoints(p) {
+            // given the points array p calculate the control points
+            var pc = [];
+            for (var i = 1; i < p.length - 1; i++) {
+                var dx = p[i - 1].x - p[i + 1].x; // difference x
+                var dy = p[i - 1].y - p[i + 1].y; // difference y
+                // the first control point
+                var x1 = p[i].x - dx * t;
+                var y1 = p[i].y - dy * t;
+                var o1 = {
+                    x: x1,
+                    y: y1
+                };
+
+                // the second control point
+                var x2 = p[i].x + dx * t;
+                var y2 = p[i].y + dy * t;
+                var o2 = {
+                    x: x2,
+                    y: y2
+                };
+
+                // building the control points array
+                pc[i] = [];
+                pc[i].push(o1);
+                pc[i].push(o2);
+            }
+            return pc;
+        }
+
+        function drawCurve(p) {
+
+            var pc = controlPoints(p); // the control points array
+
+            ctx.beginPath();
+            //ctx.moveTo(p[0].x, B.y- 25);
+            ctx.lineTo(p[0].x, p[0].y);
+            // the first & the last curve are quadratic Bezier
+            // because I'm using push(), pc[i][1] comes before pc[i][0]
+            ctx.quadraticCurveTo(pc[1][1].x, pc[1][1].y, p[1].x, p[1].y);
+
+            if (p.length > 2) {
+                // central curves are cubic Bezier
+                for (var i = 1; i < p.length - 2; i++) {
+                    ctx.bezierCurveTo(pc[i][0].x, pc[i][0].y, pc[i + 1][1].x, pc[i + 1][1].y, p[i + 1].x, p[i + 1].y);
+                }
+                // the first & the last curve are quadratic Bezier
+                var n = p.length - 1;
+                ctx.quadraticCurveTo(pc[n - 1][0].x, pc[n - 1][0].y, p[n].x, p[n].y);
+            }
+
+            //ctx.lineTo(p[p.length-1].x, B.y- 25);
+            ctx.stroke();
+            ctx.save();
+            ctx.fillStyle = grd;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function arrayMax(array) {
+            return Math.max.apply(Math, array);
+        };
+
+        function arrayMin(array) {
+            return Math.min.apply(Math, array);
+        };
+
+        function oMousePos(canvas, evt) {
+            var ClientRect = canvas.getBoundingClientRect();
+            return { //objeto
+                x: Math.round(evt.clientX - ClientRect.left),
+                y: Math.round(evt.clientY - ClientRect.top)
+            }
+        }
+    </script>
+
+    <!-- chart 2 -->
+
+    <script>
+
+        var chart = document.getElementById('chart').getContext('2d'),
+            gradient = chart.createLinearGradient(0, 0, 0, 450);
+
+        gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+        gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+        gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
+
+        var data = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'Custom Label Name',
+                backgroundColor: gradient,
+                pointBackgroundColor: 'white',
+                borderWidth: 1,
+                borderColor: '#911215',
+                data: [50, 55, 80, 81, 54, 50]
+            }]
+        };
+
+
+        var options = {
+            responsive: true,
+            maintainAspectRatio: true,
+            animation: {
+                easing: 'easeInOutQuad',
+                duration: 520
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        color: 'rgba(200, 200, 200, 0.05)',
+                        lineWidth: 1
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        color: 'rgba(200, 200, 200, 0.08)',
+                        lineWidth: 1
+                    }
+                }]
+            },
+            elements: {
+                line: {
+                    tension: 0.4
+                }
+            },
+            legend: {
+                display: false
+            },
+            point: {
+                backgroundColor: 'white'
+            },
+            tooltips: {
+                titleFontFamily: 'Open Sans',
+                backgroundColor: 'rgba(0,0,0,0.3)',
+                titleFontColor: 'red',
+                caretSize: 5,
+                cornerRadius: 2,
+                xPadding: 10,
+                yPadding: 10
+            }
+        };
+
+
+        var chartInstance = new Chart(chart, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+    </script>
+
+    <!-- chart 3 -->
+
+
+
+</body>
+
+</html>

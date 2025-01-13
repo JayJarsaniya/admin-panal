@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel || Chat</title>
+
+    <!-- css and js link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- font awesome  -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- jquery cdn  -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- chat-2  -->
+
+    <script
+        src="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&amp;display=swap"></script>
+
+    <!-- chat 3 -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap">
+
+    <style>
+        /* full screen  */
+
+        .element:fullscreen {
+            background-color: #e4708a;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .icon-fullscreen-enter path {
+            stroke: white !important;
+        }
+
+        .icon-fullscreen-leave path {
+            stroke: white !important;
+        }
+
+        .offcanvas-body li a {
+            padding-right: 30%;
+        }
+
+        /* active  */
+
+        .active-background {
+            background-color: white !important;
+            border-radius: 20px 20px 20px 20px;
+        }
+
+        .active-backgroundi {
+            color: black !important;
+        }
+
+        .list-group-item {
+            border: none;
+        }
+
+        .list-group-item:hover {
+            transition: all .4s linear;
+            background-color: white !important;
+            border-radius: 20px;
+        }
+
+        .list-group-item:hover a {
+            color: black !important;
+        }
+
+        .list-group-item:hover i {
+            color: black !important;
+        }
+
+        body {
+            background-color: #181f39;
+        }
+
+        header {
+            background-color: #202a4d;
+        }
+
+        .offcanvas {
+            background-color: #202a4d;
+            transition: all 0.6s ease-in-out;
+        }
+
+        /* dark button  */
+
+        :root {
+            --text: #000;
+            --background: #ecf5ff;
+            --background-2: #fff;
+            --border: black;
+        }
+
+        :root[theme=dark] {
+            --text: #fff;
+            --background: #181f39;
+            --background-2: #202a4d;
+            --border: white;
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-moon' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root[theme=system] {
+                --text: #fff;
+                --background: #222831;
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:%23fff'/%3E%3C/svg%3E");
+            }
+        }
+
+        :root[theme=light] {
+            --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='orange' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-sun' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root[theme=system] {
+                --dark-mode-toggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Icons' x='0' y='0' style='enable-background:new 0 0 32 32' version='1.1' viewBox='0 0 32 32'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10%7D%3C/style%3E%3Cpath d='M16 23c-3.87 0-7-3.13-7-7s3.13-7 7-7M6.81 6.81l2.12 2.12M3 16h3M6.81 25.19l2.12-2.12' class='st0' style='stroke:orange'/%3E%3Cpath d='M16 12.55A6.992 6.992 0 0 1 22.09 9c.16 0 .31.01.47.02a5.25 5.25 0 0 0 2.45 9.89c1.6 0 3.03-.72 3.99-1.85-.52 3.37-3.41 5.94-6.91 5.94-2.61 0-4.89-1.43-6.09-3.55M16 3v26' class='st0' style='stroke:black'/%3E%3C/svg%3E");
+            }
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .darkmode__button-toggle {
+            border: none;
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-color: var(--background);
+        }
+
+        .darkmode__button-toggle:after {
+            height: 32px;
+            width: 32px;
+            margin: 8px;
+            content: "";
+            border-radius: 25px;
+            background-image: var(--dark-mode-toggle);
+        }
+
+        header a {
+            margin-left: 150px;
+        }
+
+        @media screen and (max-width: 576px) {
+            header a {
+                margin-left: 0px;
+            }
+        }
+
+        /* full screen button  */
+
+        .toggle-fullscreen-btn {
+            position: fixed;
+            z-index: 10000;
+            top: 10px;
+            right: 10px;
+            border: 0;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+
+        .toggle-fullscreen-svg {
+            display: block;
+            height: auto;
+        }
+
+        .toggle-fullscreen-svg path {
+            transform-box: view-box;
+            transform-origin: 12px 12px;
+            fill: none;
+            stroke: hsl(225, 10%, 8%);
+            stroke-width: 4;
+            transition: .15s;
+        }
+
+
+        .toggle-fullscreen-btn:hover path:nth-child(1),
+        .toggle-fullscreen-btn:focus path:nth-child(1) {
+            transform: translate(-2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(2),
+        .toggle-fullscreen-btn:focus path:nth-child(2) {
+            transform: translate(2px, -2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(3),
+        .toggle-fullscreen-btn:focus path:nth-child(3) {
+            transform: translate(2px, 2px);
+        }
+
+        .toggle-fullscreen-btn:hover path:nth-child(4),
+        .toggle-fullscreen-btn:focus path:nth-child(4) {
+            transform: translate(-2px, 2px);
+        }
+
+
+        .toggle-fullscreen-btn:not(.on) .icon-fullscreen-leave {
+            display: none;
+        }
+
+        .toggle-fullscreen-btn.on .icon-fullscreen-enter {
+            display: none;
+        }
+    </style>
+
+    <!-- chat  -->
+
+    <style>
+        :focus {
+            outline: 0;
+        }
+
+        .container-1 a {
+            text-decoration: none;
+        }
+
+        .container-1 {
+            background: var(--background-2);
+            display: flex;
+            margin-top: 60px;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        sidebar {
+            width: 300px;
+            min-width: 300px;
+            display: flex;
+            background: var(--background-2);
+            flex-direction: column;
+            border-right: 1px solid var(--text);
+            transition: 500ms all;
+            height: 80vh;
+        }
+
+        sidebar .logo {
+            display: flex;
+            margin: 10px 0 0 0;
+            padding-bottom: 10px;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 3em;
+            letter-spacing: 7px;
+            border-bottom: 1px solid var(--text);
+        }
+
+        sidebar .list-wrap {
+            width: 100%;
+            overflow: auto;
+        }
+
+        sidebar .list-wrap .list {
+            border-bottom: 1px solid var(--text);
+            background: var(--background-2);
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            height: 70px;
+            cursor: pointer;
+        }
+
+        sidebar .list-wrap .list:hover,
+        sidebar .list-wrap .list.active {
+            background: var(--background);
+            color: var(--text);
+        }
+
+        sidebar .list-wrap .list img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        sidebar .list-wrap .list .info {
+            flex: 1;
+        }
+
+        sidebar .list-wrap .list .info .user {
+            font-weight: 700;
+        }
+
+        sidebar .list-wrap .list .info .text {
+            display: flex;
+            margin-top: 3px;
+            font-size: 0.85em;
+        }
+
+        sidebar .list-wrap .list .time {
+            margin-right: 5px;
+            margin-left: 5px;
+            font-size: 0.75em;
+            color: #a9a9a9;
+        }
+
+        sidebar .list-wrap .list .count {
+            font-size: 0.75em;
+            background: #bde2f7;
+            box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.7);
+            padding: 3px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            color: #000;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+
+        .content header {
+            height: 76px;
+            background: var(--background-2);
+            border-bottom: 1px solid var(--text);
+            display: flex;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .content header a {
+            color: var(--text) !important;
+        }
+
+        .content header img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .content header .info {
+            flex: 1;
+        }
+
+        .content header .info .user {
+            font-weight: 700;
+        }
+
+        .content header .info .time {
+            display: flex;
+            margin-top: 3px;
+            font-size: 0.85em;
+        }
+
+        .content header .open {
+            display: none;
+        }
+
+        .content header .open a {
+            color: #000;
+            letter-spacing: 3px;
+        }
+
+        .message-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            overflow: auto;
+        }
+
+        .message-wrap::before {
+            content: "";
+            margin-bottom: auto;
+        }
+
+        .message-wrap .message-list {
+            align-self: flex-start;
+            max-width: 70%;
+        }
+
+        .message-wrap .message-list.me {
+            align-self: flex-end;
+        }
+
+        .message-wrap .message-list.me .msg {
+            background: #bde2f7;
+            color: #111;
+        }
+
+        .message-wrap .message-list .msg {
+            background: white;
+            box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+            padding: 10px 5px;
+            margin-bottom: 10px;
+            color: black;
+            border-radius: 5px;
+        }
+
+        .message-wrap .message-list .time {
+            text-align: right;
+            color: #999;
+            font-size: 0.75em;
+        }
+
+        .message-footer {
+            border-top: 1px solid var(--text);
+            background: var(--background-2);
+            padding: 10px;
+            display: flex;
+            height: 60px;
+        }
+
+        .message-footer input {
+            flex: 1;
+            padding: 0 20px;
+            border-radius: 5px;
+        }
+
+        @media only screen and (max-width: 480px),
+        only screen and (max-width: 767px) {
+            sidebar {
+                position: absolute;
+                width: 100%;
+                min-width: 100%;
+                height: 0vh;
+                bottom: 0;
+                box-shadow: 0 5px 25px -5px black;
+            }
+
+            sidebar.opened {
+                height: 70vh !important;
+            }
+
+            sidebar .logo {
+                display: none;
+            }
+
+            sidebar .list-wrap .list .count {
+                font-size: 0.75em;
+            }
+
+            header .open {
+                display: block !important;
+            }
+        }
+    </style>
+
+    <!-- chat 2 -->
+
+    <style>
+        .chat-2 {
+            font-family: cursive;
+        }
+
+        .bot-response {
+            font-size: 17px;
+            line-height: 24px;
+            border-radius: 20px;
+            word-wrap: break-word;
+            max-width: fit-content;
+            padding: 15px 17px;
+            background: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            margin-top: 10px;
+        }
+
+        .text[text-first] {
+            border-bottom-left-radius: 5px;
+            margin-top: 0;
+        }
+
+        .text[text-middle] {
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+        }
+
+        .text[text-last] {
+            border-top-left-radius: 5px;
+        }
+
+        .massage[data-user="true"] {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .msgCaption {
+            padding: 0 25px 10px !important;
+            padding-top: 10px !important;
+        }
+
+        .user-response {
+            background: rgb(0, 102, 255);
+            color: rgb(255, 255, 255);
+            font-size: 17px;
+            line-height: 24px;
+            border-radius: 20px;
+            max-width: 250px;
+            padding: 15px 17px;
+            border-bottom-right-radius: 5px;
+            word-break: break-all;
+            white-space: normal;
+        }
+
+        .massage {
+            padding: 0 25px 0px;
+        }
+
+        .massage img {
+            width: 100%;
+            height: 217px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 6px;
+        }
+
+        .captionBot img {
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+        }
+
+        .captionBot {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 25px;
+            width: 117px;
+            font-size: 14px;
+            color: rgb(24, 25, 25);
+        }
+
+        .chat-2 a {
+            text-decoration: none;
+        }
+
+        .by a {
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 3px;
+        }
+
+        .by {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            border-top: 1px solid rgb(238, 238, 238);
+        }
+
+        .by span {
+            color: rgb(155, 166, 178);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .InputMSG {
+            outline: none;
+            border: none;
+            width: 100%;
+            height: 50px;
+            padding-left: 15px;
+            font-size: 1.1rem;
+        }
+
+        .InputMSG::placeholder {
+            font-size: 1.1rem;
+            color: rgb(155, 166, 178);
+        }
+
+        .BoxSentMSG {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 50px;
+        }
+
+        .send-icon {
+            display: flex;
+            background-color: white;
+            width: 26px;
+            height: 26px;
+            margin: 0 13px;
+            cursor: pointer;
+        }
+
+        .ContentChat {
+            background: var(--background-2);
+            width: 100%;
+            height: 400px;
+            overflow-y: scroll;
+        }
+
+        .ContentChat::before {
+            content: "";
+            display: block;
+            height: 20px;
+            width: 100%;
+        }
+
+        .ContentChat::after {
+            content: "";
+            display: block;
+            height: 20px;
+            width: 100%;
+        }
+
+        .AvatarBot {
+            display: grid;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .AvatarBot:after {
+            content: "";
+            display: block;
+            width: 9px;
+            height: 9px;
+            border-radius: 100%;
+            border: 1px solid rgb(255, 255, 255);
+            background: rgb(105, 222, 64);
+            position: absolute;
+            bottom: 1px;
+            right: 1px;
+        }
+
+        .InfoBot {
+            margin-left: 17px;
+        }
+
+        .status {
+            color: rgb(155, 166, 179);
+        }
+
+        .TitleBot {
+            font-size: 24px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .AvatarBot img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            height: 90px;
+            width: 100%;
+            padding-left: 13px;
+            -webkit-box-shadow: 0 9.5px 12.7px 0 rgba(0, 0, 0, 0.05);
+            box-shadow: 0 9.5px 12.7px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-2 {
+            width: 500px;
+            height: 570px;
+            background-color: var(--background-2);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+        }
+
+        .InputMSG:valid~.send-icon svg path {
+            fill: #0066ff;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .captionBot span {
+            color: white !important;
+        }
+    </style>
+
+    <!-- chat 3 -->
+
+    <style>
+
+        .chat-3 {
+            font-size: 1rem;
+            font-family: "Open Sans", sans-serif;
+            font-weight: 400;
+            height: 100%;
+            color: var(--text);
+            background-color: transparent;
+        }
+
+        .chat-3 button {
+            outline: none;
+            border: none;
+            cursor: pointer;
+            background: var(--transparent-color);
+        }
+
+        .chat-3 h1 {
+            font-size: clamp(2rem, 2.5vw, 3rem);
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .chat-3 {
+            display: grid;
+            place-items: center;
+        }
+
+        .chat-3 .container {
+            padding-inline: 1rem;
+            width: 600px;
+        }
+
+        .chat-3 .card {
+            min-height: 100%;
+            min-width: 1rem;
+            background-color: var(--background-2);
+            padding: 2rem;
+            border-radius: 0.625rem;
+            word-wrap: break-word;
+            text-align: center;
+            margin-inline: auto;
+        }
+
+        .chat-3 .card img {
+            max-width: 100%;
+            height: 8rem;
+            object-fit: cover;
+            width: 8rem;
+            border-radius: 50%;
+            margin-inline: auto;
+            margin-bottom: 0.625rem;
+        }
+
+        .chat-3 .card-body .card-title {
+            font-size: clamp(1.2rem, 1.4vw, 2rem);
+            font-weight: 400;
+            margin-bottom: 0.625rem;
+            color: var(--text);
+        }
+
+        .chat-3 .card-body p {
+            font: size 0.875em;
+            margin-bottom: 0.625rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            color: var(--text);
+        }
+
+        .chat-3 .card-body p+button {
+            margin-right: 0.57rem;
+        }
+
+        @media screen and (max-width: 992px) {
+            .chat-3 .container{
+                width: 100%;
+                margin-top: 30px;
+            }
+            .chat-2{
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body id="element" style="transition: all .5s ease-in-out;">
+    <header class="text-white d-flex align-items-center p-2 w-100" style="position: fixed; z-index: 1;">
+        <p class="h2 d-sm-block d-none">ADMIN</p>
+        <a class="nav-bar" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars h3 text-white"></i></a>
+
+        <input type="text" class="ms-auto d-lg-block d-none" placeholder="search"
+            style=" border-radius: 20px; padding: 7px 50px 7px 20px; color: black; border: none;">
+
+        <div class="profile d-flex align-items-center gap-3 ms-auto">
+            <img width="40px" class="ms-auto" style="border-radius: 50%; cursor: pointer;" src="images/profile.jpg"
+                alt="">
+            <p class="d-sm-block d-none pt-3">JAY JARSANIYA</p>
+
+            <!-- dark mod -->
+
+            <button type="button" class="darkmode darkmode__button-toggle ms-4" style="margin-right: 50px; transition: all .5s ease-in-out;"></button>
+
+            <!-- full screen button  -->
+
+            <button class="js-toggle-fullscreen-btn toggle-fullscreen-btn pt-2" aria-label="Enter fullscreen mode"
+                hidden>
+                <svg class=" toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
+                    <g class="icon-fullscreen-enter">
+                        <path d="M 2 9 v -7 h 7" />
+                        <path d="M 22 9 v -7 h -7" />
+                        <path d="M 22 15 v 7 h -7" />
+                        <path d="M 2 15 v 7 h 7" />
+                    </g>
+
+                    <g class="icon-fullscreen-leave">
+                        <path d="M 24 17 h -7 v 7" />
+                        <path d="M 0 17 h 7 v 7" />
+                        <path d="M 0 7 h 7 v -7" />
+                        <path d="M 24 7 h -7 v -7" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- offcanvas  -->
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="width: 300px;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white h4" id="offcanvasWithBothOptionsLabel">Admin Panel</h5>
+            <a type="button" class="close-nav" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="fa-solid fa-x text-white h5"></i></a>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flush">
+                <p></p>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-house px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="index.html">Dashbord</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Components</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-palette px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="elements.html">Elements</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-regular fa-calendar px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="calender.html">Calender</a>
+                </li>
+                <li class="list-group-item bg-transparent active-background">
+                    <i class="fa-brands fa-rocketchat px-2 text-white active-backgroundi"></i>
+                    <a class="text-white text-decoration-none active-backgroundi" href="chat.html">Chat</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-chart-pie px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="charts.html">Charts</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-cart-shopping px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="ecommerce.html">E-commerce</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">Forms and Tables</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-copy px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="form.html">Form & Editor</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-tablet px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="tables.html">Data Table</a>
+                </li>
+
+                <p class="py-3 mb-0 text-white-50">More Pages</p>
+
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-clipboard px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="feedbackpages.html">Feedback Pages</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-user px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="login.html">login & Register</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                    <i class="fa-solid fa-location-dot px-2 text-white"></i>
+                    <a class="text-white text-decoration-none" href="maps.html">Maps</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <div class="main p4">
+
+        <div class="container container-1 chat-1">
+            <sidebar>
+                <span class="logo">CHAT</span>
+                <div class="list-wrap">
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/passport-photo-portrait-middle-aged-260nw-1506715724.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Taylor Swift</span>
+                            <span class="text">Hi! :)</span>
+                        </div>
+                        <span class="count">20</span>
+                        <span class="time">now</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/passport-photo-real-young-woman-260nw-2274107825.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Miley Cyrus</span>
+                            <span class="text">Good night.</span>
+                        </div>
+                        <span class="time">5 min. ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="http://ia.tmgrup.com.tr/2fc58d/0/0/0/0/0/0?u=http://i.tmgrup.com.tr/cosmopolitan/galeri/unluler/isimleri-en-cok-aratilmis-dunyaca-unlu-50-kadin/10.jpg&mw=750"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Rihanna</span>
+                            <span class="text">Çav bella</span>
+                        </div>
+                        <span class="time">1 hour ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/portrait-caucasian-woman-no-expression-260nw-1529096576.jpg"
+                            width="50" height="50" alt="" />
+                        <div class="info">
+                            <span class="user">Furry</span>
+                            <span class="text">Ok, lets go.</span>
+                        </div>
+                        <span class="time">1 day ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/close-shot-young-woman-looking-260nw-1713542995.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Serenay Sarlkaya</span>
+                            <span class="text">Hi! :)</span>
+                        </div>
+                        <span class="time">now</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.topmediai.com/micro/passport-photo-maker/assets/pic1-d977d0d5.png" alt="">
+                        <div class="info">
+                            <span class="user">Hazal Kaya</span>
+                            <span class="text">Good night.</span>
+                        </div>
+                        <span class="time">5 min. ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://media.istockphoto.com/id/503040171/photo/middle-eastern-businessman-portrait.jpg?s=612x612&w=0&k=20&c=7t6c_HQHfUZNgrVtR-G1rQpJAMaCbFsuxppDRKBnXDw="
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Tuba Büyüküstün</span>
+                            <span class="text">Çav bella</span>
+                        </div>
+                        <span class="time">1 hour ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://media.istockphoto.com/id/516379821/photo/business-man.jpg?s=612x612&w=0&k=20&c=l69gZZ3trWgx_BIbErRUihUoIIHMxaZp3LwqOxb3SNA="
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Bergüzar Korel</span>
+                            <span class="text">Ok, lets go.</span>
+                        </div>
+                        <span class="time">1 day ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/frontal-portrait-serious-looking-businessman-260nw-1706382364.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Beren Saat</span>
+                            <span class="text">Hi! :)</span>
+                        </div>
+                        <span class="time">now</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/passport-picture-businesswoman-brown-hair-260nw-250775908.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Fahriye Evcen</span>
+                            <span class="text">Good night.</span>
+                        </div>
+                        <span class="time">5 min. ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/official-photo-booth-portrait-woman-260nw-303266858.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Hande Erçel</span>
+                            <span class="text">Çav bella</span>
+                        </div>
+                        <span class="time">1 hour ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/official-portrait-blonde-woman-260nw-303360986.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Cansu Dere</span>
+                            <span class="text">Ok, lets go.</span>
+                        </div>
+                        <span class="time">1 day ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/passport-photo-portrait-middle-aged-260nw-1506715724.jpg"
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Demet Özdemir</span>
+                            <span class="text">Hi! :)</span>
+                        </div>
+                        <span class="time">now</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://www.shutterstock.com/image-photo/young-attractive-man-looks-seriously-260nw-1738162157.jpg"
+                            alt="">
+                        <div class="info">
+                            <span class="user">Pelin Karahan</span>
+                            <span class="text">Good night.</span>
+                        </div>
+                        <span class="time">5 min. ago</span>
+                    </div>
+                    <div class="list">
+                        <img src="https://media.istockphoto.com/id/1146465010/photo/portrait-of-real-caucasian-man-with-happy-expression-looking-at-camera.jpg?s=612x612&w=0&k=20&c=E_5HcNeSrEae9g-Ydryy-oGaNBCdlNlSEGjnhNDnxLg="
+                            alt="" />
+                        <div class="info">
+                            <span class="user">Burçin Terzioğlu</span>
+                            <span class="text">Çav bella</span>
+                        </div>
+                        <span class="time">1 hour ago</span>
+                    </div>
+                </div>
+            </sidebar>
+            <div class="content">
+                <header>
+                    <img src="" alt="">
+                    <div class="info">
+                        <span class="user"></span>
+                        <span class="time"></span>
+                    </div>
+                    <div class="open">
+                        <a href="javascript:;">UP</a>
+                    </div>
+                </header>
+                <div class="message-wrap">
+                    <div class="message-list">
+                        <div class="msg">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit minus minima quo
+                                corporis.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list me">
+                        <div class="msg">
+                            <p>
+                                Lorem ipsum dolor sit amet.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list">
+                        <div class="msg">
+                            <p>Odit minus minima quo corporis.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list me">
+                        <div class="msg">
+                            <p>
+                                Lorem.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list">
+                        <div class="msg">
+                            <p>
+                                Lorem, ipsum dolor.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list me">
+                        <div class="msg">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad numquam laudantium illum
+                                quidem?
+                                Iste hic doloribus quos non iure libero excepturi, praesentium in, blanditiis repellat
+                                labore illo, voluptas sed fugit consequatur dolorum assumenda ea nesciunt. Pariatur.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list">
+                        <div class="msg">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit minus minima quo
+                                corporis.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list me">
+                        <div class="msg">
+                            <p>
+                                Lorem, ipsum.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list">
+                        <div class="msg">
+                            <p>
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime, nulla doloribus dolore
+                                impedit dolorem hic ex dolor quo illo tenetur ab exercitationem atque iusto,
+                                voluptatibus
+                                quos.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                    <div class="message-list me">
+                        <div class="msg">
+                            <p>
+                                Lorem dolor sit.
+                            </p>
+                        </div>
+                        <div class="time">now</div>
+                    </div>
+                </div>
+                <div class="message-footer">
+                    <input type="text" data-placeholder="Send a message to {0}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="main-chart container-lg d-lg-flex d-block mt-5">
+            <!-- chat 2  -->
+
+            <div class="container chat-2">
+                <div class="top">
+                    <div class="AvatarBot">
+                        <img src="https://raw.githubusercontent.com/emnatkins/cdn-codepen/main/wvjGzXp/6569264.png"
+                            alt="RagBot">
+                    </div>
+                    <div class="InfoBot">
+                        <p class="TitleBot">RagBot</p>
+                        <p class="status">Online</p>
+                    </div>
+                </div>
+                <div class="ContentChat"></div>
+                <div class="BoxSentMSG ">
+                    <input type="text" placeholder="Type your message here " class="InputMSG " required
+                        style="border-radius: 30px;">
+                    <div class="send-icon">
+                        <svg id="send1" xmlns="http://www.w3.org/2000/svg " viewBox="0 0 24 24 " xml:space="preserve "
+                            style="background-color: var(--background-2);">
+                            <path fill="#d7d7d7 "
+                                d="M22,11.7V12h-0.1c-0.1,1-17.7,9.5-18.8,9.1c-1.1-0.4,2.4-6.7,3-7.5C6.8,12.9,17.1,12,17.1,12H17c0,0,0-0.2,0-0.2c0,0,0,0,0,0c0-0.4-10.2-1-10.8-1.7c-0.6-0.7-4-7.1-3-7.5C4.3,2.1,22,10.5,22,11.7z ">
+                            </path>
+                        </svg>
+                        <svg id="send2" class="none" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
+                            viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                            <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
+                                    repeatCount="indefinite"></animate>
+                            </rect>
+                            <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                            </rect>
+                            <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s"
+                                    dur="0.6s" repeatCount="indefinite"></animate>
+                            </rect>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- chat 3 -->
+
+            <section class="chat-3">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            <img alt="img" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="comment"></p>
+                        </div>
+                        <div class="card-footer">
+                            <button id="prevButton">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48"
+                                    style="
+                        -ms-transform: rotate(360deg);
+                        -webkit-transform: rotate(360deg);
+                        transform: rotate(360deg);
+                      ">
+                                    <path fill="#2196F3" d="m30.9 43l3.1-3.1L18.1 24L34 8.1L30.9 5L12 24z" />
+                                </svg>
+                            </button>
+                            <button id="nextButton">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48"
+                                    style="
+                        -ms-transform: rotate(360deg);
+                        -webkit-transform: rotate(360deg);
+                        transform: rotate(360deg);
+                      ">
+                                    <path fill="#2196F3" d="M17.1 5L14 8.1L29.9 24L14 39.9l3.1 3.1L36 24z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+    </div>
+
+
+    <!-- jquery for nav  -->
+
+    <script>
+        $(".nav-bar").click(() => {
+            $(".main").css({
+                "width": "calc(100% - 300px)",
+                "margin-left": "300px",
+                "transition": "all .6s linear"
+            });
+        })
+        $(".close-nav").click(() => {
+            $(".main").css({
+                "width": "100%",
+                "margin-left": "0px",
+                "transition": "all .6s linear"
+            });
+        })
+    </script>
+
+    <!-- dark button  -->
+
+    <script>
+            /* Dark Mode - https://github.com/Powza/darkmode */
+
+            (function () {
+                function DarkMode(options = {}) {
+                    // Define defaults
+                    const darkMode = {
+                        default: options.default || "system", // system | dark | light
+                        selector: options.selector || ".darkmode", // Toggle selector class or id
+                        storageKey: options.storageKey || "theme", // Set a localStorage key name
+                        resetStorage: options.resetStorage || false, // Reset localStorage
+                        dynamicAdjust: options.dynamicAdjust || false, // Will override default start light then switch to dark between time. 24 hour time.
+                        dynamicAdjustStartHour: options.dynamicAdjustStartHour || 18, // Start dark theme at hour 18
+                        dynamicAdjustEndHour: options.dynamicAdjustEndHour || 6 // End dark them at hour 6
+                    };
+
+                    const rootElement = document.documentElement;
+                    let defaultThemeMode = darkMode.default;
+                    const localStorageKey = darkMode.storageKey;
+                    dynamicAdjustTheme(darkMode.dynamicAdjust);
+
+                    const theme = localStorage.getItem(localStorageKey) || defaultThemeMode;
+                    rootElement.setAttribute("theme", theme);
+
+                    function saveUserPreference(userPreference) {
+                        localStorage.setItem(localStorageKey, userPreference);
+                    }
+
+                    // Dynamic adjust theme based on time
+                    function dynamicAdjustTheme(option) {
+                        if (option) {
+                            const currentHour = new Date().getHours();
+                            // Check if the current hour is between 18 and 6
+                            defaultThemeMode =
+                                currentHour >= darkMode.dynamicAdjustStartHour ||
+                                    currentHour < darkMode.dynamicAdjustEndHour
+                                    ? "dark"
+                                    : "light";
+                        }
+                    }
+                    // Reset localStorage
+                    function resetStorage(option) {
+                        if (option) {
+                            localStorage.removeItem(localStorageKey);
+                        }
+                    }
+
+                    function getThemeMode(userPreference) {
+                        if (userPreference === "light") {
+                            return "light";
+                        }
+                        if (userPreference === "dark") {
+                            return "dark";
+                        }
+                        if (matchMedia("(prefers-color-scheme: light)").matches) {
+                            return "light";
+                        } else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+                            return "dark";
+                        }
+                    }
+
+                    function setThemeMode(mode) {
+                        rootElement.setAttribute("theme-mode", mode);
+                    }
+
+                    function setTheme(mode) {
+                        rootElement.setAttribute("theme", mode);
+                    }
+
+                    function rotatePreferences(userPreference) {
+                        const nextPreference = {
+                            system: "light",
+                            light: "dark",
+                            dark: "light"
+                        };
+                        return nextPreference[userPreference] || "system";
+                    }
+
+                    function nameSelection(userPreference) {
+                        const preferences = {
+                            system: "System",
+                            light: "Light",
+                            dark: "Dark"
+                        };
+                        return preferences[userPreference] || preferences.system;
+                    }
+
+                    let userPreference = theme;
+                    const systemThemeMode = getThemeMode("system");
+                    if (userPreference === "system") {
+                        userPreference = systemThemeMode;
+                    }
+                    setThemeMode(getThemeMode(userPreference));
+
+                    // Toggle dark/light mode
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const themeToggler = document.querySelectorAll(darkMode.selector);
+                        resetStorage(options.resetStorage || false);
+
+                        themeToggler.forEach((button) => {
+                            button.classList.add(
+                                "darkmode-" + nameSelection(userPreference).toLowerCase()
+                            );
+
+                            button.onclick = () => {
+                                let newUserPref = rotatePreferences(userPreference);
+                                if (userPreference === "system") {
+                                    newUserPref = getThemeMode("system");
+                                }
+
+                                // Remove the class associated with the current userPreference
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.remove(
+                                        "darkmode-" + nameSelection(userPreference).toLowerCase()
+                                    );
+                                });
+
+                                // Add the class for the new userPreference to all buttons
+                                themeToggler.forEach((btn) => {
+                                    btn.classList.add("darkmode-" + nameSelection(newUserPref).toLowerCase());
+                                });
+
+                                userPreference = newUserPref;
+                                saveUserPreference(newUserPref);
+                                setThemeMode(getThemeMode(newUserPref));
+                                setTheme(newUserPref);
+                            };
+                        });
+                    });
+                }
+                window.DarkMode = DarkMode;
+            })();
+
+        /* Initialize Darkmode - All options shown */
+        const darkMode = new DarkMode({
+            default: "system",
+            selector: ".darkmode",
+            storageKey: "theme",
+            resetStorage: false,
+            dynamicAdjust: false,
+            dynamicAdjustStartHour: 18,
+            dynamicAdjustEndHour: 6
+        });
+
+    </script>
+
+    <!-- full screen button  -->
+
+    <script>
+
+        if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+            const toggleBtn = document.querySelector('.js-toggle-fullscreen-btn');
+
+            const styleEl = document.createElement('link');
+            styleEl.setAttribute('rel', 'stylesheet');
+            styleEl.setAttribute('href', 'https://codepen.io/tiggr/pen/poJoLyW.css');
+            styleEl.addEventListener('load', function () {
+                toggleBtn.hidden = false;
+            });
+            document.head.appendChild(styleEl);
+
+            toggleBtn.addEventListener('click', function () {
+                if (document.fullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitFullscreenElement) {
+                    document.webkitCancelFullScreen()
+                } else if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.documentElement.webkitRequestFullScreen();
+                }
+            });
+
+            document.addEventListener('fullscreenchange', handleFullscreen);
+            document.addEventListener('webkitfullscreenchange', handleFullscreen);
+
+
+            function handleFullscreen() {
+                if (document.fullscreen || document.webkitFullscreenElement) {
+                    toggleBtn.classList.add('on');
+                    toggleBtn.setAttribute('aria-label', 'Exit fullscreen mode');
+                } else {
+                    toggleBtn.classList.remove('on');
+                    toggleBtn.setAttribute('aria-label', 'Enter fullscreen mode');
+                }
+            }
+        }
+
+    </script>
+
+    <!-- chat  -->
+
+    <script>
+        const ls = localStorage.getItem("selected");
+        let selected = false;
+        var list = document.querySelectorAll(".list"),
+            content = document.querySelector(".content"),
+            input = document.querySelector(".message-footer input"),
+            open = document.querySelector(".open a");
+
+        //init
+        function init() {
+            //input.focus();
+            let now = 2;
+            const texts = ["İyi akşamlar", "Merhaba, nasılsın?",
+                "Harikasın! :)", "Günaydın", "Tünaydın",
+                "Hahaha", "Öğlen görüşelim.", "Pekala"];
+            for (var i = 4; i < list.length; i++) {
+                list[i].querySelector(".time").innerText = `${now} day ago`;
+                list[i].querySelector(".text").innerText = texts[(i - 4) < texts.length ? (i - 4) : Math.floor(Math.random() * texts.length)];
+                now++;
+            }
+        }
+        init();
+
+        //process
+        function process() {
+            if (ls != null) {
+                selected = true;
+                click(list[ls], ls);
+            }
+            if (!selected) {
+                click(list[0], 0);
+            }
+
+            list.forEach((l, i) => {
+                l.addEventListener("click", function () {
+                    click(l, i);
+                });
+            });
+
+            try {
+                document.querySelector(".list.active").scrollIntoView(true);
+            }
+            catch { }
+
+        }
+        process();
+
+        //list click
+        function click(l, index) {
+            list.forEach(x => { x.classList.remove("active"); });
+            if (l) {
+                l.classList.add("active");
+                document.querySelector("sidebar").classList.remove("opened");
+                open.innerText = "UP";
+                const img = l.querySelector("img").src,
+                    user = l.querySelector(".user").innerText,
+                    time = l.querySelector(".time").innerText;
+
+                content.querySelector("img").src = img;
+                content.querySelector(".info .user").innerHTML = user;
+                content.querySelector(".info .time").innerHTML = time;
+
+                const inputPH = input.getAttribute("data-placeholder");
+                input.placeholder = inputPH.replace("{0}", user.split(' ')[0]);
+
+                document.querySelector(".message-wrap").scrollTop = document.querySelector(".message-wrap").scrollHeight;
+
+                localStorage.setItem("selected", index);
+            }
+        }
+
+        open.addEventListener("click", (e) => {
+            const sidebar = document.querySelector("sidebar");
+            sidebar.classList.toggle("opened");
+            if (sidebar.classList.value == 'opened')
+                e.target.innerText = "DOWN";
+            else
+                e.target.innerText = "UP";
+        });
+    </script>
+
+    <!-- chat 2  -->
+
+    <script>
+
+        var send_icon = document.getElementsByClassName("send-icon")[0];
+        var input = document.getElementsByClassName("InputMSG")[0];
+        var ContentChat = document.getElementsByClassName("ContentChat")[0];
+        var san1 = document.getElementById("send1");
+        var san2 = document.getElementById("send2");
+        // Add event Click for icon send input massage
+
+        send_icon.addEventListener("click", SendMsgUser);
+
+        // Add event Enter for input massage
+        input.addEventListener("keydown", (e) => {
+            if (e.key == "Enter") {
+                SendMsgUser();
+            }
+        });
+
+        //With the help of this parameter, we can find out whether the function status_func_SendMsgBot is difficult to send a message or not (0 = no | 1 = yes)
+        var status_func_SendMsgBot = 0;
+
+        // ---------------- Massage User ----------------
+
+        // Function Send Massage user in content chat
+        function SendMsgUser() {
+            if (input.value != "" && status_func_SendMsgBot == 0) {
+                send1.classList.add("none");
+                send2.classList.remove("none");
+
+                let elementCPT = document.createElement("div");
+                elementCPT.classList.add("massage", "msgCaption");
+                elementCPT.setAttribute("data-user", "true");
+                elementCPT.innerHTML = '<span class="captionUser">You</span>';
+                ContentChat.appendChild(elementCPT);
+
+                let elementMSG = document.createElement("div");
+                elementMSG.classList.add("massage");
+                elementMSG.setAttribute("data-user", "true");
+                elementMSG.innerHTML = `<div class="user-response">${input.value}</div>`;
+                ContentChat.appendChild(elementMSG);
+                elementMSG.scrollIntoView();
+                SendMsgBot(input.value);
+                input.value = "";
+            }
+        }
+
+        // ---------------- Massage Bot ----------------
+
+        // Function Send Massage bot(RagBot) in content chat
+        function SendMsgBot(msg) {
+            msg = msg.toLowerCase();
+            msg = msg.replace(/<\s*br[^>]?>/, "\n");
+            msg = msg.replace(/(<([^>]+)>)/g, "");
+
+            status_func_SendMsgBot = 1;
+
+            let elementCPT = document.createElement("div");
+            elementCPT.classList.add("captionBot", "msgCaption");
+            elementCPT.innerHTML =
+                '<img src="https://raw.githubusercontent.com/emnatkins/cdn-codepen/main/wvjGzXp/6569264.png" alt="RagBot"> <span>RagBot</span>';
+            ContentChat.appendChild(elementCPT);
+            elementCPT.scrollIntoView();
+
+            let listMSG = {
+                hello: [
+                    "Hello!",
+                    "Hi 👋 ! It's good to see you!",
+                    "Great to see you here!",
+                ],
+                hwa: [
+                    "I'm fine!",
+                    "I am fine",
+                    "I feel good seeing you 😊",
+                    "I feel great 🤪",
+                ],
+                about: [
+                    "I'm happy you asked about that!",
+                    "My name is RayBot, I'm a simple and fun bot and I can answer your questions to some extent and do the things you want 😉",
+                ],
+            };
+
+            let listScan = {
+                hello: ["hi", "hello", "hey"],
+                hwa: [
+                    "how are you",
+                    "hwa",
+                    "you are good",
+                    "you are fine",
+                    "are you well",
+                    "are you alright",
+                ],
+                about: [
+                    "information",
+                    "tell me about yourself",
+                    "introduce yourself",
+                    "who are you",
+                    "how about your self",
+                ],
+            };
+
+            let elementMSG = document.createElement("div");
+            elementMSG.classList.add("massage");
+            elementMSG.innerHTML = `<div class="bot-response text" text-first="true"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <rect x="0" y="0" width="4" height="10" fill="rgb(155, 166, 178)"> <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0" dur="0.6s" repeatCount="indefinite"> </animateTransform> </rect> <rect x="10" y="0" width="4" height="10" fill="rgb(155, 166, 178)"> <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0.2s" dur="0.6s" repeatCount="indefinite"> </animateTransform> </rect> <rect x="20" y="0" width="4" height="10" fill="rgb(155, 166, 178)"> <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0.4s" dur="0.6s" repeatCount="indefinite"> </animateTransform> </rect> </svg></div>`;
+            ContentChat.appendChild(elementMSG);
+
+            let result;
+            setTimeout(() => {
+                for (i of listScan["hello"]) {
+                    if (i == msg || i + "?" == msg || i + "!" == msg) {
+                        result = `<div class="bot-response text" text-first="true">${listMSG["hello"][Math.floor(Math.random() * 3)]
+                            }</div>`;
+                    }
+                }
+                if (result == "" || result == undefined) {
+                    for (i of listScan["hwa"]) {
+                        if (i == msg || i + "?" == msg || i + "!" == msg) {
+                            result = `<div class="bot-response text" text-first="true">${listMSG["hwa"][Math.floor(Math.random() * 3)]
+                                }</div>`;
+                        }
+                    }
+                }
+                if (result == "" || result == undefined) {
+                    for (i of listScan["about"]) {
+                        if (i == msg || i + "?" == msg || i + "!" == msg) {
+                            result = `<img src="https://raw.githubusercontent.com/emnatkins/cdn-codepen/main/wvjGzXp/GvYEn0QMm8_xLFjS.png" alt="about raybot"></img><div class="bot-response text" text-first="true">${listMSG["about"][0]}</div><div class="bot-response text" text-last="true">${listMSG["about"][1]}</div>`;
+                        }
+                    }
+                }
+
+                if (result == "" || result == undefined) {
+                    result = `<div class="bot-response text" text-first="true">😵‍💫 Oops! Sorry, I didn't understand your question</div>`;
+                }
+
+                elementMSG.innerHTML = result;
+                elementMSG.scrollIntoView();
+                send1.classList.remove("none");
+                send2.classList.add("none");
+                status_func_SendMsgBot = 0;
+            }, 2000);
+            ContentChat.appendChild(elementMSG);
+            elementMSG.scrollIntoView();
+        }
+
+
+        {
+            let elementCPT = document.createElement("div");
+            elementCPT.classList.add("captionBot", "msgCaption");
+            elementCPT.innerHTML =
+                '<img src="https://raw.githubusercontent.com/emnatkins/cdn-codepen/main/wvjGzXp/6569264.png" alt="RagBot"> <span>RagBot</span>';
+            ContentChat.appendChild(elementCPT);
+            elementCPT.scrollIntoView();
+
+            setTimeout(() => {
+                elementMSG.innerHTML = `<div class="bot-response text" text-first="true">Hi 👋 ! It's good to see you!</div><div class="bot-response text" text-last="true">How can I help you?</div>`;
+                elementMSG.scrollIntoView();
+                send1.classList.remove("none");
+                send2.classList.add("none");
+                status_func_SendMsgBot = 0;
+            }, 2000)
+
+
+            let elementMSG = document.createElement("div");
+            elementMSG.classList.add("massage");
+            elementMSG.innerHTML = `<div class="bot-response text" text-first="true"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <rect x="0" y="0" width="4" height="10" fill="rgb(155, 166, 178)"> <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0" dur="0.6s" repeatCount="indefinite"> </animateTransform> </rect> <rect x="10" y="0" width="4" height="10" fill="rgb(155, 166, 178)"> <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0.2s" dur="0.6s" repeatCount="indefinite"> </animateTransform> </rect> <rect x="20" y="0" width="4" height="10" fill="rgb(155, 166, 178)"> <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0.4s" dur="0.6s" repeatCount="indefinite"> </animateTransform> </rect> </svg></div>`;
+            ContentChat.appendChild(elementMSG);
+
+            status_func_SendMsgBot = 1;
+            send1.classList.add("none");
+            send2.classList.remove("none");
+            elementMSG.scrollIntoView();
+        }
+    </script>
+
+    <!-- chat 3 -->
+
+    <script>
+        var reviews = [
+            {
+                id: 1,
+                name: "Jane",
+                role: "frontend developer",
+                comment:
+                    "I think even if I did the research mentioned above, it would be a total waste of money because if those people don't believe in the testimonials, they won't believe in the research at all. They would say that I made it all up. So why waste money?",
+                url:
+                    "https://images.unsplash.com/photo-1485875437342-9b39470b3d95?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8d29tZW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 2,
+                name: "Mike",
+                role: "ASP.NET developer",
+                comment:
+                    "A testimonial is an honest endorsement of your product or service that usually comes from a customer, colleague, or peer who has benefited from or experienced success as a result of the work you did for them.",
+                url:
+                    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bWVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 3,
+                name: "Rick",
+                role: "frontend developer",
+                comment:
+                    "Your testimonial page serves as a platform to show off how others have benefited from your product or service, making it a powerful tool for establishing trust and encouraging potential buyers to take action.",
+                url:
+                    "https://media.istockphoto.com/photos/shot-of-a-young-businessman-working-on-his-laptop-at-his-desk-picture-id1389465862?b=1&k=20&m=1389465862&s=170667a&w=0&h=J_npFHoiIBLGz_S7Y8TxY6aDcA5M3X2HRnAMqF13ZZY="
+            },
+            {
+                id: 4,
+                name: "Tanya",
+                role: "web developer",
+                comment:
+                    "To generate these glowing testimonials, you need to know who your happy, successful customers are — and that's where collecting and analyzing customer feedback comes in. Once you've found those customers and collected their reviews, it's time to turn that enthusiasm into effective, affordable marketing materials.",
+                url:
+                    "https://images.unsplash.com/photo-1484399172022-72a90b12e3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGdpcmx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+            }
+        ];
+
+        const next = document.getElementById("nextButton");
+        const prev = document.getElementById("prevButton");
+        const img = document.querySelector(".card-header img");
+        const title = document.querySelector(".card-title");
+        const bodyContent = document.querySelector(".comment");
+        let counter = 0;
+
+        window.addEventListener("DOMContentLoaded", getActiveTab());
+
+        //=================== next button ==================//
+
+        next.addEventListener("click", () => {
+            counter++;
+            if (counter >= reviews.length) {
+                counter = 0;
+            }
+            getActiveTab(counter);
+        });
+
+        //=================== prev button ==================//
+        prev.addEventListener("click", () => {
+            counter--;
+            if (counter < 0) {
+                counter = reviews.length - 1;
+            }
+            getActiveTab(counter);
+        });
+
+        //=============== get active Tab ===================//
+        function getActiveTab(elm = 0) {
+            var element = reviews[elm];
+            title.textContent = element.name + ", " + element.role;
+            bodyContent.textContent = element.comment;
+            img.src = element.url;
+        }
+
+    </script>
+
+
+</body>
+
+</html>
